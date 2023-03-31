@@ -1,7 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:studio_projects/views/authentication/login/login_screen.dart';
+import 'package:studio_projects/views/authentication/authentication_screen.dart';
 import 'package:studio_projects/views/welcome/welcome_bloc.dart';
 import 'package:studio_projects/views/welcome/welcome_events.dart';
 import 'package:studio_projects/views/welcome/welcome_state.dart';
@@ -22,7 +22,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         listener: (context, state) {
           print(state);
           if (state is WelcomeLoginNotDone) {
-            Navigator.pushReplacementNamed(context, LoginScreen.id);
+            Navigator.pushNamedAndRemoveUntil(context, 'auth', (route) => false);
             print("Not logged in");
           } else if (state is WelcomeLoginDone) {
             print("Logged in. Redirecting to Home Page");
@@ -53,8 +53,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     width: 10.0,
                   ),
                   Container(
-                    child: Image.asset('images/logo.png'),
-                    height: 60.0,
+                    child: Hero(
+                      tag: 'logo',
+                      child: Image.asset(
+                        height: 60.0,
+                        'images/logo.png',
+                      ),
+                    )
+
                   )
                 ],
               )),
