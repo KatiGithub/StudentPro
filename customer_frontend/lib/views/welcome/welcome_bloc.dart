@@ -14,7 +14,7 @@ class WelcomeBloc extends Bloc<WelcomeEvent, WelcomeState> {
     });
   }
 
-  void _mapEventToState(WelcomeEvent event, Emitter<WelcomeState> emit) async {
+  void _mapEventToState(WelcomeEvent event, Emitter<WelcomeState> emit) {
     if (kDebugMode) {
       print(event);
     }

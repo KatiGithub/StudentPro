@@ -1,7 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:studio_projects/views/authentication/authentication_screen.dart';
 import 'package:studio_projects/views/welcome/welcome_bloc.dart';
 import 'package:studio_projects/views/welcome/welcome_events.dart';
 import 'package:studio_projects/views/welcome/welcome_state.dart';
@@ -25,6 +24,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             Navigator.pushNamedAndRemoveUntil(context, 'auth', (route) => false);
             print("Not logged in");
           } else if (state is WelcomeLoginDone) {
+            Navigator.pushNamedAndRemoveUntil(context, 'main', (route) => false);
             print("Logged in. Redirecting to Home Page");
           }
         },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:studio_projects/views/authentication/authentication_screen.dart';
 import 'package:studio_projects/views/authentication/login/login_screen.dart';
+import 'package:studio_projects/views/main/main_screen.dart';
 import 'package:studio_projects/views/welcome/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import '../firebase_options.dart';
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),
         AuthenticationScreen.id: (context) => AuthenticationScreen(),
-        LoginScreen.id: (context) => LoginScreen()
+        LoginScreen.id: (context) => LoginScreen(),
+        MainScreen.id: (context) => MainScreen()
       },
     );
   }

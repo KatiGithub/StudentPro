@@ -8,6 +8,17 @@ class AuthService {
     return _auth.authStateChanges().map((user) => user != null);
   }
 
+  Future<bool> authenticationWithEmailAndPassword(String email, String password) {
+    return _auth.signInWithEmailAndPassword(email: email, password: password)
+        .then((UserCredential userCredential) {
+          if(userCredential.user != null) {
+            return true;
+          } else {
+            return false;
+          }
+    });
+  }
+
   bool isLoggedInSingle() {
     return !(_auth.currentUser == null);
   }
