@@ -70,7 +70,7 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                     flex: 4,
                     child: TextField(
                       controller: _firstNameController,
-                      onSubmitted: (value) =>
+                      onTapOutside: (event) =>
                           BlocProvider.of<RegistrationCubit>(context)
                               .setFirstName(_firstNameController.text),
                       decoration: kTextFieldDecoration.copyWith(
@@ -87,7 +87,7 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                 Flexible(
                     flex: 8,
                     child: TextField(
-                      onSubmitted: (value) =>
+                      onTapOutside: (event) =>
                           BlocProvider.of<RegistrationCubit>(context)
                               .setLastName(_lastNameController.text),
                       controller: _lastNameController,
@@ -104,7 +104,7 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
             SizedBox(height: 8.0),
             TextField(
               controller: _personalEmailController,
-              onSubmitted: (value) {
+              onTapOutside: (value) {
                 BlocProvider.of<RegistrationCubit>(context)
                     .setPersonalEmail(_personalEmailController.text);
                 FocusScopeNode currentFocus = FocusScope.of(context);

@@ -2,8 +2,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studio_projects/views/authentication/register/registration_state.dart';
 
 import '../../../models/university.dart';
+import 'package:studio_projects/shared/authentication/auth_service.dart';
 
 class RegistrationCubit extends Cubit<RegistrationState> {
+  final AuthService _authService = AuthService();
+
   RegistrationCubit():
       super(RegistrationState());
 
@@ -33,5 +36,9 @@ class RegistrationCubit extends Cubit<RegistrationState> {
 
   void setUniversity(University university) {
     emit(state.copyWith(user: state.user.copyWith(university: university)));
+  }
+
+  void verifySchoolEmail() {
+
   }
 }

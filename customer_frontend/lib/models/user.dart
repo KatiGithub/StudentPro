@@ -52,7 +52,7 @@ class User {
     );
 
     user.userCredentials.schoolEmail = schoolEmail ?? this.userCredentials.schoolEmail;
-    user.userCredentials.password = schoolEmail ?? this.userCredentials.password;
+    user.userCredentials.password = password ?? this.userCredentials.password;
 
     user.university = university ?? this.university;
 
