@@ -30,8 +30,9 @@ class AuthenticationScreen extends StatelessWidget {
                 RoundedButton(
                     title: "Register",
                     colour: Colors.blueAccent,
-                    onPressed: () => {
-                      print("Register Pressed")
+                    onPressed: () {
+                      print("Register Pressed");
+                      Navigator.pushNamed(context, 'registration');
                     })
               ],
             ),
