@@ -8,16 +8,16 @@ class AuthService {
     return _auth.authStateChanges().map((user) => user != null);
   }
 
-  Future<bool> authenticationWithEmailAndPassword(String email,
+  Future<User?> authenticationWithEmailAndPassword(String email,
       String password) {
     return _auth.signInWithEmailAndPassword(email: email, password: password)
         .then((UserCredential userCredential) {
-      if (userCredential.user != null) {
-        return true;
-      } else {
-        return false;
-      }
+      return userCredential.user;
     });
+  }
+
+  void verifySchoolEmail(String schoolEmail) {
+    _auth.currentUser!.sendEmailVerification();
   }
 
   Future<User?> signUp({required String email, required String password}) async {

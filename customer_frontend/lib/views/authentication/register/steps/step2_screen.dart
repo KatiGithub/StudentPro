@@ -47,6 +47,8 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
               if (state is RegistrationError) {
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(content: Text(state.error)));
+              } else if(state is RegistrationEmailVerification) {
+
               }
             },
             child: Column(
@@ -117,7 +119,7 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                         Flexible(
                           flex: 8,
                           child: Container(
-                            width: 280.0,
+                            width: 400.0,
                             child: TextField(
                               controller: _schoolEmailController,
                               onTapOutside: (event) {
@@ -138,21 +140,21 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                         const SizedBox(
                           width: 8.0,
                         ),
-                        Flexible(
-                          flex: 3,
-                          child: Material(
-                              color: Colors.blueAccent,
-                              borderRadius: BorderRadius.circular(30.0),
-                              child: MaterialButton(
-                                onPressed: () {},
-                                height: 42.0,
-                                child: const Text(
-                                  'Verify',
-                                  style: TextStyle(
-                                      fontSize: 20.0, color: Colors.white),
-                                ),
-                              )),
-                        ),
+                        // Flexible(
+                        //   flex: 3,
+                        //   child: Material(
+                        //       color: Colors.blueAccent,
+                        //       borderRadius: BorderRadius.circular(30.0),
+                        //       child: MaterialButton(
+                        //         onPressed: () {},
+                        //         height: 42.0,
+                        //         child: const Text(
+                        //           'Verify',
+                        //           style: TextStyle(
+                        //               fontSize: 20.0, color: Colors.white),
+                        //         ),
+                        //       )),
+                        // ),
                       ],
                     )),
                 Padding(
@@ -187,6 +189,7 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                   title: "Sign Up",
                   colour: Colors.blue,
                   onPressed: () {
+                    BlocProvider.of<RegistrationCubit>(context).submitLoginInformation();
 
                     FocusScopeNode currentFocus = FocusScope.of(context);
                     currentFocus.unfocus();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:studio_projects/views/authentication/authentication_screen.dart';
 import 'package:studio_projects/views/authentication/login/login_screen.dart';
+import 'package:studio_projects/views/authentication/register/email_verification.dart';
 import 'package:studio_projects/views/authentication/register/registration_screen.dart';
 import 'package:studio_projects/views/main/main_screen.dart';
 import 'package:studio_projects/views/welcome/welcome_screen.dart';
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
         AuthenticationScreen.id: (context) => AuthenticationScreen(),
         LoginScreen.id: (context) => LoginScreen(),
         MainScreen.id: (context) => MainScreen(),
-        RegistrationScreen.id: (context) => RegistrationScreen()
+        RegistrationScreen.id: (context) => RegistrationScreen(),
+        EmailVerification.id: (context) => EmailVerification()
       },
     );
   }

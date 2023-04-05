@@ -8,6 +8,7 @@ import 'package:studio_projects/views/authentication/register/registration_cubit
 import 'package:studio_projects/views/authentication/register/registration_state.dart';
 import 'package:studio_projects/views/authentication/register/steps/step1_screen.dart';
 import 'package:studio_projects/views/authentication/register/steps/step2_screen.dart';
+import 'package:studio_projects/views/authentication/register/email_verification.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static final String id = 'registration';
@@ -47,7 +48,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       : null,
                   icon: Icon(Icons.arrow_back)),
               IconButton(
-                  onPressed: currentPage < _steps.length - 1
+                  onPressed: currentPage < 1
                       ? () {
                           setState(() {
                             currentPage += 1;

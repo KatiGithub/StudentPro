@@ -43,10 +43,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 context, 'main', (route) => false);
           } else if (state is LoginFailure) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: Colors.redAccent,
+                backgroundColor: Colors.redAccent,
                 content: Text(
-              state.error,
-            )));
+                  state.error,
+                )));
+          } else if (state is LoginEmailVerification) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, 'main', (route) => false);
           }
         },
         builder: (context, state) {

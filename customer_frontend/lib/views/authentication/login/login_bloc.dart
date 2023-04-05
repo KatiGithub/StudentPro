@@ -13,13 +13,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   void _loginButtonPressed(
       LoginButtonPressed event, Emitter<LoginState> emit) async {
-
     emit(LoginLoading());
     try {
       await _authService
           .authenticationWithEmailAndPassword(event.email, event.password)
-          .then((bool AuthStatus) {
-        if (AuthStatus) {
+          .then((User? user) {
+        if (!user!.emailVerified) {
+          emit(LoginEmailVerification());
+        } else if(user!.emailVerified) {
           emit(LoginSuccess());
         }
       });
