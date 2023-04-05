@@ -16,8 +16,14 @@ class AuthService {
     });
   }
 
-  void verifySchoolEmail(String schoolEmail) {
-    _auth.currentUser!.sendEmailVerification();
+  void verifySchoolEmail(String schoolEmail) async {
+    return await _auth.currentUser!.sendEmailVerification();
+  }
+
+  Future<bool> checkEmailVerified(String schoolEmail) async {
+    await _auth.currentUser!.reload();
+
+    return _auth.currentUser!.emailVerified;
   }
 
   Future<User?> signUp({required String email, required String password}) async {
@@ -28,7 +34,11 @@ class AuthService {
     });
   }
 
-  bool isLoggedInSingle() {
-    return !(_auth.currentUser == null);
+  Future<bool> isLoggedInSingle() async {
+    if(_auth.currentUser != null) {
+      _auth.currentUser!.reload();
+    }
+
+    return _auth.currentUser != null;
   }
 }

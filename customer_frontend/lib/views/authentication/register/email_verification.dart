@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studio_projects/shared/components/rounded_buttons.dart';
@@ -13,10 +15,19 @@ class EmailVerification extends StatefulWidget {
 }
 
 class _EmailVerificationState extends State<EmailVerification> {
+  Timer? timer;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocConsumer<RegistrationCubit, RegistrationState>(
+        body: BlocProvider(
+      create: (create) => RegistrationCubit(),
+      child: BlocConsumer<RegistrationCubit, RegistrationState>(
         listener: (context, state) {
           if (state is RegistrationSuccess) {
             Navigator.pushNamedAndRemoveUntil(
@@ -28,6 +39,9 @@ class _EmailVerificationState extends State<EmailVerification> {
         },
         builder: (context, state) {
           BlocProvider.of<RegistrationCubit>(context).verifySchoolEmail();
+          timer = Timer.periodic(const Duration(seconds: 3), (_) {
+            BlocProvider.of<RegistrationCubit>(context).checkSchoolEmail();
+          });
 
           return Center(
             child: Column(
@@ -44,6 +58,6 @@ class _EmailVerificationState extends State<EmailVerification> {
           );
         },
       ),
-    );
+    ));
   }
 }

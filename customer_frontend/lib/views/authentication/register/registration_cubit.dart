@@ -51,11 +51,13 @@ class RegistrationCubit extends Cubit<RegistrationState> {
     }
 
     try {
-      _authService.signUp(
-          email: state.user.userCredentials.schoolEmail!,
-          password: state.user.userCredentials.password!).then((User? user) {
-        if(user != null) {
-
+      _authService
+          .signUp(
+              email: state.user.userCredentials.schoolEmail!,
+              password: state.user.userCredentials.password!)
+          .then((User? user) {
+        if (user != null) {
+          emit(RegistrationEmailVerification());
         }
       });
     } on FirebaseAuthException catch (e) {
@@ -67,6 +69,17 @@ class RegistrationCubit extends Cubit<RegistrationState> {
   }
 
   void verifySchoolEmail() {
+    _authService.verifySchoolEmail(state.user.userCredentials.schoolEmail!);
+  }
 
+  void checkSchoolEmail() async {
+    await _authService
+        .checkEmailVerified(state.user.userCredentials.schoolEmail!)
+        .then((bool isVerified) {
+      if (isVerified) {
+        emit(RegistrationSuccess());
+        state.schoolEmailVerified = true;
+      }
+    });
   }
 }

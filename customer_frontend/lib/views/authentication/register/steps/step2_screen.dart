@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studio_projects/constant/components.dart';
@@ -48,7 +50,7 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(content: Text(state.error)));
               } else if(state is RegistrationEmailVerification) {
-
+                Navigator.pushNamedAndRemoveUntil(context, 'email_verification', (route) => false);
               }
             },
             child: Column(

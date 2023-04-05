@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 )));
           } else if (state is LoginEmailVerification) {
             Navigator.pushNamedAndRemoveUntil(
-                context, 'main', (route) => false);
+                context, 'email_verification', (route) => false);
           }
         },
         builder: (context, state) {

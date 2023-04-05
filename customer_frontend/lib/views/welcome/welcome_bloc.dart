@@ -14,12 +14,12 @@ class WelcomeBloc extends Bloc<WelcomeEvent, WelcomeState> {
     });
   }
 
-  void _mapEventToState(WelcomeEvent event, Emitter<WelcomeState> emit) {
+  void _mapEventToState(WelcomeEvent event, Emitter<WelcomeState> emit) async {
     if (kDebugMode) {
       print(event);
     }
 
-    if (_authService.isLoggedInSingle()) {
+    if (await _authService.isLoggedInSingle()) {
       emit(WelcomeLoginDone());
     } else {
       emit(WelcomeLoginNotDone());

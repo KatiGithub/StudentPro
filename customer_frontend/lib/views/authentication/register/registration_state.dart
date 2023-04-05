@@ -3,7 +3,7 @@ import 'package:studio_projects/models/user.dart';
 
 class RegistrationState extends Equatable {
   final User user;
-  final bool schoolEmailVerified = false;
+  bool schoolEmailVerified = false;
 
   RegistrationState({User? user}) : this.user = user ?? User();
 
