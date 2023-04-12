@@ -9,7 +9,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void getDiscounts() {
-    for(int i = 0; i < 10; i++) {
+    for(int i = 0; i < 12; i++) {
       state.discounts.add(new CodeDiscount(
         discountImage: 'assets/food_test.jpg',
         discountDescription: "Test Description",
