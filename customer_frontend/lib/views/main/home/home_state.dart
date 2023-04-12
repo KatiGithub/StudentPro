@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../../models/discounts/discount.dart';
 
-class HomeState extends Equatable {
+abstract class HomeState extends Equatable {
   List<Discount> discounts;
 
   HomeState(): this.discounts = [];

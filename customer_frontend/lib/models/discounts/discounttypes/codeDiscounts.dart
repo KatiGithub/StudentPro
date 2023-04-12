@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studio_projects/models/discounts/discount.dart';
+import 'package:studio_projects/shared/components/coupon_display_popup.dart';
 import 'package:studio_projects/shared/components/modalbottomsheet.dart';
 
 class CodeDiscount extends Discount {
@@ -20,7 +21,7 @@ class CodeDiscount extends Discount {
 
   @override
   void onClick(BuildContext context) {
-    Widget content = Text(this.couponCode!);
+    Widget content = CouponDisplayPopup(couponCode: couponCode!);
     displayModalBottomSheet(context, content);
   }
 }

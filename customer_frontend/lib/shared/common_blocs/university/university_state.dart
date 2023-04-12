@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../models/university.dart';
+import '../../../models/university.dart';
 
 abstract class UniversityState extends Equatable {
 

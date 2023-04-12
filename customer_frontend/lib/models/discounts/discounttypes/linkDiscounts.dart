@@ -5,10 +5,22 @@ import 'package:url_launcher/url_launcher.dart';
 class LinkDiscount extends Discount {
   String linkRedirect;
 
-  LinkDiscount({required this.linkRedirect});
+  LinkDiscount(
+      {required this.linkRedirect,
+      discountID,
+      discountTitle,
+      discountDescription,
+      discountImage,
+      retailer})
+      : super(
+            discountID: discountID,
+            discountTitle: discountTitle,
+            discountDescription: discountDescription,
+            discountImage: discountImage);
 
   @override
-  void onClick(BuildContext context) {
-    launch(this.linkRedirect);
+  void onClick(BuildContext context) async {
+    Uri uriLink = Uri.parse(this.linkRedirect);
+    await launchUrl(uriLink, mode: LaunchMode.externalApplication);
   }
 }
