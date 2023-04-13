@@ -28,6 +28,18 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("StudentPro"),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              Navigator.of(context).pushNamed('search');
+            },
+          ),
+        ],
+      ),
       body: Padding(
         padding: EdgeInsetsDirectional.only(top: 20, start: 10, end: 10),
         child: pages[pageCount],
@@ -46,16 +58,7 @@ class _MainScreenState extends State<MainScreen> {
           ],
         ),
       ),
-      appBar: AppBar(
-        title: const Text("StudentPro"),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {},
-          ),
-        ],
-      ),
+
     );
   }
 }

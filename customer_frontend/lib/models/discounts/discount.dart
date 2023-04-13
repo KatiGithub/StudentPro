@@ -1,7 +1,7 @@
 import 'dart:core';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:studio_projects/models/retailer.dart';
+import 'package:studio_projects/models/retailers/retailer.dart';
 
 abstract class Discount extends Equatable {
 

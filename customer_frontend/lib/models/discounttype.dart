@@ -3,12 +3,14 @@ import 'package:flutter/cupertino.dart';
 
 class DiscountType extends Equatable {
 
-  String? discountType;
+  String discountTypeID;
+  String discountType;
 
   DiscountType({
-    @required this.discountType
+    required this.discountTypeID,
+    required this.discountType
   });
 
   @override
-  List<Object?> get props => [discountType];
+  List<Object?> get props => [discountTypeID];
 }

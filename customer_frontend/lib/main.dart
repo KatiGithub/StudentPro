@@ -4,6 +4,7 @@ import 'package:studio_projects/views/authentication/login/login_screen.dart';
 import 'package:studio_projects/views/authentication/register/email_verification.dart';
 import 'package:studio_projects/views/authentication/register/registration_screen.dart';
 import 'package:studio_projects/views/main/main_screen.dart';
+import 'package:studio_projects/views/search/search_screen.dart';
 import 'package:studio_projects/views/welcome/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -33,7 +34,8 @@ class MyApp extends StatelessWidget {
         LoginScreen.id: (context) => LoginScreen(),
         MainScreen.id: (context) => MainScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),
-        EmailVerification.id: (context) => EmailVerification()
+        EmailVerification.id: (context) => EmailVerification(),
+        SearchScreen.id: (context) => SearchScreen()
       },
     );
   }
