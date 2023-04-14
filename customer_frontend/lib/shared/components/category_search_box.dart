@@ -9,7 +9,7 @@ class CategoryBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {},
+        onTap: () => print("Pressed on ${this.retailerType.retailerType}"),
         child: Container(
             decoration: BoxDecoration(
                 gradient: LinearGradient(

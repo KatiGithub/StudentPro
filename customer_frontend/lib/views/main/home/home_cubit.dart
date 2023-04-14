@@ -12,6 +12,7 @@ class HomeCubit extends Cubit<HomeState> {
   void getDiscounts() {
     for(int i = 0; i < 6; i++) {
       state.discounts.add(new CodeDiscount(
+        discountID: i.toDouble(),
         discountImage: 'assets/food_test.jpg',
         discountDescription: "Test Description",
         discountTitle: 'Promotion',
@@ -21,6 +22,7 @@ class HomeCubit extends Cubit<HomeState> {
 
     for(int i = 0; i < 6; i++) {
       state.discounts.add(new LinkDiscount(
+        discountID: i+6.toDouble(),
           discountImage: 'assets/food_test.jpg',
           discountDescription: "Test Description",
           discountTitle: 'Promotion',

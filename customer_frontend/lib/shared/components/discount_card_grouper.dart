@@ -7,6 +7,7 @@ import '../../models/discounts/discount.dart';
 class DiscountCardGrouper extends StatelessWidget {
   final List<Discount> discounts;
 
+
   DiscountCardGrouper({required this.discounts});
 
   @override

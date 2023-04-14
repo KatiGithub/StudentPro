@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 void displayModalBottomSheet(BuildContext context, Widget content) {
   showModalBottomSheet(
+    isScrollControlled: true,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10.0)
     ),

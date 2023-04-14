@@ -4,6 +4,10 @@ class AuthService {
 
   final _auth = FirebaseAuth.instance;
 
+  String getUserID() {
+    return _auth.currentUser!.uid;
+  }
+
   Stream<bool> isLoggedIn() {
     return _auth.authStateChanges().map((user) => user != null);
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
+import 'package:studio_projects/models/discounts/discounttypes/codeDiscounts.dart';
 import 'package:studio_projects/shared/common_blocs/discounts/discount_bloc.dart';
 import 'package:studio_projects/shared/common_blocs/discounts/discount_event.dart';
 import '../../models/discounts/discount.dart';

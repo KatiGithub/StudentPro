@@ -3,7 +3,11 @@ import 'package:studio_projects/models/discounts/discount.dart';
 import 'package:studio_projects/models/discounts/discounttypes/codeDiscounts.dart';
 import 'package:studio_projects/models/discounts/discounttypes/linkDiscounts.dart';
 
-abstract class DiscountState extends Equatable {
+class DiscountState extends Equatable {
+  List<Discount>? favoriteDiscounts;
+
+  DiscountState({this.favoriteDiscounts});
+
   @override
   List<Object?> get props => [];
 }
@@ -11,6 +15,8 @@ abstract class DiscountState extends Equatable {
 class DiscountInitial extends DiscountState {}
 
 class DiscountLoading extends DiscountState {}
+
+class DiscountAddedToFavoritesSuccess extends DiscountState {}
 
 class DiscountSuccess extends DiscountState {
   Discount discount;

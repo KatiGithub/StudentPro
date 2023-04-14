@@ -12,3 +12,12 @@ class OnRetrieveDiscountCode extends DiscountEvent {
 
   OnRetrieveDiscountCode({required this.discount});
 }
+
+class OnAddToFavoriteDiscounts extends DiscountEvent {
+  Discount discount;
+
+  OnAddToFavoriteDiscounts({required this.discount});
+  List<Object> get props => [discount];
+}
+
+class OnRetrieveFavoriteDiscounts extends DiscountEvent {}
