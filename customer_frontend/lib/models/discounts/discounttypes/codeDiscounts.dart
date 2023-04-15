@@ -19,9 +19,4 @@ class CodeDiscount extends Discount {
             discountDescription: discountDescription,
             discountImage: discountImage);
 
-  @override
-  void onClick(BuildContext context) {
-    Widget content = CouponDisplayPopup(discount: this);
-    displayModalBottomSheet(context, content);
-  }
 }

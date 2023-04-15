@@ -123,7 +123,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     ? const Center(
                   child: CircularProgressIndicator(),
                 )
-                    : DiscountCardGrouper(discounts: discountSearchResults),
+                    : DiscountCardGrouper(discounts: discountSearchResults, context: context,),
               ));
         },
       ),

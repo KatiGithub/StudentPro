@@ -21,6 +21,4 @@ abstract class Discount extends Equatable {
 
   @override
   List<Object?> get props => [discountID];
-
-  void onClick(BuildContext context) {}
 }

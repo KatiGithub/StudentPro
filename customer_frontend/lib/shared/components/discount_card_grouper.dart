@@ -6,9 +6,9 @@ import '../../models/discounts/discount.dart';
 
 class DiscountCardGrouper extends StatelessWidget {
   final List<Discount> discounts;
+  BuildContext context;
 
-
-  DiscountCardGrouper({required this.discounts});
+  DiscountCardGrouper({required this.discounts, required this.context});
 
   @override
   Widget build(BuildContext context) {
@@ -44,18 +44,18 @@ class DiscountCardGrouper extends StatelessWidget {
           b c
         ''',
           children: [
-            gridArea('r').containing(DiscountCard(discount: discount[0])),
+            gridArea('r').containing(DiscountCard(discount: discount[0], context: this.context,)),
             discount.length >= 2
-                ? gridArea('x').containing(DiscountCard(discount: discount[1]))
+                ? gridArea('x').containing(DiscountCard(discount: discount[1], context: this.context))
                 : SizedBox.shrink(),
             discount.length >= 3
-                ? gridArea('y').containing(DiscountCard(discount: discount[2]))
+                ? gridArea('y').containing(DiscountCard(discount: discount[2], context: this.context))
                 : SizedBox.shrink(),
             discount.length >= 4
-                ? gridArea('b').containing(DiscountCard(discount: discount[3]))
+                ? gridArea('b').containing(DiscountCard(discount: discount[3], context: this.context))
                 : SizedBox.shrink(),
             discount.length >= 5
-                ? gridArea('c').containing(DiscountCard(discount: discount[4]))
+                ? gridArea('c').containing(DiscountCard(discount: discount[4], context: this.context))
                 : SizedBox.shrink()
           ],
         ),

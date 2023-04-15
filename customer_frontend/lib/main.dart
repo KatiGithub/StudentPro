@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:studio_projects/shared/common_blocs/discounts/discount_bloc.dart';
+import 'package:studio_projects/shared/common_blocs/favorite/favorite_bloc.dart';
 import 'package:studio_projects/views/authentication/authentication_screen.dart';
 import 'package:studio_projects/views/authentication/login/login_screen.dart';
 import 'package:studio_projects/views/authentication/register/email_verification.dart';
@@ -22,15 +23,16 @@ void main() async {
   HydratedBloc.storage =
       await HydratedStorage.build(storageDirectory: directory);
 
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [
-      Provider(create: (_) => DiscountBloc())
+    return MultiBlocProvider(providers: [
+      BlocProvider(create: (_) => DiscountBloc()),
+      BlocProvider(create: (_) => FavoriteBloc())
     ], child: MaterialApp(
       initialRoute: WelcomeScreen.id,
       routes: {

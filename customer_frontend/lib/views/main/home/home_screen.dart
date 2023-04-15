@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
-            return DiscountCardGrouper(discounts: discounts);
+            return DiscountCardGrouper(discounts: discounts, context: context,);
 
             // return Center(
             //   child: Column(

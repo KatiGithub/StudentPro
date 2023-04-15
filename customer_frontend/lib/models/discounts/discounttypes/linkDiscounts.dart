@@ -17,10 +17,4 @@ class LinkDiscount extends Discount {
             discountTitle: discountTitle,
             discountDescription: discountDescription,
             discountImage: discountImage);
-
-  @override
-  void onClick(BuildContext context) async {
-    Uri uriLink = Uri.parse(this.linkRedirect);
-    await launchUrl(uriLink, mode: LaunchMode.externalApplication);
-  }
 }
