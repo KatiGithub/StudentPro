@@ -9,6 +9,8 @@ import '../../../models/discounts/discount.dart';
 import 'home_state.dart';
 
 class HomeScreen extends StatefulWidget {
+  static const id = 'home';
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -22,21 +24,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
             return DiscountCardGrouper(discounts: discounts, context: context,);
-
-            // return Center(
-            //   child: Column(
-            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //     children: [
-            //       DiscountCard(
-            //         discount: new CodeDiscount(
-            //           discountTitle: "New Promotion on Food",
-            //           discountImage: "assets/food_test.jpg",
-            //         ),
-            //         width: 400,
-            //       )
-            //     ],
-            //   ),
-            // );
           },
         );
   }

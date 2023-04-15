@@ -13,6 +13,8 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     on<OnIsFavorite>((event, emit) => _isFavorite(event, emit));
   }
 
+  List<Discount> get favoriteDiscounts => _favoriteDiscounts;
+
   void _addToFavorites(OnAddToFavorites event, Emitter<FavoriteState> emit) async {
     _favoriteDiscounts.add(event.discount);
 
