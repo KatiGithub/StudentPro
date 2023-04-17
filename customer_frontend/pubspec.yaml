@@ -33,6 +33,9 @@ dependencies:
   flutter_bloc: ^8.1.2
 
   firebase_core: ^2.9.0
+  firebase_messaging: ^14.4.0
+
+
   flutter:
     sdk: flutter
 
@@ -50,6 +53,10 @@ dependencies:
 
   path_provider: ^2.0.3
   url_launcher: ^6.0.3
+  json_serializable: ^6.6.1
+  flutter_localizations:
+    sdk: flutter
+  intl: any
 
 
 dev_dependencies:
@@ -68,6 +75,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  generate: true
+
   assets:
     - images/
     - assets/
@@ -106,3 +115,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_intl:
+  enabled: true

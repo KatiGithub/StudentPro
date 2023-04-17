@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studio_projects/views/main/favorite/favorite_screen.dart';
 import 'package:studio_projects/views/main/home/home_cubit.dart';
 import 'package:studio_projects/views/main/home/home_screen.dart';
+import 'package:studio_projects/views/main/settings/settings_bloc.dart';
+import 'package:studio_projects/views/main/settings/settings_screen.dart';
 
 import 'home/home_state.dart';
 
@@ -22,7 +24,8 @@ class _MainScreenState extends State<MainScreen> {
             return HomeScreen();
           },
         )),
-    FavoriteScreen()
+    FavoriteScreen(),
+    SettingsScreen()
   ];
 
   int pageCount = 0;
@@ -63,11 +66,17 @@ class _MainScreenState extends State<MainScreen> {
                     pageCount = 1;
                   });
                 },
-                icon: const Icon(Icons.favorite))
+                icon: const Icon(Icons.favorite)),
+            IconButton(
+                onPressed: () {
+                  setState(() {
+                    pageCount = 2;
+                  });
+                },
+                icon: const Icon(Icons.settings))
           ],
         ),
       ),
-
     );
   }
 }

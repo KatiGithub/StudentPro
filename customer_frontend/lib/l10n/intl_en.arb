@@ -1,0 +1,16 @@
+{
+  "darkMode": "Dark Mode",
+  "@darkMode": {
+    "description": "Dark Mode option in Settings"
+  },
+
+  "language": "Language",
+  "@language": {
+    "description": "Langauge Option in Settings"
+  },
+
+  "preferences": "Preferences",
+  "@preferences": {
+    "description": "Preferences Option in Settings"
+  }
+}
