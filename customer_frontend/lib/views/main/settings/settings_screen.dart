@@ -24,13 +24,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
         final settingsBloc = BlocProvider.of<SettingsBloc>(context);
 
         return Scaffold(
-            backgroundColor:
-                BlocProvider.of<SettingsBloc>(context).state.settings!.darkMode!
-                    ? Colors.black
-                    : Colors.white,
             body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                        "Account Settings",
+                        style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.start
+                    ),
+                  ],
+                ),
+                ListTile(
+                  title: Text("Edit Information"),
+                ),
+                ListTile(
+                  title: Text("Change Password"),
+                ),
+                const SizedBox(height: 10,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -50,7 +67,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     value: settingsBloc.state.settings!.darkMode!,
                     onChanged: (value) {
                       setState(() {
-                        settingsBloc.state.settings!.darkMode = value;
+                        settingsBloc.add(OnThemeModeChanged(darkMode: value));
                         print(settingsBloc.state.settings!.darkMode);
                       });
                     }),

@@ -10,3 +10,9 @@ class OnLanguageChanged extends SettingsEvent {
 
   OnLanguageChanged({required this.languageId});
 }
+
+class OnThemeModeChanged extends SettingsEvent {
+  bool darkMode;
+
+  OnThemeModeChanged({required this.darkMode});
+}

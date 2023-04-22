@@ -28,7 +28,7 @@ void main() async {
 
   HydratedBloc.storage = await HydratedStorage.build(
       storageDirectory: await getTemporaryDirectory());
-
+  print("Token: ");
   print(await FirebaseMessaging.instance.getToken());
 
   runApp(const MyApp());
@@ -57,11 +57,19 @@ class _MyAppState extends State<MyApp> {
       ],
       child: BlocConsumer<SettingsBloc, SettingsState>(
         listener: (context, state) {
-          if (state is LanguageSettingsChanged) setState(() {});
+          setState(() {});
         },
         builder: (context, state) {
           final settingsBloc = BlocProvider.of<SettingsBloc>(context);
           return MaterialApp(
+            theme: ThemeData(
+              brightness: Brightness.light,
+            ),
+            darkTheme: ThemeData(brightness: Brightness.dark),
+            themeMode: settingsBloc.state.settings!.darkMode!
+                ? ThemeMode.dark
+                : ThemeMode.light,
+            debugShowCheckedModeBanner: false,
             localizationsDelegates: [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
