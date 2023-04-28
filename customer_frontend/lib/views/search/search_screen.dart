@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:studio_projects/models/retailers/retailer.dart';
 import 'package:studio_projects/shared/components/category_search_box.dart';
 import 'package:studio_projects/shared/components/discount_card_grouper.dart';
+import 'package:studio_projects/shared/components/retailer_card_grouper.dart';
 import 'package:studio_projects/views/search/search_bloc.dart';
 import 'package:studio_projects/views/search/search_event.dart';
 import 'package:studio_projects/views/search/search_state.dart';
@@ -18,7 +20,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   TextEditingController _searchController = TextEditingController();
-  List<Discount> discountSearchResults = [];
+  List<Retailer> retailerSearchResults = [];
 
   bool _searchLoading = false;
   bool _searchResultsReturned = false;
@@ -72,7 +74,7 @@ class _SearchScreenState extends State<SearchScreen> {
           }
           if (state is SearchSuccess) {
             setState(() {
-              discountSearchResults = state.discountSearchResults;
+              retailerSearchResults = state.retailerSearchResults;
               _searchResultsReturned = true;
               _searchLoading = false;
             });
@@ -109,21 +111,25 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               body: Padding(
                 padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 8.0),
-                child: (_searchResultsReturned == false && _searchLoading == false)
-                    ? GridView.count(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 10.0,
-                  crossAxisSpacing: 8.0,
-                  children: [
-                    for (int i = 0; i < retailerTypes.length; i++)
-                      CategoryBox(retailerType: retailerTypes[i])
-                  ],
-                )
-                    : (_searchLoading == true)
-                    ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-                    : DiscountCardGrouper(discounts: discountSearchResults, context: context,),
+                child:
+                    (_searchResultsReturned == false && _searchLoading == false)
+                        ? GridView.count(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 10.0,
+                            crossAxisSpacing: 8.0,
+                            children: [
+                              for (int i = 0; i < retailerTypes.length; i++)
+                                CategoryBox(retailerType: retailerTypes[i])
+                            ],
+                          )
+                        : (_searchLoading == true)
+                            ? const Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : RetailerCardGrouper(
+                                retailers: retailerSearchResults,
+                                context: context,
+                              ),
               ));
         },
       ),

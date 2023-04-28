@@ -19,10 +19,15 @@ class WelcomeBloc extends Bloc<WelcomeEvent, WelcomeState> {
       print(event);
     }
 
-    if (await _authService.isLoggedInSingle()) {
-      emit(WelcomeLoginDone());
-    } else {
+    try {
+      if(await _authService.isLoggedInSingle()) {
+        emit(WelcomeLoginDone());
+      } else {
+        emit(WelcomeLoginNotDone());
+      }
+    } catch (e) {
       emit(WelcomeLoginNotDone());
     }
+
   }
 }

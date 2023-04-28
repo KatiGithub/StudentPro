@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:studio_projects/shared/common_blocs/discounts/discount_bloc.dart';
 import 'package:studio_projects/shared/common_blocs/favorite/favorite_bloc.dart';
+import 'package:studio_projects/shared/common_blocs/savedforlater/savedforlater_bloc.dart';
 import 'package:studio_projects/shared/common_blocs/theme/theme_bloc.dart';
 import 'package:studio_projects/views/authentication/authentication_screen.dart';
 import 'package:studio_projects/views/authentication/login/login_screen.dart';
@@ -14,6 +15,7 @@ import 'package:studio_projects/views/authentication/register/registration_scree
 import 'package:studio_projects/views/main/main_screen.dart';
 import 'package:studio_projects/views/main/settings/settings_bloc.dart';
 import 'package:studio_projects/views/main/settings/settings_state.dart';
+import 'package:studio_projects/views/retailer/retailer_screen.dart';
 import 'package:studio_projects/views/search/search_screen.dart';
 import 'package:studio_projects/views/welcome/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -48,6 +50,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         BlocProvider(create: (_) => DiscountBloc()),
         BlocProvider(create: (_) => FavoriteBloc()),
+        BlocProvider(create: (_) => SavedForLaterBloc()),
         BlocProvider(create: (_) {
           final settingsBloc = SettingsBloc();
           // settingsBloc.hydrate();
@@ -63,9 +66,11 @@ class _MyAppState extends State<MyApp> {
           final settingsBloc = BlocProvider.of<SettingsBloc>(context);
           return MaterialApp(
             theme: ThemeData(
-              brightness: Brightness.light,
+              brightness: Brightness.light
             ),
-            darkTheme: ThemeData(brightness: Brightness.dark),
+            darkTheme: ThemeData(
+              brightness: Brightness.dark,
+            ),
             themeMode: settingsBloc.state.settings!.darkMode!
                 ? ThemeMode.dark
                 : ThemeMode.light,
@@ -86,7 +91,8 @@ class _MyAppState extends State<MyApp> {
               MainScreen.id: (context) => MainScreen(),
               RegistrationScreen.id: (context) => RegistrationScreen(),
               EmailVerification.id: (context) => EmailVerification(),
-              SearchScreen.id: (context) => SearchScreen()
+              SearchScreen.id: (context) => SearchScreen(),
+              RetailerScreen.id: (context) => RetailerScreen()
             },
           );
         },

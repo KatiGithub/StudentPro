@@ -2,41 +2,39 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studio_projects/shared/common_blocs/favorite/favorite_event.dart';
 import 'package:studio_projects/shared/common_blocs/favorite/favorite_state.dart';
 
-import '../../../models/discounts/discount.dart';
+import '../../../models/retailers/retailer.dart';
 
 class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
-  List<Discount> _favoriteDiscounts = [];
+  List<Retailer> retailers = [];
 
   FavoriteBloc(): super(FavoriteInitial()) {
-    on<OnAddToFavorites>((event, emit) => _addToFavorites(event, emit));
-    on<OnRemoveFromFavorites>((event, emit) => _removeFromFavorites(event, emit));
-    on<OnIsFavorite>((event, emit) => _isFavorite(event, emit));
+    on<OnAddToFavorite>((event, emit) => _onAddToFavorite(event, emit));
+    on<OnRemoveFromFavorite>((event, emit) => _onRemoveFromFavorite(event, emit));
+    on<OnIsFavorite>((event, emit) => _onIsFavorite(event, emit));
+    on<OnRetrieveFavorites>((event, emit) => _onRetrieveFavorites(event, emit));
   }
 
-  List<Discount> get favoriteDiscounts => _favoriteDiscounts;
-
-  void _addToFavorites(OnAddToFavorites event, Emitter<FavoriteState> emit) async {
-    _favoriteDiscounts.add(event.discount);
+  void _onAddToFavorite(OnAddToFavorite event, Emitter<FavoriteState> emit) {
+    retailers.add(event.retailer);
 
     emit(FavoriteAddedSuccess());
-    print(_favoriteDiscounts);
     emit(FavoriteInitial());
   }
 
-  void _removeFromFavorites(OnRemoveFromFavorites event, Emitter<FavoriteState> emit) async {
-    _favoriteDiscounts.remove(event.discount);
+  void _onRemoveFromFavorite(OnRemoveFromFavorite event, Emitter<FavoriteState> emit) {
+    retailers.remove(event.retailer);
+
     emit(FavoriteRemovedSuccess());
-    print(_favoriteDiscounts);
     emit(FavoriteInitial());
   }
 
-  void _isFavorite(OnIsFavorite event, Emitter<FavoriteState> emit) {
-    emit(FavoriteIsFavorite(isFavorite: _favoriteDiscounts.contains(event.discount)));
+  void _onIsFavorite(OnIsFavorite event, Emitter<FavoriteState> emit) {
+    emit(FavoriteIsFavorite(isFavorite: retailers.contains(event.retailer)));
     emit(FavoriteInitial());
   }
 
-  void _retrieveFavorites(FavoriteEvent, event, Emitter<FavoriteState> emit){
-    emit(FavoriteRetrieveSuccess(favoriteDiscounts: _favoriteDiscounts));
+  void _onRetrieveFavorites(OnRetrieveFavorites event, Emitter<FavoriteState> emit) {
+    emit(FavoriteRetrievedSuccess(favoriteRetailers: retailers));
     emit(FavoriteInitial());
   }
 }

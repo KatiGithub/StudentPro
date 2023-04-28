@@ -5,9 +5,9 @@ import 'package:studio_projects/models/discounts/discounttypes/codeDiscounts.dar
 import 'package:studio_projects/shared/common_blocs/discounts/discount_bloc.dart';
 import 'package:studio_projects/shared/common_blocs/discounts/discount_event.dart';
 import 'package:studio_projects/shared/common_blocs/discounts/discount_state.dart';
-import 'package:studio_projects/shared/common_blocs/favorite/favorite_bloc.dart';
-import 'package:studio_projects/shared/common_blocs/favorite/favorite_event.dart';
-import 'package:studio_projects/shared/common_blocs/favorite/favorite_state.dart';
+import 'package:studio_projects/shared/common_blocs/savedforlater/savedforlater_bloc.dart';
+import 'package:studio_projects/shared/common_blocs/savedforlater/savedforlater_event.dart';
+import 'package:studio_projects/shared/common_blocs/savedforlater/savedforlater_state.dart';
 
 class CouponDisplayPopup extends StatefulWidget {
   final CodeDiscount discount;
@@ -23,26 +23,26 @@ class _CouponDisplayPopupState extends State<CouponDisplayPopup> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<FavoriteBloc, FavoriteState>(
+    return BlocConsumer<SavedForLaterBloc, SavedForLaterState>(
         listener: (context, state) {
-      if (state is FavoriteAddedSuccess) {
+      if (state is SavedForLaterAddedSuccess) {
         setState(() {
           _isLiked = true;
         });
-      } else if (state is FavoriteRemovedSuccess) {
+      } else if (state is SavedForLaterRemovedSuccess) {
         setState(() {
           _isLiked = false;
         });
       }
 
-      if(state is FavoriteIsFavorite) {
+      if(state is SavedForLaterIsSavedForLater) {
         setState(() {
-          _isLiked = state.isFavorite;
+          _isLiked = state.isSavedForLater;
         });
       }
     }, builder: (context, state) {
-      final favoriteBloc = Provider.of<FavoriteBloc>(context);
-      favoriteBloc.add(OnIsFavorite(discount: widget.discount));
+      final savedForLaterBloc = Provider.of<SavedForLaterBloc>(context);
+      savedForLaterBloc.add(OnIsSavedForLater(discount: widget.discount));
       return SizedBox(
         height: 0.75 * MediaQuery.of(context).size.height,
         child: Center(
@@ -70,7 +70,7 @@ class _CouponDisplayPopupState extends State<CouponDisplayPopup> {
                           child: _isLiked
                               ? GestureDetector(
                                   onTap: () {
-                                    favoriteBloc.add(OnRemoveFromFavorites(
+                                    savedForLaterBloc.add(OnRemoveFromSavedForLater(
                                         discount: widget.discount));
                                   },
                                   child: Icon(
@@ -79,8 +79,8 @@ class _CouponDisplayPopupState extends State<CouponDisplayPopup> {
                                     color: Colors.red,
                                   ))
                               : GestureDetector(
-                                  onTap: () => favoriteBloc.add(
-                                      OnAddToFavorites(
+                                  onTap: () => savedForLaterBloc.add(
+                                      OnAddToSavedForLater(
                                           discount: widget.discount)),
                                   child: Icon(
                                     Icons.favorite_border,

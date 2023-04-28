@@ -6,7 +6,6 @@ import 'package:studio_projects/models/discounts/discounttypes/linkDiscounts.dar
 import 'package:studio_projects/shared/common_blocs/discounts/discount_bloc.dart';
 import 'package:studio_projects/shared/common_blocs/discounts/discount_event.dart';
 import 'package:studio_projects/shared/utils/discounthandler/coupon_discount_handler.dart';
-import 'package:studio_projects/shared/utils/discounthandler/discount_handler.dart';
 import 'package:studio_projects/shared/utils/discounthandler/link_discount_handler.dart';
 import '../../models/discounts/discount.dart';
 import '../common_blocs/discounts/discount_state.dart';

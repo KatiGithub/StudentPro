@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:studio_projects/models/retailers/retailer.dart';
 import 'package:studio_projects/views/search/search_event.dart';
 import 'package:studio_projects/views/search/search_state.dart';
 
@@ -15,33 +16,25 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   void _OnSearchRequestComplete(
       OnSearchRequestComplete event, Emitter<SearchState> emit) async {
     emit(SearchLoading());
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(Duration(seconds: 0));
 
-    emit(SearchSuccess(discountSearchResults: _getResults(event.searchQuery)));
+    emit(SearchSuccess(retailerSearchResults: _getResults(event.searchQuery)));
     emit(SearchInitial());
   }
 
-  List<Discount> _getResults(String searchQuery) {
-    List<Discount> discounts = [];
+  List<Retailer> _getResults(String searchQuery) {
+    List<Retailer> retailers = [];
 
-    for (int i = 0; i < 6; i++) {
-      discounts.add(new CodeDiscount(
-          discountID: i + 200.toDouble(),
-          discountImage: 'assets/food_test.jpg',
-          discountDescription: "Test Description",
-          discountTitle: 'Promotion',
-          couponCode: "XXXX-XXXXX-XXXX"));
+    for(int i = 0; i < 20; i++) {
+      retailers.add(
+        Retailer(
+          RetailerID: i.toDouble(),
+          RetailerName: "Example Name"
+        )
+      );
     }
 
-    for (int i = 0; i < 6; i++) {
-      discounts.add(new LinkDiscount(
-          discountID: i + 19.toDouble(),
-          discountImage: 'assets/food_test.jpg',
-          discountDescription: "Test Description",
-          discountTitle: 'Promotion',
-          linkRedirect: "https://lin.ee/eHlcWLN"));
-    }
+    return retailers;
 
-    return discounts;
   }
 }

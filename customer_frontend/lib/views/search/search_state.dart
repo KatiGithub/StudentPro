@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:studio_projects/models/retailers/retailer.dart';
 
 import '../../models/discounts/discount.dart';
 
@@ -12,10 +13,10 @@ class SearchInitial extends SearchState {}
 class SearchLoading extends SearchState {}
 
 class SearchSuccess extends SearchState {
-  List<Discount> discountSearchResults;
+  List<Retailer> retailerSearchResults;
 
-  SearchSuccess({required this.discountSearchResults});
+  SearchSuccess({required this.retailerSearchResults});
 
   @override
-  List<Object> get props => [discountSearchResults];
+  List<Object> get props => [retailerSearchResults];
 }
