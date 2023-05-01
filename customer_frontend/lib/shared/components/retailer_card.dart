@@ -30,7 +30,7 @@ class RetailerCard extends StatelessWidget {
             shadowColor: Colors.blueGrey,
             child: Container(
               decoration: BoxDecoration(
-                  color: settingsBloc.state.settings!.darkMode!
+                  color: settingsBloc.state.settings.darkMode!
                       ? Colors.black12
                       : Colors.grey),
               height: MediaQuery.of(context).size.height / 8.4,

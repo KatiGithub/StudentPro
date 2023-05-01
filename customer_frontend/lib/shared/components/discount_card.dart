@@ -22,12 +22,13 @@ class DiscountCard extends StatelessWidget {
         create: (create) => DiscountBloc(),
         child: BlocConsumer<DiscountBloc, DiscountState>(
           listener: (context, state) {
-            if(state is DiscountSuccess) {
+            if (state is DiscountSuccess) {
               discount = state.discount;
 
-              if(discount is CodeDiscount) {
-                CouponDiscountHandler(context: context).handleDiscount(discount);
-              } else if(discount is LinkDiscount) {
+              if (discount is CodeDiscount) {
+                CouponDiscountHandler(context: context)
+                    .handleDiscount(discount);
+              } else if (discount is LinkDiscount) {
                 LinkDiscountHandler().handleDiscount(discount);
               }
             }
@@ -53,34 +54,29 @@ class DiscountCard extends StatelessWidget {
                                 topLeft: Radius.circular(10.0),
                                 topRight: Radius.circular(10.0),
                               ),
-                              child: Image.asset(
-                                discount.discountImage!,
-                                fit: BoxFit.fitWidth,
+                              child: Stack(
+                                children: [
+                                  SizedBox(
+                                    width: double.infinity,
+                                    child: Image.asset(
+                                      discount.discountImage!,
+                                      fit: BoxFit.fitHeight,
+                                    ),
+                                  ),
+                                  Positioned.fill(
+                                    bottom: 20,
+                                    child: Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Text(
+                                        discount.discountDescription!,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
                               )),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                discount.discountTitle!,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16.0,
-                                ),
-                              ),
-                              SizedBox(height: 8.0),
-                              Text(
-                                discount.discountDescription!,
-                                style: TextStyle(
-                                  color: Colors.grey[600],
-                                  fontSize: 14.0,
-                                ),
-                              ),
-                              SizedBox(height: 8.0),
-                            ],
-                          ),
                         ),
                       ],
                     ),

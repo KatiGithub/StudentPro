@@ -64,7 +64,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 SwitchListTile(
                     title: Text(AppLocalizations.of(context)!.darkMode),
-                    value: settingsBloc.state.settings!.darkMode!,
+                    value: settingsBloc.state.settings.darkMode!,
                     onChanged: (value) {
                       setState(() {
                         settingsBloc.add(OnThemeModeChanged(darkMode: value));

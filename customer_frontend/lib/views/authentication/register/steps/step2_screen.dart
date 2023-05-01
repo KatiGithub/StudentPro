@@ -95,7 +95,7 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                                 setState(() {
                                   _user.university = value;
                                   BlocProvider.of<RegistrationCubit>(context)
-                                      .setUniversity(value!);
+                                      .setUniversity(value);
                                 });
                               },
                             ));

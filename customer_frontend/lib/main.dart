@@ -66,12 +66,12 @@ class _MyAppState extends State<MyApp> {
           final settingsBloc = BlocProvider.of<SettingsBloc>(context);
           return MaterialApp(
             theme: ThemeData(
-              brightness: Brightness.light
-            ),
+                brightness: Brightness.light,
+                appBarTheme: AppBarTheme(backgroundColor: Colors.white, elevation: 0)),
             darkTheme: ThemeData(
-              brightness: Brightness.dark,
-            ),
-            themeMode: settingsBloc.state.settings!.darkMode!
+                brightness: Brightness.dark,
+                appBarTheme: AppBarTheme(color: Colors.black12, elevation: 0)),
+            themeMode: settingsBloc.state.settings.darkMode!
                 ? ThemeMode.dark
                 : ThemeMode.light,
             debugShowCheckedModeBanner: false,
@@ -82,7 +82,7 @@ class _MyAppState extends State<MyApp> {
               GlobalCupertinoLocalizations.delegate
             ],
             supportedLocales: [Locale("en"), Locale("th")],
-            locale: Locale(settingsBloc.state.settings!.languageId!),
+            locale: Locale(settingsBloc.state.settings.languageId!),
             initialRoute: WelcomeScreen.id,
             routes: {
               WelcomeScreen.id: (context) => WelcomeScreen(),

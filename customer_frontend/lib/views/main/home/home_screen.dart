@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
-            return DiscountCardGrouper(discounts: discounts, context: context,);
+            return Padding(padding: EdgeInsetsDirectional.symmetric(horizontal: 18.0), child: DiscountCardGrouper(discounts: discounts, context: context,),);
           },
         );
   }

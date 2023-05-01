@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:studio_projects/shared/common_blocs/favorite/favorite_event.dart';
 import 'package:studio_projects/shared/common_blocs/favorite/favorite_state.dart';
 import 'package:studio_projects/shared/components/retailer_card_grouper.dart';
 

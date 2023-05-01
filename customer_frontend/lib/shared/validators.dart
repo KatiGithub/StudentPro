@@ -7,7 +7,7 @@ class FormValidators {
   static String? emailValidator(String? input) {
     if (input == null || input.isEmpty) {
       return "Email can't be empty";
-    } else if (!input!.contains("@")) {
+    } else if (!input.contains("@")) {
       return "Invalid Email Format";
     }
     return null;

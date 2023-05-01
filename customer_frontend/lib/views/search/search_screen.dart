@@ -4,6 +4,7 @@ import 'package:studio_projects/models/retailers/retailer.dart';
 import 'package:studio_projects/shared/components/category_search_box.dart';
 import 'package:studio_projects/shared/components/discount_card_grouper.dart';
 import 'package:studio_projects/shared/components/retailer_card_grouper.dart';
+import 'package:studio_projects/views/main/settings/settings_bloc.dart';
 import 'package:studio_projects/views/search/search_bloc.dart';
 import 'package:studio_projects/views/search/search_event.dart';
 import 'package:studio_projects/views/search/search_state.dart';
@@ -63,6 +64,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
+
     return BlocProvider(
       create: (create) => SearchBloc(),
       child: BlocConsumer<SearchBloc, SearchState>(
@@ -85,10 +88,7 @@ class _SearchScreenState extends State<SearchScreen> {
               appBar: AppBar(
                 flexibleSpace: Container(
                   decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: [Colors.deepPurple, Colors.purple.shade300],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight)),
+                      color: settingsBloc.state.settings!.darkMode! ? Colors.black : Color.fromRGBO(86, 213, 232, 100)),
                 ),
                 title: Builder(
                   builder: (context) => TextField(

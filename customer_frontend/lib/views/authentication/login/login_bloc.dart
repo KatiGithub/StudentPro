@@ -20,7 +20,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           .then((User? user) {
         if (!user!.emailVerified) {
           emit(LoginEmailVerification());
-        } else if(user!.emailVerified) {
+        } else if(user.emailVerified) {
           emit(LoginSuccess());
         }
       });
