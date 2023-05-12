@@ -88,7 +88,9 @@ class _SearchScreenState extends State<SearchScreen> {
               appBar: AppBar(
                 flexibleSpace: Container(
                   decoration: BoxDecoration(
-                      color: settingsBloc.state.settings!.darkMode! ? Colors.black : Color.fromRGBO(86, 213, 232, 100)),
+                      color: settingsBloc.state.settings!.darkMode!
+                          ? Colors.black
+                          : Color.fromRGBO(86, 213, 232, 100)),
                 ),
                 title: Builder(
                   builder: (context) => TextField(
@@ -111,25 +113,25 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               body: Padding(
                 padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 8.0),
-                child:
-                    (_searchResultsReturned == false && _searchLoading == false)
-                        ? GridView.count(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 10.0,
-                            crossAxisSpacing: 8.0,
-                            children: [
-                              for (int i = 0; i < retailerTypes.length; i++)
-                                CategoryBox(retailerType: retailerTypes[i])
-                            ],
+                child: (_searchResultsReturned == false &&
+                        _searchLoading == false)
+                    ? ListView.builder(
+                        itemCount: retailerTypes.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                              padding: EdgeInsetsDirectional.symmetric(vertical: 10, horizontal: 20),
+                              child: CategoryBox(
+                                  retailerType: retailerTypes[index]));
+                        },
+                      )
+                    : (_searchLoading == true)
+                        ? const Center(
+                            child: CircularProgressIndicator(),
                           )
-                        : (_searchLoading == true)
-                            ? const Center(
-                                child: CircularProgressIndicator(),
-                              )
-                            : RetailerCardGrouper(
-                                retailers: retailerSearchResults,
-                                context: context,
-                              ),
+                        : RetailerCardGrouper(
+                            retailers: retailerSearchResults,
+                            context: context,
+                          ),
               ));
         },
       ),

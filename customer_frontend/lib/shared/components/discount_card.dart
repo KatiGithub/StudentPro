@@ -38,49 +38,41 @@ class DiscountCard extends StatelessWidget {
               onTap: () => context
                   .read<DiscountBloc>()
                   .add(OnRetrieveDiscountCode(discount: discount)),
-              child: SizedBox(
-                  width: 400,
                   child: Card(
                     elevation: 4.0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Expanded(
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10.0),
-                                topRight: Radius.circular(10.0),
-                              ),
-                              child: Stack(
-                                children: [
-                                  SizedBox(
-                                    width: double.infinity,
-                                    child: Image.asset(
-                                      discount.discountImage!,
-                                      fit: BoxFit.fitHeight,
-                                    ),
-                                  ),
-                                  Positioned.fill(
-                                    bottom: 20,
-                                    child: Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: Text(
-                                        discount.discountDescription!,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              )),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(
+                                  discount.discountImage!.imageUrl,
+                                ),
+                                fit: BoxFit.fitWidth
+                              )
+                            ),
+                          )
                         ),
+                      Container(
+                        padding: EdgeInsetsDirectional.symmetric(vertical: 5),
+                        margin: EdgeInsetsDirectional.only(start: 10),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            discount.discountTitle!,
+                            style: TextStyle(
+                              fontSize: 10
+                            ),
+                          ),
+                        )
+                      )
                       ],
                     ),
-                  )),
+                  )
             );
           },
         ));

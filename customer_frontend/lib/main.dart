@@ -65,6 +65,7 @@ class _MyAppState extends State<MyApp> {
         builder: (context, state) {
           final settingsBloc = BlocProvider.of<SettingsBloc>(context);
           return MaterialApp(
+            navigatorObservers: [HeroController()],
             theme: ThemeData(
                 brightness: Brightness.light,
                 appBarTheme: AppBarTheme(backgroundColor: Colors.white, elevation: 0)),

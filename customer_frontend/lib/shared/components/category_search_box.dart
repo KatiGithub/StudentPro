@@ -11,16 +11,23 @@ class CategoryBox extends StatelessWidget {
     return GestureDetector(
         onTap: () => print("Pressed on ${this.retailerType.retailerType}"),
         child: Container(
+            height: MediaQuery.of(context).size.height / 6,
             decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    colors: [Colors.deepPurple, Colors.purple.shade300],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight),
-                borderRadius: BorderRadius.circular(10.0)),
+                image: DecorationImage(
+                    colorFilter: ColorFilter.mode(
+                        Colors.white.withOpacity(0.5), BlendMode.srcOver),
+                    image: AssetImage(
+                      'assets/category/' + retailerType.retailerType + ".jpg",
+                    ),
+                    fit: BoxFit.cover),
+                borderRadius: BorderRadius.circular(20.0)),
             child: Center(
               child: Text(
                 retailerType.retailerDisplayName,
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 30,
+                    fontWeight: FontWeight.w800),
               ),
             )));
   }

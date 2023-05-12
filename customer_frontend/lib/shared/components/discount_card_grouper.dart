@@ -30,9 +30,10 @@ class DiscountCardGrouper extends StatelessWidget {
 
   Widget _buildGridLayout(List<Discount> discount) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.0),
+      padding: EdgeInsetsDirectional.only(top: 8.0),
       child: Container(
-        height: 400,
+        height: MediaQuery.of(context).size.height / 2,
+        width: double.infinity,
         child: LayoutGrid(
           rowGap: 8.0,
           columnGap: 8.0,
@@ -44,18 +45,48 @@ class DiscountCardGrouper extends StatelessWidget {
           b c
         ''',
           children: [
-            gridArea('r').containing(DiscountCard(discount: discount[0], context: this.context,)),
+            gridArea('r').containing(AspectRatio(
+              aspectRatio: 8/3,
+              child: DiscountCard(
+                discount: discount[0],
+                context: this.context,
+              ),
+            )),
             discount.length >= 2
-                ? gridArea('x').containing(DiscountCard(discount: discount[1], context: this.context))
+                ? gridArea('x').containing(AspectRatio(
+                    aspectRatio: 5 / 4,
+                    child: DiscountCard(
+                      discount: discount[1],
+                      context: this.context,
+                    ),
+                  ))
                 : SizedBox.shrink(),
             discount.length >= 3
-                ? gridArea('y').containing(DiscountCard(discount: discount[2], context: this.context))
+                ? gridArea('y').containing(AspectRatio(
+                    aspectRatio: 5 / 4,
+                    child: DiscountCard(
+                      discount: discount[2],
+                      context: this.context,
+                    ),
+                  ))
                 : SizedBox.shrink(),
             discount.length >= 4
-                ? gridArea('b').containing(DiscountCard(discount: discount[3], context: this.context))
+                ? gridArea('b').containing(AspectRatio(
+                    aspectRatio: 5 / 4,
+                    child: DiscountCard(
+                      discount: discount[3],
+                      context: this.context,
+                    ),
+                  ))
                 : SizedBox.shrink(),
             discount.length >= 5
-                ? gridArea('c').containing(DiscountCard(discount: discount[4], context: this.context))
+                ? gridArea('c').containing(AspectRatio(
+                    aspectRatio: 5 / 4,
+                    child: DiscountCard(
+                      discount: discount[4],
+                      context: this.context,
+                    ),
+                  ))
                 : SizedBox.shrink()
           ],
         ),

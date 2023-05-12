@@ -42,12 +42,15 @@ class RetailerCard extends StatelessWidget {
                   CircleAvatar(
                       radius: 40,
                       child: ClipOval(
-                          child: Container(
+                          child: SizedBox(
                               height: 80,
                               width: 80,
-                              child: Image.asset(
-                                'assets/food_test.jpg',
-                                fit: BoxFit.cover,
+                              child: Hero(
+                                tag: 'retailer_background',
+                                child: Image.asset(
+                                  'assets/food_test.jpg',
+                                  fit: BoxFit.cover,
+                                ),
                               )))),
                   SizedBox(
                     width: 10,

@@ -59,7 +59,7 @@ class _CouponDisplayPopupState extends State<CouponDisplayPopup> {
                               topLeft: Radius.circular(10.0),
                               topRight: Radius.circular(10.0)),
                           child: Image.asset(
-                            widget.discount.discountImage!,
+                            widget.discount.discountImage!.imageUrl,
                             fit: BoxFit.fitWidth,
                           ),
                         ),

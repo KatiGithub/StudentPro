@@ -28,7 +28,6 @@ class _StateRetailerScreen extends State<RetailerScreen> {
   Retailer retailer = Retailer();
   bool _isLiked = false;
 
-
   @override
   Widget build(BuildContext context) {
 
@@ -40,6 +39,14 @@ class _StateRetailerScreen extends State<RetailerScreen> {
 
     RetailerBloc retailerBloc = RetailerBloc();
     // retailerBloc.add(OnGetRetailerInformation(retailer: retailer));
+
+    var image = Hero(
+      tag: 'retailer_background',
+      child: Image.asset(
+        'assets/food_test.jpg',
+        fit: BoxFit.cover,
+      ),
+    );
 
     return Scaffold(
         body: BlocProvider(
@@ -94,10 +101,7 @@ class _StateRetailerScreen extends State<RetailerScreen> {
                               children: [
                                 SizedBox(
                                   width: double.infinity,
-                                  child: Image.asset(
-                                    'assets/food_test.jpg',
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: image
                                 ),
                                 Positioned(
                                     bottom: 10.0,
