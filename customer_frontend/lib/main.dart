@@ -67,6 +67,7 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             navigatorObservers: [HeroController()],
             theme: ThemeData(
+              fontFamily: 'SF_Pro',
                 brightness: Brightness.light,
                 appBarTheme: AppBarTheme(backgroundColor: Colors.white, elevation: 0)),
             darkTheme: ThemeData(

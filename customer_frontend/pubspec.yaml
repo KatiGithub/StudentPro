@@ -117,5 +117,12 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: SF_Pro
+      fonts:
+        - asset: assets/fonts/sf_pro/SF_Pro_Regular.ttf
+        - asset: assets/fonts/sf_pro/SF_Pro_Bold.ttf
+          weight: 700
+
 flutter_intl:
   enabled: true

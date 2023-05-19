@@ -20,6 +20,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
+  bool _isShowPassword = false;
+
   final _emailController = TextEditingController();
   bool _emailEnabled = true;
 
@@ -54,71 +56,178 @@ class _LoginScreenState extends State<LoginScreen> {
         },
         builder: (context, state) {
           return Scaffold(
-            body: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.0),
-              child: Center(
-                  child: Form(
-                key: _formKey,
+              resizeToAvoidBottomInset: true,
+              body: Container(
+                padding: EdgeInsetsDirectional.symmetric(horizontal: 15),
+                width: double.infinity,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Hero(
-                        tag: 'logo',
-                        child: Image.asset(
-                          'images/logo.png',
-                          height: 120.0,
-                        )),
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.0),
-                      child: TextFormField(
-                        controller: _emailController,
-                        validator: FormValidators.emailValidator,
-                        keyboardType: TextInputType.emailAddress,
-                        onChanged: (value) => _formKey.currentState!.validate(),
-                        decoration: kTextFieldDecoration.copyWith(
-                            enabled: _emailEnabled,
-                            hintText: 'Enter school email',
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Colors.black45, width: 10.0),
-                                borderRadius: BorderRadius.circular(40.0))),
-                      ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          "User Login",
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "Enter your account details to get started.",
+                          style: TextStyle(fontSize: 20),
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(
+                          height: 50,
+                        )
+                      ],
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.0),
-                      child: TextFormField(
-                        controller: _passwordController,
-                        validator: FormValidators.passwordValidator,
-                        onChanged: (value) => _formKey.currentState!.validate(),
-                        keyboardType: TextInputType.name,
-                        obscureText: true,
-                        decoration: kTextFieldDecoration.copyWith(
-                            enabled: _passwordEnabled,
-                            hintText: 'Enter password',
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Colors.black45, width: 10.0),
-                                borderRadius: BorderRadius.circular(40.0))),
-                      ),
+                    Column(
+                      children: [
+                        Container(
+                          padding:
+                              EdgeInsetsDirectional.symmetric(horizontal: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("School Email"),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              TextField(
+                                controller: _emailController,
+                                decoration: InputDecoration(
+                                    hintText: "Enter your email...",
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(12))),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.only(
+                            top: 2,
+                          ),
+                          child: Container(
+                            padding:
+                                EdgeInsetsDirectional.symmetric(horizontal: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("Password"),
+                                SizedBox(
+                                  height: 10.0,
+                                ),
+                                TextField(
+                                  controller: _passwordController,
+                                  obscureText: !_isShowPassword,
+                                  decoration: InputDecoration(
+                                      suffixIcon: IconButton(
+                                        icon: Icon(!_isShowPassword
+                                            ? Icons.remove_red_eye
+                                            : Icons.remove_red_eye_outlined),
+                                        onPressed: () {
+                                          setState(() {
+                                            _isShowPassword = !_isShowPassword;
+                                          });
+                                        },
+                                      ),
+                                      hintText: "Enter your password...",
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12.0))),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    RoundedButton(
-                      title: "Log In",
-                      colour: Colors.blue,
-                      onPressed: () {
-                        context.read<LoginBloc>().add(LoginButtonPressed(
-                            email: _emailController.text,
-                            password: _passwordController.text));
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      padding: EdgeInsetsDirectional.symmetric(horizontal: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              print("User Forgot Password");
+                            },
+                            child: Text(
+                              "Forgot Password",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          SizedBox(
+                            width: double.infinity,
+                            height: 55,
+                            child: MaterialButton(
+                              onPressed: () {
+                                context.read<LoginBloc>().add(LoginButtonPressed(
+                                    email: _emailController.text,
+                                    password: _passwordController.text));
 
-                        FocusScopeNode currentFocus = FocusScope.of(context);
-                        currentFocus.unfocus();
-                      },
-                    ),
+                                FocusScopeNode currentFocus = FocusScope.of(context);
+                                currentFocus.unfocus();
+                              },
+                              child: Text("Login"),
+                              color: Color.fromRGBO(237, 188, 161, 1.0),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  side: BorderSide(
+                                      color: Color.fromRGBO(230, 140, 92, 1.0),
+                                      width: 6,
+                                      strokeAlign: BorderSide.strokeAlignInside,
+                                      style: BorderStyle.solid)),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Divider(
+                            color: Colors.black,
+                            thickness: 2,
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(context, 'registration');
+                                },
+                                child: Container(
+                                  child: Text(
+                                    "Don't have an account? Sign up now!",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    )
                   ],
                 ),
-              )),
-            ),
-          );
+              ));
         },
       ),
     );

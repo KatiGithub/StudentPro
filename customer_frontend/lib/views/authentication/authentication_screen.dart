@@ -7,36 +7,42 @@ class AuthenticationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.0),
-          child: Center(
+        body: Container(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Flexible(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Hero(
-                    tag: 'logo',
-                    child: Image.asset(
-                      'images/logo.png',
-                      height: 120.0,
-                    )),
-                RoundedButton(
-                    title: "Log In",
-                    colour: Colors.blueAccent,
-                    onPressed: () {
-                      print("Login Pressed");
-                      Navigator.pushNamed(context, 'login');
-                    }),
-                RoundedButton(
-                    title: "Register",
-                    colour: Colors.blueAccent,
-                    onPressed: () {
-                      print("Register Pressed");
-                      Navigator.pushNamed(context, 'registration');
-                    })
+                Text(
+                  "User Login",
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  "Enter your account details to get started.",
+                  style: TextStyle(fontSize: 20),
+                )
               ],
             ),
-          )),
-    );
+            flex: 3,
+          ),
+          Flexible(
+            child: Column(
+              children: [
+                Row(
+                  children: [],
+                )
+              ],
+            ),
+            flex: 2,
+          )
+        ],
+      ),
+    ));
   }
 }

@@ -21,7 +21,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         listener: (context, state) {
           print(state);
           if (state is WelcomeLoginNotDone) {
-            Navigator.pushNamedAndRemoveUntil(context, 'auth', (route) => false);
+            Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
             print("Not logged in");
           } else if (state is WelcomeLoginDone) {
             Navigator.pushNamedAndRemoveUntil(context, 'main', (route) => false);
