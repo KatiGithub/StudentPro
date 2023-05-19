@@ -12,6 +12,14 @@ class AuthService {
     return _auth.authStateChanges().map((user) => user != null);
   }
 
+  void sendPasswordResetEmail(String email) async {
+    return await _auth.sendPasswordResetEmail(email: email);
+  }
+
+  void logOut() async {
+    return await _auth.signOut();
+  }
+
   Future<User?> authenticationWithEmailAndPassword(String email,
       String password) {
     return _auth.signInWithEmailAndPassword(email: email, password: password)

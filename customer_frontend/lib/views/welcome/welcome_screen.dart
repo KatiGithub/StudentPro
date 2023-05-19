@@ -6,7 +6,7 @@ import 'package:studio_projects/views/welcome/welcome_events.dart';
 import 'package:studio_projects/views/welcome/welcome_state.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  static const String id = 'welcome_screen';
+  static const String id = 'welcome';
 
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();

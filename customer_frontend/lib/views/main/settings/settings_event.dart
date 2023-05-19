@@ -16,3 +16,5 @@ class OnThemeModeChanged extends SettingsEvent {
 
   OnThemeModeChanged({required this.darkMode});
 }
+
+class OnLogOut extends SettingsEvent {}

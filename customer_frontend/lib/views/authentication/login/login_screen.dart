@@ -162,6 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           GestureDetector(
                             onTap: () {
                               print("User Forgot Password");
+                              Navigator.pushNamed(context, 'reset_password');
                             },
                             child: Text(
                               "Forgot Password",
@@ -190,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   borderRadius: BorderRadius.circular(8.0),
                                   side: BorderSide(
                                       color: Color.fromRGBO(230, 140, 92, 1.0),
-                                      width: 6,
+                                      width: 3,
                                       strokeAlign: BorderSide.strokeAlignInside,
                                       style: BorderStyle.solid)),
                             ),
