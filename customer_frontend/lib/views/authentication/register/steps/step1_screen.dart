@@ -62,70 +62,92 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
         builder: (context, state) {
       return Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Row(
               children: [
                 Flexible(
-                    flex: 4,
-                    child: TextField(
-                      controller: _firstNameController,
-                      onTapOutside: (event) =>
-                          BlocProvider.of<RegistrationCubit>(context)
-                              .setFirstName(_firstNameController.text),
-                      decoration: kTextFieldDecoration.copyWith(
-                        hintText: 'First Name',
-                        hintStyle: TextStyle(fontSize: 16.0),
-                        border: OutlineInputBorder(
-                          borderSide:
+                    flex: 5,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("First Name"),
+                        SizedBox(height: 5,),
+                        TextField(
+                          controller: _firstNameController,
+                          onTapOutside: (event) =>
+                              BlocProvider.of<RegistrationCubit>(context)
+                                  .setFirstName(_firstNameController.text),
+                          decoration: kTextFieldDecoration.copyWith(
+                            hintText: 'First Name',
+                            hintStyle: TextStyle(fontSize: 16.0),
+                            border: OutlineInputBorder(
+                              borderSide:
                               BorderSide(color: Colors.black45, width: 10.0),
-                          borderRadius: BorderRadius.circular(40.0),
-                        ),
-                      ),
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                          ),
+                        )
+                      ],
                     )),
                 SizedBox(width: 8.0),
                 Flexible(
-                    flex: 8,
-                    child: TextField(
-                      onTapOutside: (event) =>
-                          BlocProvider.of<RegistrationCubit>(context)
-                              .setLastName(_lastNameController.text),
-                      controller: _lastNameController,
-                      decoration: kTextFieldDecoration.copyWith(
-                          hintText: 'Last Name',
-                          hintStyle: TextStyle(fontSize: 16.0),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.black45, width: 10.0),
-                              borderRadius: BorderRadius.circular(40.0))),
+                    flex: 9,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Last Name"),
+                        SizedBox(height: 5,),
+                        TextField(
+                          onTapOutside: (event) =>
+                              BlocProvider.of<RegistrationCubit>(context)
+                                  .setLastName(_lastNameController.text),
+                          controller: _lastNameController,
+                          decoration: kTextFieldDecoration.copyWith(
+                              hintText: 'Last Name',
+                              hintStyle: TextStyle(fontSize: 16.0),
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.black45, width: 10.0),
+                                  borderRadius: BorderRadius.circular(12.0))),
+                        )
+                      ],
                     )),
               ],
             ),
-            SizedBox(height: 8.0),
-            TextField(
-              controller: _personalEmailController,
-              onTapOutside: (value) {
-                BlocProvider.of<RegistrationCubit>(context)
-                    .setPersonalEmail(_personalEmailController.text);
-                FocusScopeNode currentFocus = FocusScope.of(context);
-                currentFocus.unfocus();
-              },
-              decoration: kTextFieldDecoration.copyWith(
-                  hintText: "Personal (Non-School) E-mail",
-                  hintStyle: TextStyle(fontSize: 16.0),
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black, width: 10.0),
-                      borderRadius: BorderRadius.circular(40.0))),
+            SizedBox(height: 20.0),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Personal Email"),
+                SizedBox(height: 5,),
+                TextField(
+                  controller: _personalEmailController,
+                  onTapOutside: (value) {
+                    BlocProvider.of<RegistrationCubit>(context)
+                        .setPersonalEmail(_personalEmailController.text);
+                    FocusScopeNode currentFocus = FocusScope.of(context);
+                    currentFocus.unfocus();
+                  },
+                  decoration: kTextFieldDecoration.copyWith(
+                      hintText: "Personal (Non-School) E-mail",
+                      hintStyle: TextStyle(fontSize: 16.0),
+                      border: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.black, width: 10.0),
+                          borderRadius: BorderRadius.circular(12.0))),
+                ),
+              ],
             ),
             Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.0),
+                padding: EdgeInsets.only(top: 20),
                 child: MaterialButton(
                   height: 42,
                   minWidth: 280,
                   color: Colors.grey,
                   shape: RoundedRectangleBorder(
                       side: BorderSide(color: Colors.black45),
-                      borderRadius: BorderRadius.circular(40.0)),
+                      borderRadius: BorderRadius.circular(12.0)),
                   onPressed: () {
                     _selectDate(context);
                   },

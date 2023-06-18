@@ -57,6 +57,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  step_progress_indicator: ^1.0.2
 
 
 dev_dependencies:

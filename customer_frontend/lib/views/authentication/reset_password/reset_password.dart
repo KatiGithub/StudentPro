@@ -46,7 +46,7 @@ class ResetPasswordScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.0),
                   side: BorderSide(
                       color: Color.fromRGBO(230, 140, 92, 1.0),
-                      width: 3,
+                      width: 2.5,
                       strokeAlign: BorderSide.strokeAlignInside,
                       style: BorderStyle.solid)),
             )

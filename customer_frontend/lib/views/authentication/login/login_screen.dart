@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studio_projects/constant/components.dart';
+import 'package:studio_projects/shared/components/CustomTextField_Rounded.dart';
 import 'package:studio_projects/shared/validators.dart';
 import 'package:studio_projects/views/authentication/login/login_bloc.dart';
 import 'package:studio_projects/views/authentication/login/login_event.dart';
@@ -97,14 +98,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               SizedBox(
                                 height: 10,
                               ),
-                              TextField(
-                                controller: _emailController,
-                                decoration: InputDecoration(
-                                    hintText: "Enter your email...",
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(12))),
-                              ),
+                              CustomTextFieldRounded(
+                                  "Enter your email...", _emailController),
                             ],
                           ),
                         ),
@@ -178,11 +173,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 55,
                             child: MaterialButton(
                               onPressed: () {
-                                context.read<LoginBloc>().add(LoginButtonPressed(
-                                    email: _emailController.text,
-                                    password: _passwordController.text));
+                                context.read<LoginBloc>().add(
+                                    LoginButtonPressed(
+                                        email: _emailController.text,
+                                        password: _passwordController.text));
 
-                                FocusScopeNode currentFocus = FocusScope.of(context);
+                                FocusScopeNode currentFocus =
+                                    FocusScope.of(context);
                                 currentFocus.unfocus();
                               },
                               child: Text("Login"),
