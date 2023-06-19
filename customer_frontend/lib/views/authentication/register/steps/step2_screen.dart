@@ -39,9 +39,9 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
             : '';
 
     _passwordController.text =
-    _registrationState.user.userCredentials.password != null
-        ? _registrationState.user.userCredentials.password!
-        : '';
+        _registrationState.user.userCredentials.password != null
+            ? _registrationState.user.userCredentials.password!
+            : '';
 
     return Center(
         child: BlocListener<RegistrationCubit, RegistrationState>(
@@ -49,8 +49,9 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
               if (state is RegistrationError) {
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(content: Text(state.error)));
-              } else if(state is RegistrationEmailVerification) {
-                Navigator.pushNamedAndRemoveUntil(context, 'email_verification', (route) => false);
+              } else if (state is RegistrationEmailVerification) {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, 'email_verification', (route) => false);
               }
             },
             child: Column(
@@ -104,8 +105,6 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                       },
                       listener: (context, state) {
                         if (state is UniversityStateRetrieveSuccessful) {
-                          // setState(() {
-                          // });
                           _universitiesList = state.listUniversities;
                         }
                       },
@@ -135,7 +134,7 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                                       borderSide: const BorderSide(
                                           color: Colors.black45, width: 10.0),
                                       borderRadius:
-                                          BorderRadius.circular(40.0))),
+                                          BorderRadius.circular(12.0))),
                             ),
                           ),
                         ),
@@ -191,7 +190,8 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                   title: "Sign Up",
                   colour: Colors.blue,
                   onPressed: () {
-                    BlocProvider.of<RegistrationCubit>(context).submitLoginInformation();
+                    BlocProvider.of<RegistrationCubit>(context)
+                        .submitLoginInformation();
 
                     FocusScopeNode currentFocus = FocusScope.of(context);
                     currentFocus.unfocus();

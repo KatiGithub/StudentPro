@@ -48,24 +48,20 @@ class RegistrationCubit extends Cubit<RegistrationState> {
         state.user.userCredentials.schoolEmail == '' ||
         state.user.userCredentials.password == '') {
       emit(RegistrationError(error: "Information Incomplete"));
+      return;
     }
 
-    try {
-      _authService
-          .signUp(
-              email: state.user.userCredentials.schoolEmail!,
-              password: state.user.userCredentials.password!)
-          .then((User? user) {
-        if (user != null) {
-          emit(RegistrationEmailVerification());
-        }
-      });
-    } on FirebaseAuthException catch (e) {
-      print(e.code);
-      emit(RegistrationError(error: e.message!));
-    } catch (e) {
-      emit(RegistrationError(error: e.toString()));
-    }
+    _authService
+        .signUp(
+            email: state.user.userCredentials.schoolEmail!,
+            password: state.user.userCredentials.password!)
+        .then((User? user) {
+      if (user != null) {
+        emit(RegistrationEmailVerification());
+      }
+    }).onError((FirebaseAuthException error, stackTrace) {
+      emit(RegistrationError(error: error.message!));
+    });
   }
 
   void verifySchoolEmail() {

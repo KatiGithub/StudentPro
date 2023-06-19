@@ -22,7 +22,15 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   int currentPage = 0;
 
-  List<Widget> _steps = [IntroRegistrationScreen(),RegistrationPage1(), RegistrationPage2()];
+  List<Widget> _steps = [
+    IntroRegistrationScreen(),
+    Padding(
+        padding: EdgeInsetsDirectional.symmetric(horizontal: 24),
+        child: RegistrationPage1()),
+    Padding(
+        padding: EdgeInsetsDirectional.symmetric(horizontal: 24),
+        child: RegistrationPage2()),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +39,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       body: Stack(
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 40, left: 20, right: 20),
+            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height/15, left: 20, right: 20),
             child: StepProgressIndicator(
               totalSteps: _steps.length,
               currentStep: currentPage + 1,
@@ -42,47 +50,73 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  currentPage == 0 ? SizedBox.shrink() : Text("Registration", style: TextStyle(
-                      fontSize: 30
-                  ),),
-                  currentPage == 0 ? SizedBox.shrink() : SizedBox(height: 100,),
-                  Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 24.0),
-                      child: BlocProvider(
-                        create: (create) => RegistrationCubit(),
-                        child:
-                            BlocBuilder<RegistrationCubit, RegistrationState>(
-                                builder: (context, state) {
-                          return _steps.elementAt(currentPage);
-                        }),
-                      ))
+                  currentPage == 0
+                      ? SizedBox.shrink()
+                      : Text(
+                          "Registration",
+                          style: TextStyle(fontSize: 30),
+                        ),
+                  currentPage == 0
+                      ? SizedBox.shrink()
+                      : SizedBox(
+                          height: 100,
+                        ),
+                  BlocProvider(
+                    create: (create) => RegistrationCubit(),
+                    child: BlocBuilder<RegistrationCubit, RegistrationState>(
+                        builder: (context, state) {
+                      return _steps.elementAt(currentPage);
+                    }),
+                  )
                 ],
               ))
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-                onPressed: currentPage > 0
-                    ? () {
-                        setState(() {
-                          currentPage -= 1;
-                        });
-                      }
-                    : null,
-                icon: Icon(Icons.arrow_back)),
-            IconButton(
-                onPressed: currentPage < 2
-                    ? () {
-                        setState(() {
-                          currentPage += 1;
-                        });
-                      }
-                    : null,
-                icon: Icon(Icons.arrow_forward))
-          ],
+        child: Container(
+          height: 100,
+          width: MediaQuery.of(context).size.width,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Expanded(
+                  child: Padding(
+                padding: EdgeInsets.all(10),
+                child: MaterialButton(
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(16))),
+                  color: Colors.deepPurple,
+                  height: double.infinity,
+                  onPressed: currentPage > 0
+                      ? () {
+                          setState(() {
+                            currentPage -= 1;
+                          });
+                        }
+                      : null,
+                  child: const Icon(Icons.arrow_back),
+                ),
+              )),
+              Expanded(
+                  child: Padding(
+                padding: EdgeInsets.all(10),
+                child: MaterialButton(
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(16))),
+                    color: Colors.deepPurple,
+                    height: double.infinity,
+                    onPressed: currentPage < 2
+                        ? () {
+                            setState(() {
+                              currentPage += 1;
+                            });
+                          }
+                        : null,
+                    child: const Icon(Icons.arrow_forward)),
+              ))
+            ],
+          ),
         ),
       ),
     );
