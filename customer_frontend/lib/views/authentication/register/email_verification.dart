@@ -48,7 +48,7 @@ class _EmailVerificationState extends State<EmailVerification> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                    "Click on the link sent to your school email to verify."),
+                    "Click on the link sent to your school email to verify.", textAlign: TextAlign.center,),
                 RoundedButton(
                     title: 'Resend E-mail',
                     colour: Colors.blueAccent,

@@ -33,25 +33,21 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
   Widget build(BuildContext context) {
     final _registrationState = context.watch<RegistrationCubit>().state;
 
-    _schoolEmailController.text =
-        _registrationState.user.userCredentials.schoolEmail != null
-            ? _registrationState.user.userCredentials.schoolEmail!
-            : '';
+    _schoolEmailController.text = _registrationState.user.userCredentials.schoolEmail != null
+        ? _registrationState.user.userCredentials.schoolEmail!
+        : '';
 
-    _passwordController.text =
-        _registrationState.user.userCredentials.password != null
-            ? _registrationState.user.userCredentials.password!
-            : '';
+    _passwordController.text = _registrationState.user.userCredentials.password != null
+        ? _registrationState.user.userCredentials.password!
+        : '';
 
     return Center(
         child: BlocListener<RegistrationCubit, RegistrationState>(
             listener: (context, state) {
               if (state is RegistrationError) {
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text(state.error)));
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.error)));
               } else if (state is RegistrationEmailVerification) {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, 'email_verification', (route) => false);
+                Navigator.pushNamedAndRemoveUntil(context, 'email_verification', (route) => false);
               }
             },
             child: Column(
@@ -65,38 +61,30 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                     child: BlocConsumer<UniversityBloc, UniversityState>(
                       builder: (context, state) {
                         if (_universitiesList.isEmpty) {
-                          context
-                              .read<UniversityBloc>()
-                              .add(OnGetUniversities());
+                          context.read<UniversityBloc>().add(OnGetUniversities());
                         }
-                        return BlocBuilder<RegistrationCubit,
-                            RegistrationState>(
+                        return BlocBuilder<RegistrationCubit, RegistrationState>(
                           builder: (context, state) {
                             if (_registrationState.user.university != null) {
-                              _indexChosenUniversity = _universitiesList
-                                  .indexOf(_registrationState.user.university!);
+                              _indexChosenUniversity = _universitiesList.indexOf(_registrationState.user.university!);
                             }
                             return GestureDetector(
                                 child: DropdownButton(
                               value: _indexChosenUniversity == null
                                   ? null
-                                  : _universitiesList
-                                      .elementAt(_indexChosenUniversity!),
+                                  : _universitiesList.elementAt(_indexChosenUniversity!),
                               hint: const Text("Choose University"),
                               items: _universitiesList
-                                  .map((university) =>
-                                      DropdownMenuItem<University>(
+                                  .map((university) => DropdownMenuItem<University>(
                                         value: university,
                                         child: Text(university.name!),
                                       ))
                                   .toList(),
                               onChanged: (University? value) {
-                                _indexChosenUniversity =
-                                    _universitiesList.indexOf(value!);
+                                _indexChosenUniversity = _universitiesList.indexOf(value!);
                                 setState(() {
                                   _user.university = value;
-                                  BlocProvider.of<RegistrationCubit>(context)
-                                      .setUniversity(value);
+                                  BlocProvider.of<RegistrationCubit>(context).setUniversity(value);
                                 });
                               },
                             ));
@@ -124,17 +112,13 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                             child: TextField(
                               controller: _schoolEmailController,
                               onTapOutside: (event) {
-                                BlocProvider.of<RegistrationCubit>(context)
-                                    .setSchoolEmail(
-                                        _schoolEmailController.text);
+                                BlocProvider.of<RegistrationCubit>(context).setSchoolEmail(_schoolEmailController.text);
                               },
                               decoration: kTextFieldDecoration.copyWith(
                                   hintText: "University/School Email",
                                   border: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: Colors.black45, width: 10.0),
-                                      borderRadius:
-                                          BorderRadius.circular(12.0))),
+                                      borderSide: const BorderSide(color: Colors.black45, width: 10.0),
+                                      borderRadius: BorderRadius.circular(12.0))),
                             ),
                           ),
                         ),
@@ -165,17 +149,14 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                     keyboardType: TextInputType.name,
                     obscureText: _obscureText,
                     onTapOutside: (event) {
-                      BlocProvider.of<RegistrationCubit>(context)
-                          .setPassword(_passwordController.text);
+                      BlocProvider.of<RegistrationCubit>(context).setPassword(_passwordController.text);
                     },
                     decoration: kTextFieldDecoration.copyWith(
                       enabled: true,
                       hintText: "Password",
                       suffixIcon: IconButton(
                         icon: Icon(
-                          _obscureText
-                              ? Icons.visibility_off
-                              : Icons.visibility,
+                          _obscureText ? Icons.visibility_off : Icons.visibility,
                         ),
                         onPressed: () {
                           setState(() {
@@ -190,8 +171,7 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                   title: "Sign Up",
                   colour: Colors.blue,
                   onPressed: () {
-                    BlocProvider.of<RegistrationCubit>(context)
-                        .submitLoginInformation();
+                    BlocProvider.of<RegistrationCubit>(context).submitLoginInformation();
 
                     FocusScopeNode currentFocus = FocusScope.of(context);
                     currentFocus.unfocus();

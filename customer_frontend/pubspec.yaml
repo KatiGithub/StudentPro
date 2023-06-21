@@ -58,6 +58,8 @@ dependencies:
     sdk: flutter
   intl: any
   step_progress_indicator: ^1.0.2
+  carousel_slider: ^4.2.1
+  flutter_native_splash: ^2.2.19
 
 
 dev_dependencies:
@@ -127,3 +129,10 @@ flutter:
 
 flutter_intl:
   enabled: true
+
+flutter_native_splash:
+  color: "#faab31"
+#  background_image: "assets/splash_background.png"
+
+  android_12:
+    image: "assets/splash_background.png"

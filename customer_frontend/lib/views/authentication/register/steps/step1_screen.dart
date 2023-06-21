@@ -62,7 +62,7 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
         builder: (context, state) {
       return Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Row(
               children: [

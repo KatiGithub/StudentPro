@@ -10,7 +10,7 @@ class IntroRegistrationScreen extends StatelessWidget {
     // );
     return Container(
       width: double.infinity,
-      color: Colors.black,
+      color: Colors.blueAccent
     );
   }
 
