@@ -25,6 +25,6 @@ public class BusinessType {
     private String name;
 
     @OneToMany(fetch =FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "business.business_type_id")
+    @JoinColumn(name = "business_type_id")
     private List<Business> businesses;
 }

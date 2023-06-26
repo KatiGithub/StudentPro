@@ -2,6 +2,7 @@ package com.mahapro.backend.mahapro.model.Business;
 
 import java.util.List;
 
+import com.mahapro.backend.mahapro.model.Business.Branch.Branch;
 import com.mahapro.backend.mahapro.model.Business.Discount.Discount;
 
 import jakarta.persistence.Column;
@@ -33,6 +34,10 @@ public class Business {
     private String contactName;
 
     @OneToMany(fetch=FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name="discount.discount_id")
+    @JoinColumn(name="discount_id")
     private List<Discount> discounts;
+
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name="business_id")
+    private List<Branch> branches;
 }

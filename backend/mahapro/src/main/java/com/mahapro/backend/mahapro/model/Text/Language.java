@@ -10,12 +10,12 @@ public class Language {
 
     @Id
     @Column(name="language_id")
-    private int id;
+    private short id;
 
     @Column(name="language_code")
     private String languageCode;
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name="translation.language_id")
+    @JoinColumn(name="language_id")
     private List<Translation> translations;
 }

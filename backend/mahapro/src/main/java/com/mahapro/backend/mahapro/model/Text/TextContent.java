@@ -21,26 +21,26 @@ public class TextContent {
     private int id;
     
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval=false)
-    @JoinColumn(name="business.business_info_text_id")
+    @JoinColumn(name="business_info_text_id")
     private List<Business> businesses;
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = false)
-    @JoinColumn(name="discount.discount_title_text_id")
+    @JoinColumn(name="discount_title_text_id")
     private List<Discount> discounts;
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = false)
-    @JoinColumn(name="post.post_content_text_id")
+    @JoinColumn(name="post_content_text_id")
     private List<Post> posts;
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = false)
-    @JoinColumn(name="discount_type.discount_type_name_id")
+    @JoinColumn(name="discount_type_name_id")
     private List<DiscountType> discountTypes;
 
     @OneToMany(fetch = FetchType.LAZY,orphanRemoval = false)
-    @JoinColumn(name="bonus_discount.discount_text_id")
+    @JoinColumn(name="discount_text_id")
     private List<BonusDiscount> bonusDiscounts;
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name="translation.text_id")
+    @JoinColumn(name="text_id")
     private List<Translation> translations;
 }

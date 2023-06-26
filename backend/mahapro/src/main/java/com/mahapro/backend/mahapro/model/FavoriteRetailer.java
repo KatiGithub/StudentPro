@@ -8,17 +8,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="transaction")
-public class Transaction {
+@Table(name="favorite_retailer")
+public class FavoriteRetailer {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="transaction_id")
-    private int id;
-
-    @Column(name="discount_coupon_code")
-    private String discountCouponCode;
-
-    @Column(name="used_on")
-    private double usedOn;
+    @Column(name = "favorite_retailer_id")
+    private int favoriteRetailer;
 }

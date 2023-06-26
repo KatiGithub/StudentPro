@@ -2,6 +2,7 @@ package com.mahapro.backend.mahapro.model.Business.Discount;
 
 import java.util.List;
 
+import com.mahapro.backend.mahapro.model.Business.Branch.AllowedBranch;
 import com.mahapro.backend.mahapro.model.Business.Discount.DiscountTypes.BonusDiscount;
 import com.mahapro.backend.mahapro.model.Business.Discount.DiscountTypes.FixedAmountDiscount;
 import com.mahapro.backend.mahapro.model.Business.Discount.DiscountTypes.PercentageDiscount;
@@ -41,14 +42,18 @@ public class Discount {
     private double expiryDate;
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "fixedamount_discount.discount_id")
+    @JoinColumn(name = "discount_id")
     private List<FixedAmountDiscount> fixedAmountDiscounts;
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name="percentage_discount.discount_id")
+    @JoinColumn(name="discount_id")
     private List<PercentageDiscount> percentageDiscounts;
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name="bonus_discount.discount_id")
+    @JoinColumn(name="discount_id")
     private List<BonusDiscount> bonusDiscounts;
+
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name="discount_id")
+    private List<AllowedBranch> allowedBranches;
 }

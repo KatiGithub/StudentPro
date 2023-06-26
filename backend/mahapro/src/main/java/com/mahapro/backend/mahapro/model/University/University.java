@@ -21,19 +21,19 @@ public class University {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "university_id")
-    private int id;
+    private short id;
 
     @Column(name = "university_name")
     private String name;
 
     @Column(name = "university_country")
-    private int country;
+    private String country;
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name="university_domain.university_id")
+    @JoinColumn(name="university_id")
     private List<UniversityDomain> domains;
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "user.university_id")
+    @JoinColumn(name = "university_id")
     private List<User> users;
 }
