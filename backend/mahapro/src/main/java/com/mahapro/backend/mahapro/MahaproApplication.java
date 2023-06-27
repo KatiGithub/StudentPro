@@ -10,4 +10,5 @@ public class MahaproApplication {
 		SpringApplication.run(MahaproApplication.class, args);
 	}
 
+
 }

@@ -1,6 +1,9 @@
 package com.mahapro.backend.mahapro.model.Business;
 
+import java.io.Serializable;
 import java.util.List;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +17,8 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="business_type")
-public class BusinessType {
+@JsonSerialize
+public class BusinessType implements Serializable {
     
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -27,4 +31,30 @@ public class BusinessType {
     @OneToMany(fetch =FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "business_type_id")
     private List<Business> businesses;
+
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Business> getBusinesses() {
+        return this.businesses;
+    }
+
+    public void setBusinesses(List<Business> businesses) {
+        this.businesses = businesses;
+    }
+
 }

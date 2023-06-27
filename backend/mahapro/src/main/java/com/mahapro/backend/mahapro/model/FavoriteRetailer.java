@@ -15,4 +15,6 @@ public class FavoriteRetailer {
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "favorite_retailer_id")
     private int favoriteRetailer;
+
+    
 }

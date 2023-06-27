@@ -1,8 +1,9 @@
 package com.mahapro.backend.mahapro.model.Text;
 
+import java.io.Serializable;
 import java.util.List;
 
-
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mahapro.backend.mahapro.model.Business.Business;
 import com.mahapro.backend.mahapro.model.Business.Discount.Discount;
 import com.mahapro.backend.mahapro.model.Business.Discount.DiscountType;
@@ -13,34 +14,33 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name="text_content")
-public class TextContent {
+@JsonSerialize
+public class TextContent implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="text_id")
     private int id;
-    
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval=false)
-    @JoinColumn(name="business_info_text_id")
-    private List<Business> businesses;
-
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = false)
-    @JoinColumn(name="discount_title_text_id")
-    private List<Discount> discounts;
-
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = false)
-    @JoinColumn(name="post_content_text_id")
-    private List<Post> posts;
-
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = false)
-    @JoinColumn(name="discount_type_name_id")
-    private List<DiscountType> discountTypes;
-
-    @OneToMany(fetch = FetchType.LAZY,orphanRemoval = false)
-    @JoinColumn(name="discount_text_id")
-    private List<BonusDiscount> bonusDiscounts;
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name="text_id")
     private List<Translation> translations;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<Translation> getTranslations() {
+        return translations;
+    }
+
+    public void setTranslations(List<Translation> translations) {
+        this.translations = translations;
+    }
+
+    
 }
