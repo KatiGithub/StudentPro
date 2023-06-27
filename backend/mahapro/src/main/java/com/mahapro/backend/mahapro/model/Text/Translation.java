@@ -7,17 +7,28 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="translation")
+@Table(name = "translation")
 @JsonSerialize
 public class Translation implements Serializable {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="translation_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "translation_id")
     private long id;
 
     @Column(name = "translation")
     private String translation;
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "language_id")
+    private Language language;
+
+    public Language getLanguage() {
+        return this.language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
 
     public long getId() {
         return this.id;

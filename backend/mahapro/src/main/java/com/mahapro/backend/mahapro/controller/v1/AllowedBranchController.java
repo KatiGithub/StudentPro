@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.mahapro.backend.mahapro.model.Business.Branch.AllowedBranch;
 import com.mahapro.backend.mahapro.service.AllowedBranchService;
 
-@RequestMapping(value = "/allowed_branches", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/allowed_branch", produces = MediaType.APPLICATION_JSON_VALUE)
 @Controller
 // @ApiController
 public class AllowedBranchController{

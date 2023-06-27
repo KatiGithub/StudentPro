@@ -1,14 +1,15 @@
 package com.mahapro.backend.mahapro.model.Business.Branch;
 
 import java.io.Serializable;
-import java.util.List;
-
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.locationtech.jts.geom.Point;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mahapro.backend.mahapro.model.Business.Business;
+import com.mahapro.backend.mahapro.shared.deserializer.LocationDeserializer;
+import com.mahapro.backend.mahapro.shared.serializer.LocationSerializer;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,7 +19,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,6 +31,8 @@ public class Branch implements Serializable {
     private int id;
 
     @Column(name = "location")
+    @JsonSerialize(using = LocationSerializer.class)
+    @JsonDeserialize(using = LocationDeserializer.class)
     private Point location;
 
     @Column(name = "phone_number")

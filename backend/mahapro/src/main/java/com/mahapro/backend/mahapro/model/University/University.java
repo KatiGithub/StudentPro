@@ -32,8 +32,4 @@ public class University {
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name="university_id")
     private List<UniversityDomain> domains;
-
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "university_id")
-    private List<User> users;
 }

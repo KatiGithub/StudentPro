@@ -19,11 +19,6 @@ public class Language implements Serializable {
     @Column(name="language_code")
     private String languageCode;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name="language_id")
-    private List<Translation> translations;
-
-
     public short getId() {
         return this.id;
     }
@@ -38,14 +33,6 @@ public class Language implements Serializable {
 
     public void setLanguageCode(String languageCode) {
         this.languageCode = languageCode;
-    }
-
-    public List<Translation> getTranslations() {
-        return this.translations;
-    }
-
-    public void setTranslations(List<Translation> translations) {
-        this.translations = translations;
     }
 
 }
