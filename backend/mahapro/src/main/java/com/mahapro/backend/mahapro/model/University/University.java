@@ -29,7 +29,31 @@ public class University {
     @Column(name = "university_country")
     private String country;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name="university_id")
-    private List<UniversityDomain> domains;
+
+
+    public short getId() {
+        return id;
+    }
+
+    public void setId(short id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+
 }

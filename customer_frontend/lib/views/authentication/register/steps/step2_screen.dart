@@ -111,7 +111,7 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                             width: 400.0,
                             child: TextField(
                               controller: _schoolEmailController,
-                              onTapOutside: (event) {
+                              onSubmitted: (event) {
                                 BlocProvider.of<RegistrationCubit>(context).setSchoolEmail(_schoolEmailController.text);
                               },
                               decoration: kTextFieldDecoration.copyWith(
@@ -125,21 +125,6 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                         const SizedBox(
                           width: 8.0,
                         ),
-                        // Flexible(
-                        //   flex: 3,
-                        //   child: Material(
-                        //       color: Colors.blueAccent,
-                        //       borderRadius: BorderRadius.circular(30.0),
-                        //       child: MaterialButton(
-                        //         onPressed: () {},
-                        //         height: 42.0,
-                        //         child: const Text(
-                        //           'Verify',
-                        //           style: TextStyle(
-                        //               fontSize: 20.0, color: Colors.white),
-                        //         ),
-                        //       )),
-                        // ),
                       ],
                     )),
                 Padding(
@@ -148,6 +133,9 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                     controller: _passwordController,
                     keyboardType: TextInputType.name,
                     obscureText: _obscureText,
+                    onSubmitted: (event) {
+                      BlocProvider.of<RegistrationCubit>(context).setPassword(_passwordController.text);
+                    },
                     onTapOutside: (event) {
                       BlocProvider.of<RegistrationCubit>(context).setPassword(_passwordController.text);
                     },

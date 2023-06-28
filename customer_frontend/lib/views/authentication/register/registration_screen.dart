@@ -17,17 +17,21 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   int currentPage = 0;
-  CarouselController _carouselController = CarouselController();
+  final _pageController = PageController(initialPage: 0);
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   void _goToNextPage() {
-    _carouselController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.linear);
     setState(() {
       currentPage++;
     });
   }
 
   void _goToPreviousPage() {
-    _carouselController.previousPage(duration: Duration(milliseconds: 300), curve: Curves.linear);
     setState(() {
       currentPage--;
     });
@@ -36,95 +40,95 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final List<Widget> _steps = [
     IntroRegistrationScreen(),
     Padding(padding: EdgeInsetsDirectional.symmetric(horizontal: 24), child: RegistrationPage1()),
-    Padding(padding: EdgeInsetsDirectional.symmetric(horizontal: 24), child: RegistrationPage2()),
+    // Padding(padding: EdgeInsetsDirectional.symmetric(horizontal: 24), child: RegistrationPage2()),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      body: Column(
+      body: Stack(
         children: [
-          Padding(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 15, left: 20, right: 20, bottom: 20),
-            child: StepProgressIndicator(
-              totalSteps: _steps.length,
-              currentStep: currentPage + 1,
-            ),
-          ),
-          Expanded(
+          Positioned(
+              top: 30,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: 80,
+                child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Expanded(
+                      child: StepProgressIndicator(
+                    totalSteps: _steps.length,
+                    currentStep: currentPage + 1,
+                    selectedColor: Colors.black,
+                    unselectedColor: Colors.grey,
+                  ))
+                ]),
+              )),
+          Positioned(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               currentPage == 0
                   ? SizedBox.shrink()
-                  : const Text(
-                      "Registration",
-                      style: TextStyle(fontSize: 30),
-                    ),
-              currentPage == 0
-                  ? const SizedBox.shrink()
-                  : const SizedBox(
-                      height: 100,
+                  : Align(
+                      alignment: Alignment.topCenter,
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 100),
+                        child: const Text(
+                          "Registration",
+                          style: TextStyle(fontSize: 30),
+                        ),
+                      ),
                     ),
               BlocProvider(
                   create: (create) => RegistrationCubit(),
-                  child: BlocBuilder<RegistrationCubit, RegistrationState>(builder: (context, state) {
-                    return Expanded(
-                        child: CarouselSlider(
-                      carouselController: _carouselController,
-                      items: _steps,
-                      options: CarouselOptions(
-                          enableInfiniteScroll: false,
-                          height: double.infinity,
-                          viewportFraction: 1.0,
-                          enlargeCenterPage: true,
-                          onScrolled: (double? index) {
-                            if (currentPage > index!.abs()) {
-                              _goToPreviousPage();
-                            } else if(currentPage < index!.abs()){
-                              _goToNextPage();
-                            }
-                          }),
-                    ));
-                  }))
+                  child: Expanded(
+                      child: PageView(
+                    onPageChanged: (int index) {
+                      setState(() {
+                        currentPage = index;
+                      });
+                    },
+                    controller: _pageController,
+                    children: _steps,
+                  ))),
             ],
           ))
         ],
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Container(
-          height: 100,
-          width: MediaQuery.of(context).size.width,
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Expanded(
-                  child: Padding(
-                padding: EdgeInsets.all(10),
-                child: MaterialButton(
-                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16))),
-                  color: Colors.deepPurple,
-                  height: double.infinity,
-                  onPressed: currentPage > 0 ? _goToPreviousPage : null,
-                  child: const Icon(Icons.arrow_back),
-                ),
-              )),
-              Expanded(
-                  child: Padding(
-                padding: EdgeInsets.all(10),
-                child: MaterialButton(
-                    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16))),
-                    color: Colors.deepPurple,
-                    height: double.infinity,
-                    onPressed: currentPage < 2 ? _goToNextPage : null,
-                    child: const Icon(Icons.arrow_forward)),
-              ))
-            ],
-          ),
-        ),
-      ),
+      // bottomNavigationBar: BottomAppBar(
+      //   child: Container(
+      //     height: 100,
+      //     width: MediaQuery.of(context).size.width,
+      //     child: Row(
+      //       mainAxisSize: MainAxisSize.max,
+      //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //       children: [
+      //         Expanded(
+      //             child: Padding(
+      //           padding: EdgeInsets.all(10),
+      //           child: MaterialButton(
+      //             shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16))),
+      //             color: Colors.deepPurple,
+      //             height: double.infinity,
+      //             onPressed: currentPage > 0 ? _goToPreviousPage : null,
+      //             child: const Icon(Icons.arrow_back),
+      //           ),
+      //         )),
+      //         Expanded(
+      //             child: Padding(
+      //           padding: EdgeInsets.all(10),
+      //           child: MaterialButton(
+      //               shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16))),
+      //               color: Colors.deepPurple,
+      //               height: double.infinity,
+      //               onPressed: currentPage < 2 ? _goToNextPage : null,
+      //               child: const Icon(Icons.arrow_forward)),
+      //         ))
+      //       ],
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

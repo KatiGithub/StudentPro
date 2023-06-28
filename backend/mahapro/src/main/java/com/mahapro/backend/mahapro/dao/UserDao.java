@@ -13,10 +13,7 @@ public interface UserDao {
     User findById(int userId);
     List<User> findByUniversityId(int universityId);
     User findByFirebaseUserId(String firebaseUserId);
-    User findByFavoriteId(int favoriteId);
-
     void save(User user);
     void verifyUser(int userId);
-    void updateLocation(int userId, Point userLocation);
     boolean login(int userId);
 }

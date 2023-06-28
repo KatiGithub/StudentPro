@@ -1,9 +1,14 @@
 package com.mahapro.backend.mahapro.dao.impl;
 
 import java.util.List;
+import java.util.Objects;
 
+import jakarta.persistence.ParameterMode;
+import jakarta.persistence.StoredProcedureQuery;
+import jakarta.transaction.Transactional;
 import org.locationtech.jts.geom.Point;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 
 import com.mahapro.backend.mahapro.dao.UserDao;
@@ -49,33 +54,41 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findByFavoriteId(int favoriteId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findByFavoriteId'");
-    }
-
-    @Override
+    @Transactional
     public void save(User user) {
-        Query query = entityManager.createNativeQuery("INSERT INTO public.\"user\"(	user_id, first_name, last_name, personal_email, school_email,date_of_birth, university_id, firebase_user_id, email_verified) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);", User.class);
+        Query query = entityManager.createNativeQuery("SELECT * FROM insert_user(:firstName, :lastName, :personalEmail, :schoolEmail, :dateOfBirth, :universityId, :firebaseUserId)");
+        query.setParameter("firstName", user.getFirstName());
+        query.setParameter("lastName", user.getLastName());
+        query.setParameter("personalEmail", user.getPersonalEmail());
+        query.setParameter("schoolEmail", user.getSchoolEmail());
+        query.setParameter("dateOfBirth", user.getDateOfBirth());
+        query.setParameter("universityId", user.getUniversity().getId());
+        query.setParameter("firebaseUserId", user.getFirebaseUserId());
+
+        query.getSingleResult();
     }
 
+    @Transactional
+//    @Modifying
     @Override
     public void verifyUser(int userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'verifyUser'");
-    }
+        try {
+            Query query = entityManager.createNativeQuery("SELECT * FROM verify_user(:userId)");
+            query.setParameter("userId", userId);
 
-    @Override
-    public void updateLocation(int userId, Point userLocation) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateLocation'");
+            Object result = query.getSingleResult();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override
     public boolean login(int userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'login'");
+        Query query = entityManager.createNativeQuery("SELECT email_verified FROM \"user\" WHERE user_id = :userId", Boolean.class);
+        query.setParameter("userId", userId);
+
+        return (boolean) query.getSingleResult();
     }
 
-    
+
 }
