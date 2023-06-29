@@ -1,5 +1,8 @@
 package com.mahapro.backend.mahapro.model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mahapro.backend.mahapro.model.Business.Branch.Branch;
+import com.mahapro.backend.mahapro.model.Business.Discount.Discount;
 import com.mahapro.backend.mahapro.model.User.User;
 
 import jakarta.persistence.CascadeType;
@@ -28,7 +31,25 @@ public class Transaction {
     @Column(name="used_on")
     private double usedOn;
     
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="discount_id")
+    private Discount discount;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "branch_id")
+    private Branch branch;
+
+    @Override
+    public String toString() {
+        try {
+            return new ObjectMapper().writeValueAsString(this);
+        } catch (Exception f) {
+            System.out.println(f.getMessage());
+            return null;
+        }
+    }
 }

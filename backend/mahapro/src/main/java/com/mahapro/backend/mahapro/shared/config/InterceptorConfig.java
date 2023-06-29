@@ -30,7 +30,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(userAuthInterceptor).excludePathPatterns(this.userAuthInterceptorExcludePatterns);
-        registry.addInterceptor(businessAuthInterceptor).addPathPatterns(this.businessAuthInterceptorIncludePatterns);
+//        registry.addInterceptor(userAuthInterceptor).excludePathPatterns(this.userAuthInterceptorExcludePatterns);
+//        registry.addInterceptor(businessAuthInterceptor).addPathPatterns(this.businessAuthInterceptorIncludePatterns);
     }
 }

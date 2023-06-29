@@ -11,4 +11,6 @@ public interface TransactionDao {
     List<Transaction> findByUserId(int userId);
     List<Transaction> findByDiscountId(int discountId);
     List<Transaction> findByBranchId(int branchId);
+    Transaction claimCoupon(int discountId, int userId, String couponCode);
+    Boolean checkUserLimit(int discountId, int userId);
 }

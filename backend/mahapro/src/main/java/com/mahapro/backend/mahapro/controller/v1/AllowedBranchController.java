@@ -23,7 +23,7 @@ public class AllowedBranchController{
         this.allowedBranchService = allowedBranchService;
     }
 
-    @GetMapping("/{id}/")
+    @GetMapping("/{id}")
     public ResponseEntity<String> findAllowedBranchById(@PathVariable("id") int id) {
         try {
             AllowedBranch allowedBranch = allowedBranchService.findById(id);
@@ -34,7 +34,7 @@ public class AllowedBranchController{
         }
     }
 
-    @GetMapping("/discount/{id}/")
+    @GetMapping("/discount/{id}")
     public ResponseEntity<String> findAllowedBranchByDiscountId(@PathVariable("id") int id) {
         try {
             List<AllowedBranch> allowedBranch = allowedBranchService.findByDiscountId(id);

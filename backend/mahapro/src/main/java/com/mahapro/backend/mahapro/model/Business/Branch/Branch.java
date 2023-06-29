@@ -1,6 +1,9 @@
 package com.mahapro.backend.mahapro.model.Business.Branch;
 
 import java.io.Serializable;
+
+import com.mahapro.backend.mahapro.model.Text.TextContent;
+import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.locationtech.jts.geom.Point;
@@ -10,16 +13,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mahapro.backend.mahapro.model.Business.Business;
 import com.mahapro.backend.mahapro.shared.deserializer.LocationDeserializer;
 import com.mahapro.backend.mahapro.shared.serializer.LocationSerializer;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "branch")
@@ -42,6 +35,18 @@ public class Branch implements Serializable {
     @JoinColumn(name = "business_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Business business;
+
+    public TextContent getBranchName() {
+        return branchName;
+    }
+
+    public void setBranchName(TextContent branchName) {
+        this.branchName = branchName;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "branch_name_text_id", referencedColumnName = "text_id")
+    private TextContent branchName;
 
     public int getId() {
         return this.id;

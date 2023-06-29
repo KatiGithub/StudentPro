@@ -3,6 +3,7 @@ package com.mahapro.backend.mahapro.model.Business.Discount;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -29,7 +30,6 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="discount")
-@JsonSerialize
 public class Discount implements Serializable {
 
     @Id
@@ -56,18 +56,6 @@ public class Discount implements Serializable {
     @JoinColumn(name="business_id", nullable = false)
     @OnDelete(action=OnDeleteAction.CASCADE)
     private Business business;
-
-    // @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
-    // @JoinColumn(name = "discount_id")
-    // private List<FixedAmountDiscount> fixedAmountDiscounts;
-
-    // @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
-    // @JoinColumn(name="discount_id")
-    // private List<PercentageDiscount> percentageDiscounts;
-
-    // @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
-    // @JoinColumn(name="discount_id")
-    // private List<BonusDiscount> bonusDiscounts;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="discount_title_text_id", referencedColumnName = "text_id")
@@ -134,30 +122,6 @@ public class Discount implements Serializable {
         this.business = business;
     }
 
-    // public List<FixedAmountDiscount> getFixedAmountDiscounts() {
-    //     return this.fixedAmountDiscounts;
-    // }
-
-    // public void setFixedAmountDiscounts(List<FixedAmountDiscount> fixedAmountDiscounts) {
-    //     this.fixedAmountDiscounts = fixedAmountDiscounts;
-    // }
-
-    // public List<PercentageDiscount> getPercentageDiscounts() {
-    //     return this.percentageDiscounts;
-    // }
-
-    // public void setPercentageDiscounts(List<PercentageDiscount> percentageDiscounts) {
-    //     this.percentageDiscounts = percentageDiscounts;
-    // }
-
-    // public List<BonusDiscount> getBonusDiscounts() {
-    //     return this.bonusDiscounts;
-    // }
-
-    // public void setBonusDiscounts(List<BonusDiscount> bonusDiscounts) {
-    //     this.bonusDiscounts = bonusDiscounts;
-    // }
-
     public TextContent getDiscountTitle() {
         return this.discountTitle;
     }
@@ -166,4 +130,13 @@ public class Discount implements Serializable {
         this.discountTitle = discountTitle;
     }
 
+    @Override
+    public String toString() {
+        try {
+            return new ObjectMapper().writeValueAsString(this);
+        } catch (Exception f) {
+            System.out.println(f.getMessage());
+            return null;
+        }
+    }
 }
