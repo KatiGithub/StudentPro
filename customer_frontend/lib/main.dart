@@ -11,6 +11,7 @@ import 'package:studio_projects/shared/common_blocs/theme/theme_bloc.dart';
 import 'package:studio_projects/views/authentication/authentication_screen.dart';
 import 'package:studio_projects/views/authentication/login/login_screen.dart';
 import 'package:studio_projects/views/authentication/register/email_verification.dart';
+import 'package:studio_projects/views/authentication/register/registration_cubit.dart';
 import 'package:studio_projects/views/authentication/register/registration_screen.dart';
 import 'package:studio_projects/views/authentication/reset_password/reset_password.dart';
 import 'package:studio_projects/views/main/main_screen.dart';
@@ -57,7 +58,8 @@ class _MyAppState extends State<MyApp> {
           // settingsBloc.hydrate();
           return settingsBloc;
         }),
-        BlocProvider(create: (_) => ThemeBloc())
+        BlocProvider(create: (_) => ThemeBloc()),
+        BlocProvider(create: (_) => RegistrationCubit())
       ],
       child: BlocConsumer<SettingsBloc, SettingsState>(
         listener: (context, state) {

@@ -16,19 +16,9 @@ const Color kBlack45Color = Color(0x73000000);
 final kTextFieldDecorationUnfocused = InputDecoration(
     fillColor: Color.fromRGBO(209, 205, 205, 1),
     filled: true,
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(12.0),
-      borderSide: BorderSide(width: 0, color: Colors.white)
-    ));
+    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0), borderSide: BorderSide.none));
 
-final kTextFieldDecorationFocused =
-    InputDecoration(border: GradientOutlineInputBorder(
-      borderRadius: BorderRadius.circular(12.0),
-        gradient: RadialGradient(
-          radius: 1,
-            colors: [
-              Color.fromRGBO(246, 169, 51, 1),
-              Colors.white
-            ]
-        ))
-    );
+final kTextFieldDecorationFocused = InputDecoration(
+    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0), borderSide: BorderSide.none),
+    filled: true,
+    fillColor: Colors.white);

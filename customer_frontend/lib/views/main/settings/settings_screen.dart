@@ -33,8 +33,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   width: 10,
                 ),
                 Text("Account Settings",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.start),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold), textAlign: TextAlign.start),
               ],
             ),
             ListTile(
@@ -60,8 +59,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   width: 10,
                 ),
                 Text(AppLocalizations.of(context)!.preferences,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.start),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold), textAlign: TextAlign.start),
               ],
             ),
             SwitchListTile(

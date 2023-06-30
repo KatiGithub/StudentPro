@@ -61,6 +61,8 @@ dependencies:
   carousel_slider: ^4.2.1
   flutter_native_splash: ^2.2.19
   gradient_borders: ^1.0.0
+  flutter_rounded_date_picker: ^3.0.4
+  horizontal_blocked_scroll_physics: ^4.0.1
 
 
 dev_dependencies:

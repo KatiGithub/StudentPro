@@ -22,9 +22,15 @@ class _HomeScreenState extends State<HomeScreen> {
     List<Discount> discounts = _homeState.discounts;
 
     return BlocBuilder<HomeCubit, HomeState>(
-          builder: (context, state) {
-            return Padding(padding: EdgeInsetsDirectional.symmetric(horizontal: 18.0), child: DiscountCardGrouper(discounts: discounts, context: context,),);
-          },
+      builder: (context, state) {
+        return Padding(
+          padding: EdgeInsetsDirectional.symmetric(horizontal: 18.0),
+          child: DiscountCardGrouper(
+            discounts: discounts,
+            context: context,
+          ),
         );
+      },
+    );
   }
 }

@@ -315,6 +315,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.19"
+  flutter_rounded_date_picker:
+    dependency: "direct main"
+    description:
+      name: flutter_rounded_date_picker
+      sha256: e6aa2dc5d3b44e8bbe85ef901be69eac59ba4136427f11f4c8b2a303e1e774e7
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.4"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -349,6 +357,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.3"
+  horizontal_blocked_scroll_physics:
+    dependency: "direct main"
+    description:
+      name: horizontal_blocked_scroll_physics
+      sha256: "0ad4bdefe1b78d83562eb1fea270153eb6e3693c9aff683451e3de65668c7bbd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.1"
   html:
     dependency: transitive
     description:

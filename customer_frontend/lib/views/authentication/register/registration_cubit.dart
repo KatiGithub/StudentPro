@@ -43,7 +43,6 @@ class RegistrationCubit extends Cubit<RegistrationState> {
     if (state.user.firstName == '' ||
         state.user.lastName == '' ||
         state.user.personalEmail == '' ||
-        state.user.university == null ||
         state.user.dateOfBirth == 0 ||
         state.user.userCredentials.schoolEmail == '' ||
         state.user.userCredentials.password == '') {
