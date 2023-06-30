@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
             _passwordEnabled = false;
 
             Navigator.pushNamedAndRemoveUntil(
-                context, 'main', (route) => false);
+                context, 'home', (route) => false);
           } else if (state is LoginFailure) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 backgroundColor: Colors.redAccent,

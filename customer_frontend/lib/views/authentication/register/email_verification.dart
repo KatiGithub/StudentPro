@@ -31,7 +31,7 @@ class _EmailVerificationState extends State<EmailVerification> {
         listener: (context, state) {
           if (state is RegistrationSuccess) {
             Navigator.pushNamedAndRemoveUntil(
-                context, 'main', (route) => false);
+                context, 'home', (route) => false);
           } else if (state is RegistrationError) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.error)));

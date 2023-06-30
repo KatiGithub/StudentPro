@@ -18,19 +18,77 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final _homeState = context.watch<HomeCubit>().state;
+    final _homeState = BlocProvider.of<HomeCubit>(context).state;
     List<Discount> discounts = _homeState.discounts;
 
-    return BlocBuilder<HomeCubit, HomeState>(
-      builder: (context, state) {
-        return Padding(
-          padding: EdgeInsetsDirectional.symmetric(horizontal: 18.0),
-          child: DiscountCardGrouper(
-            discounts: discounts,
-            context: context,
-          ),
-        );
-      },
-    );
+    return Scaffold(
+        body: SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+              height: MediaQuery.of(context).size.height / 3.6,
+              child: Column(
+                children: [
+                  Flexible(
+                      flex: 9,
+                      fit: FlexFit.tight,
+                      child: AspectRatio(
+                        aspectRatio: 16 / 9,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.teal,
+                              borderRadius: BorderRadius.circular(40),
+                              boxShadow: [const BoxShadow(color: Colors.black54, blurRadius: 15)]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(bottom: 20, left: 20, right: 10),
+                                    height: 60,
+                                    child: AspectRatio(
+                                      aspectRatio: 1 / 1,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.redAccent, borderRadius: BorderRadius.circular(10)),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      )),
+                  Flexible(
+                      flex: 2,
+                      fit: FlexFit.tight,
+                      child: Column(
+                        children: [
+                          Expanded(
+                              child: Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.only(top: 8, left: 20),
+                            child: Text(
+                              "Discount title will stand here!",
+                              textAlign: TextAlign.start,
+                            ),
+                          ))
+                        ],
+                      ))
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    ));
   }
 }

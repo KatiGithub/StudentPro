@@ -14,6 +14,8 @@ import 'package:studio_projects/views/authentication/register/email_verification
 import 'package:studio_projects/views/authentication/register/registration_cubit.dart';
 import 'package:studio_projects/views/authentication/register/registration_screen.dart';
 import 'package:studio_projects/views/authentication/reset_password/reset_password.dart';
+import 'package:studio_projects/views/main/home/home_cubit.dart';
+import 'package:studio_projects/views/main/home/home_screen.dart';
 import 'package:studio_projects/views/main/main_screen.dart';
 import 'package:studio_projects/views/main/settings/settings_bloc.dart';
 import 'package:studio_projects/views/main/settings/settings_state.dart';
@@ -59,7 +61,8 @@ class _MyAppState extends State<MyApp> {
           return settingsBloc;
         }),
         BlocProvider(create: (_) => ThemeBloc()),
-        BlocProvider(create: (_) => RegistrationCubit())
+        BlocProvider(create: (_) => RegistrationCubit()),
+        BlocProvider(create: (_) => HomeCubit())
       ],
       child: BlocConsumer<SettingsBloc, SettingsState>(
         listener: (context, state) {
@@ -98,7 +101,8 @@ class _MyAppState extends State<MyApp> {
               EmailVerification.id: (context) => EmailVerification(),
               SearchScreen.id: (context) => SearchScreen(),
               RetailerScreen.id: (context) => RetailerScreen(),
-              ResetPasswordScreen.id: (context) => ResetPasswordScreen()
+              ResetPasswordScreen.id: (context) => ResetPasswordScreen(),
+              HomeScreen.id: (context) => HomeScreen()
             },
           );
         },
