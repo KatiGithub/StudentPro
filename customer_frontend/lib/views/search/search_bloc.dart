@@ -1,11 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:studio_projects/models/retailers/retailer.dart';
+import 'package:studio_projects/models/retailers/business.dart';
 import 'package:studio_projects/views/search/search_event.dart';
 import 'package:studio_projects/views/search/search_state.dart';
 
-import '../../models/discounts/discount.dart';
-import '../../models/discounts/discounttypes/codeDiscounts.dart';
-import '../../models/discounts/discounttypes/linkDiscounts.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc() : super(SearchInitial()) {
@@ -22,17 +19,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     emit(SearchInitial());
   }
 
-  List<Retailer> _getResults(String searchQuery) {
-    List<Retailer> retailers = [];
-
-    for(int i = 0; i < 20; i++) {
-      retailers.add(
-        Retailer(
-          RetailerID: i.toDouble(),
-          RetailerName: "Example Name"
-        )
-      );
-    }
+  List<Business> _getResults(String searchQuery) {
+    List<Business> retailers = [];
 
     return retailers;
 

@@ -8,17 +8,7 @@ import com.mahapro.backend.mahapro.model.Business.Branch.Branch;
 import com.mahapro.backend.mahapro.model.Business.Discount.Discount;
 import com.mahapro.backend.mahapro.model.Text.TextContent;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="business")
@@ -39,9 +29,17 @@ public class Business implements Serializable{
     @Column(name="contact_name")
     private String contactName;
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "business_type_id")
+    private BusinessType businessType;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "business_info_text_id", referencedColumnName = "text_id")
     private TextContent businessInfo;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="business_slogan_text_id", referencedColumnName = "text_id")
+    private TextContent businessSlogan;
 
     public int getId() {
         return id;
@@ -83,5 +81,20 @@ public class Business implements Serializable{
         this.businessInfo = businessInfo;
     }
 
-    
+
+    public TextContent getBusinessSlogan() {
+        return businessSlogan;
+    }
+
+    public void setBusinessSlogan(TextContent businessSlogan) {
+        this.businessSlogan = businessSlogan;
+    }
+
+    public BusinessType getBusinessType() {
+        return businessType;
+    }
+
+    public void setBusinessType(BusinessType businessType) {
+        this.businessType = businessType;
+    }
 }

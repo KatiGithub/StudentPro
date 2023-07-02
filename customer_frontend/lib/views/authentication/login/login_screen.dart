@@ -2,14 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:studio_projects/constant/components.dart';
+import 'package:studio_projects/shared/common_blocs/auth/auth_cubit.dart';
+import 'package:studio_projects/shared/common_blocs/auth/auth_state.dart';
 import 'package:studio_projects/shared/components/CustomTextField_Rounded.dart';
-import 'package:studio_projects/shared/validators.dart';
-import 'package:studio_projects/views/authentication/login/login_bloc.dart';
-import 'package:studio_projects/views/authentication/login/login_event.dart';
 
-import '../../../shared/components/rounded_buttons.dart';
-import 'login_state.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login';
@@ -34,11 +30,11 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginBloc(),
-      child: BlocConsumer<LoginBloc, LoginState>(
+      create: (context) => BlocProvider.of<AuthCubit>(context),
+      child: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           print(state);
-          if (state is LoginSuccess) {
+          if (state is LoginSucess) {
             _emailEnabled = false;
             _passwordEnabled = false;
 
@@ -50,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 content: Text(
                   state.error,
                 )));
-          } else if (state is LoginEmailVerification) {
+          } else if (state is EmailVerificationNeeded) {
             Navigator.pushNamedAndRemoveUntil(
                 context, 'email_verification', (route) => false);
           }
@@ -173,10 +169,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 55,
                             child: MaterialButton(
                               onPressed: () {
-                                context.read<LoginBloc>().add(
-                                    LoginButtonPressed(
-                                        email: _emailController.text,
-                                        password: _passwordController.text));
+                                BlocProvider.of<AuthCubit>(context).state.user.schoolEmail = _emailController.text;
+                                BlocProvider.of<AuthCubit>(context).state.password = _passwordController.text;
+                                BlocProvider.of<AuthCubit>(context).login();
 
                                 FocusScopeNode currentFocus =
                                     FocusScope.of(context);

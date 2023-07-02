@@ -14,7 +14,7 @@ class CouponDiscountHandler extends DiscountHandler {
 
   @override
   void handleDiscount(Discount discount) {
-    CodeDiscount _discount = discount as CodeDiscount;
+    Discount _discount = discount;
 
     Widget content = CouponDisplayPopup(discount: _discount);
     displayModalBottomSheet(context, content);

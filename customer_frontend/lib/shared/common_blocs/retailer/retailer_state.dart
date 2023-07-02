@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:studio_projects/models/retailers/retailer.dart';
+import 'package:studio_projects/models/retailers/business.dart';
 
 abstract class RetailerState extends Equatable {
   @override
@@ -12,7 +12,7 @@ class RetailerInitial extends RetailerState {}
 class RetailerLoading extends RetailerState {}
 
 class RetailerLoadComplete extends RetailerState {
-  Retailer retailer;
+  Business retailer;
 
   RetailerLoadComplete({required this.retailer});
 

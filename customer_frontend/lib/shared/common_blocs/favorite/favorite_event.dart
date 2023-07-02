@@ -1,28 +1,28 @@
 import 'package:equatable/equatable.dart';
-import 'package:studio_projects/models/retailers/retailer.dart';
+import 'package:studio_projects/models/retailers/business.dart';
 
 abstract class FavoriteEvent extends Equatable {
-  Retailer retailer;
+  Business business;
 
-  FavoriteEvent({required this.retailer});
+  FavoriteEvent({required this.business});
 
   @override
   List<Object> get props => [];
 }
 
 class OnAddToFavorite extends FavoriteEvent{
-  OnAddToFavorite({required super.retailer});
+  OnAddToFavorite({required super.business});
 }
 
 class OnRemoveFromFavorite extends FavoriteEvent {
-  OnRemoveFromFavorite({required super.retailer});
+  OnRemoveFromFavorite({required super.business});
 }
 
 class OnIsFavorite extends FavoriteEvent {
-  OnIsFavorite({required super.retailer});
+  OnIsFavorite({required super.business});
 }
 
 class OnRetrieveFavorites extends FavoriteEvent {
-  OnRetrieveFavorites({required super.retailer});
+  OnRetrieveFavorites({required super.business});
 }
 

@@ -83,11 +83,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean login(int userId) {
-        Query query = entityManager.createNativeQuery("SELECT email_verified FROM \"user\" WHERE user_id = :userId", Boolean.class);
+    public User login(int userId) {
+        Query query = entityManager.createNativeQuery("SELECT * FROM \"user\" WHERE user_id = :userId", User.class);
         query.setParameter("userId", userId);
 
-        return (boolean) query.getSingleResult();
+        return (User) query.getSingleResult();
     }
 
 

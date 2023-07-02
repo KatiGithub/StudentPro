@@ -36,6 +36,10 @@ public class Branch implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Business business;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "branch_name_text_id", referencedColumnName = "text_id")
+    private TextContent branchName;
+
     public TextContent getBranchName() {
         return branchName;
     }
@@ -43,10 +47,6 @@ public class Branch implements Serializable {
     public void setBranchName(TextContent branchName) {
         this.branchName = branchName;
     }
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "branch_name_text_id", referencedColumnName = "text_id")
-    private TextContent branchName;
 
     public int getId() {
         return this.id;

@@ -15,5 +15,5 @@ public interface UserDao {
     User findByFirebaseUserId(String firebaseUserId);
     void save(User user);
     void verifyUser(int userId);
-    boolean login(int userId);
+    User login(int userId);
 }

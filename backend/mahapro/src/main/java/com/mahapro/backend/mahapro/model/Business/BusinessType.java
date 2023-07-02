@@ -28,11 +28,6 @@ public class BusinessType implements Serializable {
     @Column(name="business_type_name")
     private String name;
 
-    @OneToMany(fetch =FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "business_type_id")
-    private List<Business> businesses;
-
-
     public int getId() {
         return this.id;
     }
@@ -47,14 +42,6 @@ public class BusinessType implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Business> getBusinesses() {
-        return this.businesses;
-    }
-
-    public void setBusinesses(List<Business> businesses) {
-        this.businesses = businesses;
     }
 
 }

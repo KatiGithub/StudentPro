@@ -26,7 +26,7 @@ class _MainScreenState extends State<MainScreen> {
             return HomeScreen();
           },
         )),
-    SavedForLaterScreen(),
+    // SavedForLaterScreen(),
     FavoriteScreen(),
     SettingsScreen()
   ];

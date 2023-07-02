@@ -18,29 +18,5 @@ class HomeCubit extends Cubit<HomeState> {
       'nike.png',
       'starbucks.png'
     ];
-
-    for (int i = 0; i < 5; i++) {
-      state.discounts.add(new CodeDiscount(
-          discountID: i.toDouble(),
-          discountImage: DiscountLogo.fromJson({
-            'type': 'full',
-            'imageUrl': 'assets/brand_logos/' + image_logos[i]
-          }),
-          discountDescription: "Test Description",
-          discountTitle: 'Promotion',
-          couponCode: "XXXX-XXXXX-XXXX"));
-    }
-
-    for (int i = 0; i < 5; i++) {
-      state.discounts.add(new LinkDiscount(
-          discountID: i + 6.toDouble(),
-          discountImage: DiscountLogo.fromJson({
-            'type': 'full',
-            'imageUrl': 'assets/brand_logos/' + image_logos[i]
-          }),
-          discountDescription: "Test Description",
-          discountTitle: 'Promotion',
-          linkRedirect: "https://lin.ee/eHlcWLN"));
-    }
   }
 }

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../models/retailers/retailer.dart';
+import '../../../models/retailers/business.dart';
 
 abstract class RetailerEvent extends Equatable {
   @override
@@ -9,7 +9,7 @@ abstract class RetailerEvent extends Equatable {
 }
 
 class OnGetRetailerInformation extends RetailerEvent {
-  Retailer retailer;
+  Business retailer;
 
   OnGetRetailerInformation({required this.retailer});
 

@@ -2,10 +2,12 @@ import 'package:equatable/equatable.dart';
 import 'package:studio_projects/models/user.dart';
 
 class RegistrationState extends Equatable {
-  final User user;
+  final User? user;
+  String? password;
   bool schoolEmailVerified = false;
 
-  RegistrationState({User? user}) : this.user = user ?? User();
+  RegistrationState( {User? user, this.password}) :
+        this.user = user;
 
   RegistrationState copyWith({User? user}) {
     return RegistrationState(
@@ -14,7 +16,7 @@ class RegistrationState extends Equatable {
   }
 
   @override
-  List<Object> get props => [this.user];
+  List<Object> get props => [];
 }
 
 class RegistrationInitial extends RegistrationState {}

@@ -1,61 +1,99 @@
 import 'package:studio_projects/models/university.dart';
 import 'package:studio_projects/models/usercredentials.dart';
+import 'package:studio_projects/shared/json_serializable.dart';
 
-class User {
-  String? userId;
-  String? firstName;
-  String? lastName;
-  String? personalEmail;
-  String? phoneNumber;
-  double? dateOfBirth;
-  University? university;
-  UserCredentials userCredentials = UserCredentials();
+class User implements JsonSerializable {
+  String? _userId;
+  String? _firstName;
+  String? _lastName;
+  String? _personalEmail;
+  double? _dateOfBirth;
+  University? _university;
+  String? _schoolEmail;
 
-  User(
-      {this.userId = '',
-      this.firstName = '',
-      this.lastName = '',
-      this.personalEmail = '',
-      this.phoneNumber = '',
-      this.dateOfBirth = 0});
+  User();
 
   bool isFilledOut() {
-    if (this.userId != '' &&
-        this.firstName != '' &&
-        this.lastName != '' &&
-        this.personalEmail != '' &&
-        this.dateOfBirth != 0 &&
-        this.university != null &&
-        this.userCredentials.isFilledOut()) {
+    if (this._userId != '' &&
+        this._firstName != '' &&
+        this._lastName != '' &&
+        this._personalEmail != '' &&
+        this._dateOfBirth != 0 &&
+        this._university != null &&
+        this._schoolEmail != '') {
       return true;
     }
     return false;
   }
 
   @override
-  copyWith({
-   String? userId,
-   String? firstName,
-   String? lastName,
-   String? personalEmail,
-   double? dateOfBirth,
-   University? university,
-   String? schoolEmail,
-   String? password
-  }) {
-    User user = User(
-      userId: userId ?? this.userId,
-      firstName: firstName ?? this.firstName,
-      lastName: lastName ?? this.lastName,
-      personalEmail: personalEmail ?? this.personalEmail,
-      dateOfBirth: dateOfBirth ?? this.dateOfBirth,
-    );
-
-    user.userCredentials.schoolEmail = schoolEmail ?? this.userCredentials.schoolEmail;
-    user.userCredentials.password = password ?? this.userCredentials.password;
-
-    user.university = university ?? this.university;
+  static User toClass(Map<String, dynamic> json) {
+    User user = User();
+    user.userId = json['userId'] ?? '';
+    user.firstName = json['firstName'] ?? '';
+    user.lastName = json['lastName'] ?? '';
+    user.personalEmail = json['personalEmail'] ?? '';
+    user.dateOfBirth = json['dateOfBirth'] ?? 0;
+    user.university =  json['University'] != null ? University.toClass(json['University']) : University(0, '', '');
+    user.schoolEmail = json['schoolEmail'] ?? '';
 
     return user;
+  }
+
+  @override
+  String toJson() {
+    Map<String, dynamic> data = {};
+
+    data['userId'] = _userId;
+    data['firstName'] = _firstName;
+    data['lastName'] = _lastName;
+    data['personalEmail'] = _personalEmail;
+    data['schoolEmail'] = _schoolEmail;
+    data['dateOfBirth'] = _dateOfBirth;
+    data['university'] = _university?.toJson();
+
+    return data.toString();
+  }
+
+  String? get userId => _userId;
+
+  set userId(String? value) {
+    _userId = value;
+  }
+
+  String? get firstName => _firstName;
+
+  set firstName(String? value) {
+    _firstName = value;
+  }
+
+  String? get lastName => _lastName;
+
+  set lastName(String? value) {
+    _lastName = value;
+  }
+
+  String? get personalEmail => _personalEmail;
+
+  set personalEmail(String? value) {
+    _personalEmail = value;
+  }
+
+  double? get dateOfBirth => _dateOfBirth;
+
+  set dateOfBirth(double? value) {
+    _dateOfBirth = value;
+  }
+
+  University? get university => _university;
+
+  set university(University? value) {
+    _university = value;
+  }
+
+  String? get schoolEmail => _schoolEmail;
+
+  set schoolEmail(String? value) {
+    _schoolEmail = value;
   }
 }

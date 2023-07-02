@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:studio_projects/shared/common_blocs/favorite/favorite_state.dart';
 import 'package:studio_projects/shared/components/retailer_card_grouper.dart';
 
-import '../../../models/retailers/retailer.dart';
+import '../../../models/retailers/business.dart';
 import '../../../shared/common_blocs/favorite/favorite_bloc.dart';
 
 class FavoriteScreen extends StatefulWidget {
@@ -14,7 +14,7 @@ class FavoriteScreen extends StatefulWidget {
 }
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
-  List<Retailer> favoriteRetailers = [];
+  List<Business> favoriteRetailers = [];
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +23,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             listener: (context, state) {},
             builder: (context, state) {
               FavoriteBloc favoriteBloc = Provider.of<FavoriteBloc>(context);
-              favoriteRetailers = favoriteBloc.retailers;
+              favoriteRetailers = favoriteBloc.businesses;
 
-              return RetailerCardGrouper(
-                  retailers: favoriteRetailers, context: context);
+              return SizedBox.shrink();
             },
           ),
     );

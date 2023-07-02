@@ -2,8 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studio_projects/shared/common_blocs/retailer/retailer_event.dart';
 import 'package:studio_projects/shared/common_blocs/retailer/retailer_state.dart';
 
-import '../../../models/retailers/retailer.dart';
-import '../../../models/retailers/retailer_post.dart';
+import '../../../models/retailers/business.dart';
+import '../../../models/retailers/business_post.dart';
 
 class RetailerBloc extends Bloc<RetailerEvent, RetailerState> {
   RetailerBloc() : super(RetailerInitial()) {
@@ -13,33 +13,17 @@ class RetailerBloc extends Bloc<RetailerEvent, RetailerState> {
 
   void _OnGetRetailerInformation(
       OnGetRetailerInformation event, Emitter<RetailerState> emit) {
-    double retailerID = event.retailer.RetailerID!;
+    int retailerID = event.retailer.businessId;
 
     // Retrieve RetailerPosts and RetailerDescription
 
     String retailerDescription =
         "This is the area where the description set by the retailer will be put. These descriptions can be customised and will in the future include features such as hyperlink texts.";
 
-    List<RetailerPost> retailerPosts = [];
-
-    for (int i = 0; i < 20; i++) {
-      retailerPosts.add(RetailerPost(
-          postTitle: "Test Title",
-          postID: i.toDouble(),
-          postDescription: "Test Description",
-          postMediaLinks: [
-            "assets/food_test.jpg",
-            "assets/food_test.jpg",
-            "assets/food_test.jpg",
-            "assets/food_test.jpg"
-          ],
-          postMadeOn: i + 100));
-    }
+    List<BusinessPost> retailerPosts = [];
 
     emit(RetailerLoadComplete(
-        retailer: event.retailer.copyWith(
-            retailerDescription: retailerDescription,
-            retailerPosts: retailerPosts)));
+        retailer: event.retailer));
 
     emit(RetailerInitial());
   }

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../models/retailers/retailer.dart';
+import '../../../models/retailers/business.dart';
 
 abstract class FavoriteState extends Equatable {
   @override
@@ -22,7 +22,7 @@ class FavoriteIsFavorite extends FavoriteState {
 }
 
 class FavoriteRetrievedSuccess extends FavoriteState {
-  List<Retailer> favoriteRetailers;
+  List<Business> favoriteRetailers;
   FavoriteRetrievedSuccess({required this.favoriteRetailers});
 
   List<Object> get props => [favoriteRetailers];

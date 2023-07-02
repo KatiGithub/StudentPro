@@ -4,18 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:studio_projects/views/authentication/register/registration_bloc.dart';
-import 'package:studio_projects/views/authentication/register/registration_cubit.dart';
-import 'package:studio_projects/views/authentication/register/registration_event.dart';
-import 'package:studio_projects/views/authentication/register/registration_state.dart';
+import 'package:studio_projects/shared/common_blocs/auth/auth_cubit.dart';
+import 'package:studio_projects/shared/common_blocs/auth/auth_state.dart';
 
 import '../../../../constant/components.dart';
-import '../../../../models/university.dart';
-import '../../../../models/user.dart';
-import '../../../../shared/common_blocs/university/university_bloc.dart';
-import '../../../../shared/common_blocs/university/university_event.dart';
-import '../../../../shared/common_blocs/university/university_state.dart';
-import '../../../../shared/components/rounded_buttons.dart';
+
 
 class RegistrationPage1 extends StatefulWidget {
   @override
@@ -34,7 +27,6 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
   DateTime _selectedDate = DateTime(1970);
   bool dateChanged = false;
 
-  final User _user = User();
   bool _obscureText = true;
 
   void _selectDate(DateTime? dateTime) {
@@ -100,11 +92,11 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
 
 
 
-    final _registrationState = context.watch<RegistrationCubit>().state;
+    final _registrationState = context.watch<AuthCubit>().state;
 
 
-    return BlocBuilder<RegistrationCubit, RegistrationState>(builder: (context, state) {
-      return BlocListener<RegistrationCubit, RegistrationState>(
+    return BlocBuilder<AuthCubit, AuthState>(builder: (context, state) {
+      return BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is RegistrationError) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.error)));
@@ -115,7 +107,7 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
             _schoolEmailController.clear();
             _passwordController.clear();
 
-          } else if (state is RegistrationEmailVerification) {
+          } else if (state is EmailVerificationNeeded) {
             Navigator.pushNamedAndRemoveUntil(context, 'email_verification', (route) => false);
           }
         },
@@ -364,10 +356,9 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                           _updatePersonalEmail(_personalEmailController.text, context);
                           _updateSchoolEmail(_schoolEmailController.text, context);
                           _updatePassword(_passwordController.text, context);
-
                           _updateDateOfBirth(_selectedDate.millisecondsSinceEpoch/1000, context);
 
-                          BlocProvider.of<RegistrationCubit>(context).submitLoginInformation();
+                          BlocProvider.of<AuthCubit>(context).submitLoginInformation();
 
                           FocusScopeNode currentFocus = FocusScope.of(context);
                           currentFocus.unfocus();
@@ -400,26 +391,26 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
   }
 
   _updateFirstName(String firstName, BuildContext context) {
-    BlocProvider.of<RegistrationCubit>(context).setFirstName(firstName);
+    BlocProvider.of<AuthCubit>(context).state.user.firstName = firstName;
   }
 
   _updateLastName(String lastName, BuildContext context) {
-    BlocProvider.of<RegistrationCubit>(context).setLastName(lastName);
+    BlocProvider.of<AuthCubit>(context).state.user.lastName = lastName;
   }
 
   _updatePersonalEmail(String personalEmail, BuildContext context) {
-    BlocProvider.of<RegistrationCubit>(context).setPersonalEmail(personalEmail);
+    BlocProvider.of<AuthCubit>(context).state.user.personalEmail = personalEmail;
   }
 
   _updateDateOfBirth(double dateOfBirth, BuildContext context) {
-    BlocProvider.of<RegistrationCubit>(context).setDateOfBirth(dateOfBirth);
+    BlocProvider.of<AuthCubit>(context).state.user.dateOfBirth = dateOfBirth;
   }
 
   _updateSchoolEmail(String schoolEmail, BuildContext context) {
-    BlocProvider.of<RegistrationCubit>(context).setSchoolEmail(schoolEmail);
+    BlocProvider.of<AuthCubit>(context).state.user.schoolEmail = schoolEmail;
   }
 
   _updatePassword(String password, BuildContext context) {
-    BlocProvider.of<RegistrationCubit>(context).setPassword(password);
+    BlocProvider.of<AuthCubit>(context).state.password = password;
   }
 }

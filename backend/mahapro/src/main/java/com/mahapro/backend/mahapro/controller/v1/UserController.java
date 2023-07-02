@@ -1,6 +1,8 @@
 package com.mahapro.backend.mahapro.controller.v1;
 
+import com.mahapro.backend.mahapro.model.User.User;
 import com.mahapro.backend.mahapro.service.UserService;
+import com.mahapro.backend.mahapro.shared.exception.EmailNotVerified;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,19 +26,19 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity registerUser(@RequestBody String jsonBody) {
+    public ResponseEntity registerUser(@RequestBody String jsonBody, @RequestParam("Authorization") String authorizationheader) {
         try {
-            userService.save(jsonBody);
+            userService.save(jsonBody, authorizationheader);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
 
-    @PutMapping("/verify/{id}")
-    public ResponseEntity verifyUser(@PathVariable("id") int userId) {
+    @PutMapping("/verify")
+    public ResponseEntity verifyUser(@RequestParam("Authorization") String authorizationHeader) {
         try {
-            userService.verify_user(userId);
+            userService.verify_user(authorizationHeader);
 
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
@@ -45,8 +47,18 @@ public class UserController {
         }
     }
 
-//    @GetMapping("/login")
-//    public ResponseEntity login() {
-//
-//    }
+    @GetMapping("/login")
+    public ResponseEntity login(@RequestParam String authorizationHeader) {
+        try {
+            User user = userService.login(authorizationHeader);
+            if(!user.isEmailVerified()) {
+                throw new EmailNotVerified();
+            }
+            return ResponseEntity.ok().build();
+        } catch (EmailNotVerified e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }

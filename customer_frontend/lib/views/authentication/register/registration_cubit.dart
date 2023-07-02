@@ -11,49 +11,45 @@ class RegistrationCubit extends Cubit<RegistrationState> {
   RegistrationCubit() : super(RegistrationState());
 
   void setFirstName(String firstName) {
-    emit(state.copyWith(user: state.user.copyWith(firstName: firstName)));
+    state.user?.firstName = firstName;
   }
 
   void setLastName(String lastName) {
-    emit(state.copyWith(user: state.user.copyWith(lastName: lastName)));
+    state.user?.lastName = lastName;
   }
 
   void setPersonalEmail(String personalEmail) {
-    emit(state.copyWith(
-        user: state.user.copyWith(personalEmail: personalEmail)));
+   state.user?.personalEmail = personalEmail;
   }
 
   void setDateOfBirth(double dateOfBirth) {
-    emit(state.copyWith(user: state.user.copyWith(dateOfBirth: dateOfBirth)));
+    state.user?.dateOfBirth = dateOfBirth;
   }
 
   void setSchoolEmail(String schoolEmail) {
-    emit(state.copyWith(user: state.user.copyWith(schoolEmail: schoolEmail)));
+    state.user?.schoolEmail = schoolEmail;
   }
 
   void setPassword(String password) {
-    emit(state.copyWith(user: state.user.copyWith(password: password)));
+    state.password = password;
   }
 
   void setUniversity(University university) {
-    emit(state.copyWith(user: state.user.copyWith(university: university)));
+    state.user?.university = university;
   }
 
   void submitLoginInformation() async {
-    if (state.user.firstName == '' ||
-        state.user.lastName == '' ||
-        state.user.personalEmail == '' ||
-        state.user.dateOfBirth == 0 ||
-        state.user.userCredentials.schoolEmail == '' ||
-        state.user.userCredentials.password == '') {
+    if (state.user?.firstName == '' ||
+        state.user?.lastName == '' ||
+        state.user?.personalEmail == '' ||
+        state.user?.dateOfBirth == 0 ||
+        state.user?.schoolEmail == '') {
       emit(RegistrationError(error: "Information Incomplete"));
       return;
     }
 
     _authService
-        .signUp(
-            email: state.user.userCredentials.schoolEmail!,
-            password: state.user.userCredentials.password!)
+        .signUp(email: state.user!.schoolEmail!, password: state.password!)
         .then((User? user) {
       if (user != null) {
         emit(RegistrationEmailVerification());
@@ -64,13 +60,11 @@ class RegistrationCubit extends Cubit<RegistrationState> {
   }
 
   void verifySchoolEmail() {
-    _authService.verifySchoolEmail(state.user.userCredentials.schoolEmail!);
+    _authService.verifySchoolEmail(state.user!.schoolEmail!);
   }
 
   void checkSchoolEmail() async {
-    await _authService
-        .checkEmailVerified(state.user.userCredentials.schoolEmail!)
-        .then((bool isVerified) {
+    await _authService.checkEmailVerified(state.user!.schoolEmail!).then((bool isVerified) {
       if (isVerified) {
         emit(RegistrationSuccess());
         state.schoolEmailVerified = true;

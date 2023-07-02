@@ -20,19 +20,8 @@ class DiscountBloc extends Bloc<DiscountEvent, DiscountState> {
     await Future.delayed(Duration(seconds: 0));
 
     Discount discount = event.discount;
-
-    if(discount is LinkDiscount) {
-      discount = discount as LinkDiscount;
-
-      discount.linkRedirect = "https://www.facebook.com";
-    } else if(discount is CodeDiscount) {
-      discount = discount as CodeDiscount;
-
-      discount.couponCode = "XXXX-XXXXX-XXXX";
-    }
     emit(DiscountSuccess(discount: discount));
     emit(DiscountInitial());
-    print("temp");
   }
 
   void _addToFavorites(OnAddToFavoriteDiscounts event, Emitter<DiscountState> emit) {

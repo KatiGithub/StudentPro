@@ -9,8 +9,10 @@ import 'package:studio_projects/shared/common_blocs/savedforlater/savedforlater_
 import 'package:studio_projects/shared/common_blocs/savedforlater/savedforlater_event.dart';
 import 'package:studio_projects/shared/common_blocs/savedforlater/savedforlater_state.dart';
 
+import '../../models/discounts/discount.dart';
+
 class CouponDisplayPopup extends StatefulWidget {
-  final CodeDiscount discount;
+  final Discount discount;
 
   CouponDisplayPopup({required this.discount});
 
@@ -59,7 +61,7 @@ class _CouponDisplayPopupState extends State<CouponDisplayPopup> {
                               topLeft: Radius.circular(10.0),
                               topRight: Radius.circular(10.0)),
                           child: Image.asset(
-                            widget.discount.discountImage!.imageUrl,
+                            "assets/food_test.png",
                             fit: BoxFit.fitWidth,
                           ),
                         ),
@@ -95,7 +97,7 @@ class _CouponDisplayPopupState extends State<CouponDisplayPopup> {
                   child: Container(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [Text(widget.discount.couponCode!)],
+                      children: [Text("Where the coupon goes")],
                     ),
                   ))
             ],

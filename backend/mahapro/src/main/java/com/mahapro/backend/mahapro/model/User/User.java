@@ -45,6 +45,9 @@ public class User {
     @Column(name = "firebase_user_id")
     private String firebaseUserId;
 
+    @Column(name="email_verified")
+    private boolean emailVerified;
+
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "university_id")
     private University university;
@@ -113,6 +116,14 @@ public class User {
         this.university = university;
     }
 
+    public boolean isEmailVerified() {
+        return emailVerified;
+    }
+
+    public void setEmailVerified(boolean emailVerified) {
+        this.emailVerified = emailVerified;
+    }
+
     @Override
     public String toString() {
         try {
@@ -122,4 +133,6 @@ public class User {
             return null;
         }
     }
+
+
 }

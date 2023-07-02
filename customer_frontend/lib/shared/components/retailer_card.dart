@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:studio_projects/models/retailers/retailer.dart';
+import 'package:studio_projects/models/retailers/business.dart';
 import 'package:studio_projects/shared/common_blocs/favorite/favorite_bloc.dart';
 import 'package:studio_projects/shared/common_blocs/favorite/favorite_event.dart';
 import 'package:studio_projects/views/main/settings/settings_bloc.dart';
@@ -10,56 +10,51 @@ import 'package:studio_projects/views/main/settings/settings_bloc.dart';
 import '../common_blocs/favorite/favorite_state.dart';
 
 class RetailerCard extends StatelessWidget {
-  Retailer retailer;
-  BuildContext context;
 
-  RetailerCard({required this.retailer, required this.context});
+
+  RetailerCard();
 
   @override
   Widget build(BuildContext context) {
-    SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(this.context);
+    SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
 
-    return Padding(
-        padding: EdgeInsets.symmetric(vertical: 8),
-        child: GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, 'retailer', arguments: retailer);
-          },
-          child: Material(
-            elevation: 5.0,
-            shadowColor: Colors.blueGrey,
+    return Container(
+      decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(20)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Flexible(flex: 8, fit: FlexFit.tight, child: Container()),
+          Flexible(
+            flex: 4,
             child: Container(
-              decoration: BoxDecoration(
-                  color: settingsBloc.state.settings.darkMode!
-                      ? Colors.black12
-                      : Colors.grey),
-              height: MediaQuery.of(context).size.height / 8.4,
+              padding: EdgeInsets.symmetric(horizontal: 10),
               child: Row(
                 children: [
-                  SizedBox(
-                    width: 15,
-                  ),
-                  CircleAvatar(
-                      radius: 40,
-                      child: ClipOval(
-                          child: SizedBox(
-                              height: 80,
-                              width: 80,
-                              child: Hero(
-                                tag: 'retailer_background',
-                                child: Image.asset(
-                                  'assets/food_test.jpg',
-                                  fit: BoxFit.cover,
-                                ),
-                              )))),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(retailer.RetailerName!)
+                  Expanded(
+                      child: AspectRatio(
+                        aspectRatio: 1 / 1,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Colors.green,
+                              boxShadow: [BoxShadow(color: Colors.black54, blurRadius: 15)]),
+                        ),
+                      )),
+                  Flexible(
+                      flex: 3,
+                      fit: FlexFit.tight,
+                      child: Container(
+                        padding: EdgeInsets.only(left: 10),
+                        child: Text("This is where the text goes."),
+                      ))
                 ],
               ),
             ),
           ),
-        ));
+          Flexible(flex: 1, fit: FlexFit.tight, child: Container()),
+        ],
+      ),
+    );
   }
 }

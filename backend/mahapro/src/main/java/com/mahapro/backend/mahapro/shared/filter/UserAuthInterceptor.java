@@ -28,7 +28,7 @@ public class UserAuthInterceptor implements HandlerInterceptor {
             FirebaseToken token = firebaseAuth.verifyIdToken(jwtToken);
             String uid = token.getUid();
 
-            if(userService.login(userService.findByFirebaseUserId(uid).getUserId())) {
+            if(userService.checkUser(uid)) {
                return true;
             } else {
                 return false;
