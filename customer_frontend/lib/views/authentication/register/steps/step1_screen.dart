@@ -9,7 +9,6 @@ import 'package:studio_projects/shared/common_blocs/auth/auth_state.dart';
 
 import '../../../../constant/components.dart';
 
-
 class RegistrationPage1 extends StatefulWidget {
   @override
   _RegistrationPage1State createState() => _RegistrationPage1State();
@@ -89,24 +88,19 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
 
   @override
   Widget build(BuildContext context) {
-
-
-
     final _registrationState = context.watch<AuthCubit>().state;
-
 
     return BlocBuilder<AuthCubit, AuthState>(builder: (context, state) {
       return BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is RegistrationError) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.error)));
-
-            _firstNameController.clear();
-            _lastNameController.clear();
-            _personalEmailController.clear();
-            _schoolEmailController.clear();
-            _passwordController.clear();
-
+            //
+            // _firstNameController.clear();
+            // _lastNameController.clear();
+            // _personalEmailController.clear();
+            // _schoolEmailController.clear();
+            // _passwordController.clear();
           } else if (state is EmailVerificationNeeded) {
             Navigator.pushNamedAndRemoveUntil(context, 'email_verification', (route) => false);
           }
@@ -356,7 +350,7 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                           _updatePersonalEmail(_personalEmailController.text, context);
                           _updateSchoolEmail(_schoolEmailController.text, context);
                           _updatePassword(_passwordController.text, context);
-                          _updateDateOfBirth(_selectedDate.millisecondsSinceEpoch/1000, context);
+                          _updateDateOfBirth(_selectedDate.millisecondsSinceEpoch / 1000, context);
 
                           BlocProvider.of<AuthCubit>(context).submitLoginInformation();
 

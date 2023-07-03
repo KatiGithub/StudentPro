@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:studio_projects/models/discounts/discounttypes/codeDiscounts.dart';
+import 'package:studio_projects/shared/common_blocs/auth/auth_cubit.dart';
 import 'package:studio_projects/shared/components/discount_card.dart';
 import 'package:studio_projects/shared/components/discount_card_grouper.dart';
 import 'package:studio_projects/shared/components/retailer_card.dart';
@@ -57,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Container(
                             padding: EdgeInsets.only(left: 20),
                             child: Text(
-                              "Hi, Norawich",
+                              "Hi, ${BlocProvider.of<AuthCubit>(context).state.user.firstName!}",
                               style: TextStyle(fontSize: 25),
                             ),
                           )
@@ -65,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       )),
                   Expanded(
                       child: IconButton(
-                        splashRadius: 30,
+                    splashRadius: 30,
                     onPressed: () {},
                     icon: Icon(Icons.settings_outlined),
                   ))
@@ -124,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Container(
                     margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
-                    height: MediaQuery.of(context).size.height / 2.5,
+                    height: MediaQuery.of(context).size.height / 2.3,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -141,224 +142,54 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 20),
                               child: GridView.count(
-                                physics: const NeverScrollableScrollPhysics(),
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 20,
-                                mainAxisSpacing: 20,
-                                childAspectRatio: 3 / 1,
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: Colors.grey, width: 3, strokeAlign: BorderSide.strokeAlignOutside)),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                            child: AspectRatio(
-                                          aspectRatio: 1 / 1,
-                                          child: Container(
-                                            margin: const EdgeInsets.all(10),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(5),
-                                                  color: Colors.black,
-                                                  boxShadow: const [BoxShadow(color: Colors.black54, blurRadius: 8)]),
-                                            ),
-                                          ),
-                                        )),
-                                        Flexible(
-                                            flex: 2,
-                                            fit: FlexFit.tight,
-                                            child: Container(
-                                              padding: const EdgeInsets.only(left: 10),
-                                              decoration: const BoxDecoration(
-                                                  border: Border(left: BorderSide(color: Colors.grey, width: 3))),
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [const Text("Name"), const Text("Discount")],
-                                              ),
-                                            ))
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: Colors.grey, width: 3, strokeAlign: BorderSide.strokeAlignOutside)),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                            child: AspectRatio(
-                                          aspectRatio: 1 / 1,
-                                          child: Container(
-                                            margin: const EdgeInsets.all(10),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(5),
-                                                  color: Colors.black,
-                                                  boxShadow: const [BoxShadow(color: Colors.black54, blurRadius: 8)]),
-                                            ),
-                                          ),
-                                        )),
-                                        Flexible(
-                                            flex: 2,
-                                            fit: FlexFit.tight,
-                                            child: Container(
-                                              padding: const EdgeInsets.only(left: 10),
-                                              decoration: const BoxDecoration(
-                                                  border: Border(left: BorderSide(color: Colors.grey, width: 3))),
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [const Text("Name"), const Text("Discount")],
-                                              ),
-                                            ))
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: Colors.grey, width: 3, strokeAlign: BorderSide.strokeAlignOutside)),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                            child: AspectRatio(
-                                          aspectRatio: 1 / 1,
-                                          child: Container(
-                                            margin: const EdgeInsets.all(10),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(5),
-                                                  color: Colors.black,
-                                                  boxShadow: const [BoxShadow(color: Colors.black54, blurRadius: 8)]),
-                                            ),
-                                          ),
-                                        )),
-                                        Flexible(
-                                            flex: 2,
-                                            fit: FlexFit.tight,
-                                            child: Container(
-                                              padding: const EdgeInsets.only(left: 10),
-                                              decoration: const BoxDecoration(
-                                                  border: Border(left: BorderSide(color: Colors.grey, width: 3))),
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [const Text("Name"), const Text("Discount")],
-                                              ),
-                                            ))
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: Colors.grey, width: 3, strokeAlign: BorderSide.strokeAlignOutside)),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                            child: AspectRatio(
-                                          aspectRatio: 1 / 1,
-                                          child: Container(
-                                            margin: const EdgeInsets.all(10),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(5),
-                                                  color: Colors.black,
-                                                  boxShadow: const [BoxShadow(color: Colors.black54, blurRadius: 8)]),
-                                            ),
-                                          ),
-                                        )),
-                                        Flexible(
-                                            flex: 2,
-                                            fit: FlexFit.tight,
-                                            child: Container(
-                                              padding: const EdgeInsets.only(left: 10),
-                                              decoration: const BoxDecoration(
-                                                  border: Border(left: BorderSide(color: Colors.grey, width: 3))),
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [const Text("Name"), const Text("Discount")],
-                                              ),
-                                            ))
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: Colors.grey, width: 3, strokeAlign: BorderSide.strokeAlignOutside)),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                            child: AspectRatio(
-                                          aspectRatio: 1 / 1,
-                                          child: Container(
-                                            margin: const EdgeInsets.all(10),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(5),
-                                                  color: Colors.black,
-                                                  boxShadow: const [BoxShadow(color: Colors.black54, blurRadius: 8)]),
-                                            ),
-                                          ),
-                                        )),
-                                        Flexible(
-                                            flex: 2,
-                                            fit: FlexFit.tight,
-                                            child: Container(
-                                              padding: const EdgeInsets.only(left: 10),
-                                              decoration: const BoxDecoration(
-                                                  border: Border(left: BorderSide(color: Colors.grey, width: 3))),
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [const Text("Name"), const Text("Discount")],
-                                              ),
-                                            ))
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: Colors.grey, width: 3, strokeAlign: BorderSide.strokeAlignOutside)),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                            child: AspectRatio(
-                                          aspectRatio: 1 / 1,
-                                          child: Container(
-                                            margin: const EdgeInsets.all(10),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(5),
-                                                  color: Colors.black,
-                                                  boxShadow: const [BoxShadow(color: Colors.black54, blurRadius: 8)]),
-                                            ),
-                                          ),
-                                        )),
-                                        Flexible(
-                                            flex: 2,
-                                            fit: FlexFit.tight,
-                                            child: Container(
-                                              padding: const EdgeInsets.only(left: 10),
-                                              decoration: const BoxDecoration(
-                                                  border: Border(left: BorderSide(color: Colors.grey, width: 3))),
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [const Text("Name"), const Text("Discount")],
-                                              ),
-                                            ))
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                  physics: ClampingScrollPhysics(),
+                                  scrollDirection: Axis.horizontal,
+                                  crossAxisCount: 3,
+                                  crossAxisSpacing: 5,
+                                  mainAxisSpacing: 20,
+                                  childAspectRatio: 2 / 6,
+                                  children: [
+                                    for (int i = 0; i < 9; i++)
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(15),
+                                            border: Border.all(
+                                                color: Colors.black54,
+                                                width: 3,
+                                                strokeAlign: BorderSide.strokeAlignOutside)),
+                                        margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                                child: AspectRatio(
+                                                  aspectRatio: 1 / 1,
+                                                  child: Container(
+                                                    margin: const EdgeInsets.all(10),
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(5),
+                                                          color: Colors.black,
+                                                          boxShadow: const [BoxShadow(color: Colors.black54, blurRadius: 8)]),
+                                                    ),
+                                                  ),
+                                                )),
+                                            Flexible(
+                                                flex: 3,
+                                                fit: FlexFit.tight,
+                                                child: Container(
+                                                  padding: const EdgeInsets.only(left: 10),
+                                                  decoration: const BoxDecoration(
+                                                      border: Border(left: BorderSide(color: Colors.grey, width: 3))),
+                                                  child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [const Text("Name"), const Text("Discount")],
+                                                  ),
+                                                ))
+                                          ],
+                                        ),
+                                      )
+                                  ]),
                             ))
                       ],
                     ),

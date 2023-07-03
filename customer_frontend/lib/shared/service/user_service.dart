@@ -34,7 +34,7 @@ class UserService {
   }
 
   Future<void> emailVerifiedConfirm() {
-    return apiService.put(APIConstants.userEndpoint + "/verify", {} as String).then((Response response) => {
+    return apiService.put(APIConstants.userEndpoint + "/verify", jsonEncode({})).then((Response response) => {
       if(response.statusCode != 200) {
         throw Exception()
       }

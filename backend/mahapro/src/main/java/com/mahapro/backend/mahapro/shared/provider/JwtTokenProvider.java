@@ -7,7 +7,7 @@ public class JwtTokenProvider {
                 throw new Exception();
             }
 
-            return bearerHeader.substring(7, bearerHeader.length()-1);
+            return bearerHeader.substring(7);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }

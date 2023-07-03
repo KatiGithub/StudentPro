@@ -10,9 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.parser.Entity;
+
 @RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
 @Controller
 public class UserController {
+
     @Autowired
     private UserService userService;
 
@@ -26,17 +29,18 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity registerUser(@RequestBody String jsonBody, @RequestParam("Authorization") String authorizationheader) {
+    public ResponseEntity<String> registerUser(@RequestBody String jsonBody, @RequestHeader("Authorization") String authorizationheader) {
         try {
-            userService.save(jsonBody, authorizationheader);
-            return new ResponseEntity(HttpStatus.OK);
+            User user = userService.save(jsonBody, authorizationheader);
+            return ResponseEntity.ok(user.toString());
+
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping("/verify")
-    public ResponseEntity verifyUser(@RequestParam("Authorization") String authorizationHeader) {
+    public ResponseEntity verifyUser(@RequestHeader("Authorization") String authorizationHeader) {
         try {
             userService.verify_user(authorizationHeader);
 
@@ -48,13 +52,13 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public ResponseEntity login(@RequestParam String authorizationHeader) {
+    public ResponseEntity<String> login(@RequestHeader("Authorization") String authorizationHeader) {
         try {
             User user = userService.login(authorizationHeader);
             if(!user.isEmailVerified()) {
                 throw new EmailNotVerified();
             }
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(user.toString());
         } catch (EmailNotVerified e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         } catch (Exception e) {

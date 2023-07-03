@@ -1,15 +1,18 @@
+import 'dart:convert';
+
 import 'package:studio_projects/models/university.dart';
 import 'package:studio_projects/models/usercredentials.dart';
 import 'package:studio_projects/shared/json_serializable.dart';
 
 class User implements JsonSerializable {
-  String? _userId;
+  int? _userId;
   String? _firstName;
   String? _lastName;
   String? _personalEmail;
   double? _dateOfBirth;
   University? _university;
   String? _schoolEmail;
+  String? _firebaseUserId;
 
   User();
 
@@ -19,7 +22,6 @@ class User implements JsonSerializable {
         this._lastName != '' &&
         this._personalEmail != '' &&
         this._dateOfBirth != 0 &&
-        this._university != null &&
         this._schoolEmail != '') {
       return true;
     }
@@ -28,8 +30,10 @@ class User implements JsonSerializable {
 
   @override
   static User toClass(Map<String, dynamic> json) {
+
+
     User user = User();
-    user.userId = json['userId'] ?? '';
+    user.userId = json['userId'];
     user.firstName = json['firstName'] ?? '';
     user.lastName = json['lastName'] ?? '';
     user.personalEmail = json['personalEmail'] ?? '';
@@ -51,13 +55,14 @@ class User implements JsonSerializable {
     data['schoolEmail'] = _schoolEmail;
     data['dateOfBirth'] = _dateOfBirth;
     data['university'] = _university?.toJson();
+    data['firebaseUserId'] = _firebaseUserId;
 
-    return data.toString();
+    return jsonEncode(data);
   }
 
-  String? get userId => _userId;
+  int? get userId => _userId;
 
-  set userId(String? value) {
+  set userId(int? value) {
     _userId = value;
   }
 
@@ -95,5 +100,10 @@ class User implements JsonSerializable {
 
   set schoolEmail(String? value) {
     _schoolEmail = value;
+  }
+  String? get firebaseUserId => _firebaseUserId;
+
+  set firebaseUserId(String? value) {
+    _firebaseUserId = value;
   }
 }

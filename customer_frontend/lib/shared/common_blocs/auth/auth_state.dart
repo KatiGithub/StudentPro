@@ -8,9 +8,7 @@ class AuthState extends Equatable {
   AuthState({required this.user, this.password});
 
   @override
-  List<Object?> get props {
-    throw UnimplementedError();
-  }
+  List<Object?> get props => [user];
 }
 
 class AuthInitial extends AuthState {

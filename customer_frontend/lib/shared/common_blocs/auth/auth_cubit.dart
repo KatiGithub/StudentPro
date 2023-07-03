@@ -11,7 +11,7 @@ class AuthCubit extends Cubit<AuthState> {
   final AuthService _authService = AuthService();
   final UserService _userService = UserService();
 
-  AuthCubit() : super(AuthState(user: User.toClass({})));
+  AuthCubit() : super(AuthState(user: User()));
 
   void submitLoginInformation() async {
     if (!state.user.isFilledOut() || state.password == null) {
@@ -32,6 +32,25 @@ class AuthCubit extends Cubit<AuthState> {
         emit(RegistrationError(error: e.toString(), user: state.user));
       }
     }
+
+    emit(AuthInitial(user: state.user));
+  }
+
+  void checkLoggedIn() async {
+    try {
+      await _authService.isLoggedInSingle().then((bool isLoggedIn) async {
+        if(isLoggedIn) {
+          await _userService.login().then((User user) {
+            state.user = user;
+            emit(LoginSucess(user: state.user));
+          });
+        } else {
+          emit(LoginFailure(error: "Not Yet Logged In", user: state.user));
+        }
+      });
+    } catch (e) {
+      emit(LoginFailure(error: e.toString(), user: state.user));
+    }
   }
 
   void login() async {
@@ -41,11 +60,11 @@ class AuthCubit extends Cubit<AuthState> {
     }
 
     try {
-      await _authService.authenticationWithEmailAndPassword(state.user.schoolEmail!, state.password!).then((_) async {
-        User user = await _userService.register(state.user);
-        state.user = user;
-
-        emit(LoginSucess(user: state.user));
+      _authService.authenticationWithEmailAndPassword(state.user.schoolEmail!, state.password!).then((_) {
+        _userService.register(state.user).then((User user) {
+          state.user = user;
+          emit(LoginSucess(user: state.user));
+        });
       });
     } catch (e) {
       if (e is EmailNotVerified) {
@@ -54,6 +73,8 @@ class AuthCubit extends Cubit<AuthState> {
         emit(LoginFailure(error: e.toString(), user: state.user));
       }
     }
+
+    emit(AuthInitial(user: state.user));
   }
 
   void verifyEmail() {
@@ -62,8 +83,10 @@ class AuthCubit extends Cubit<AuthState> {
 
   void checkEmailVerfied() async {
     await _authService.checkEmailVerified(state.user.schoolEmail!).then((_) async {
-      await _userService.emailVerifiedConfirm();
-      emit(EmailVerified(user: state.user));
+      if(_) {
+        await _userService.emailVerifiedConfirm();
+        emit(EmailVerified(user: state.user));
+      }
     });
   }
 }
