@@ -13,8 +13,8 @@ class Discount implements JsonSerializable {
   int _id;
   bool _isOnlineOrInstore;
   int _claimsPerUser;
-  int _minimumSpend;
-  String _linkOnline;
+  int? _minimumSpend;
+  String? _linkOnline;
   double _expiryDate;
   Business _business;
   List<Translation> _discountTitle;
@@ -40,15 +40,15 @@ class Discount implements JsonSerializable {
     _claimsPerUser = value;
   }
 
-  int get minimumSpend => _minimumSpend;
+  int? get minimumSpend => _minimumSpend;
 
-  set minimumSpend(int value) {
+  set minimumSpend(int? value) {
     _minimumSpend = value;
   }
 
-  String get linkOnline => _linkOnline;
+  String? get linkOnline => _linkOnline;
 
-  set linkOnline(String value) {
+  set linkOnline(String? value) {
     _linkOnline = value;
   }
 
@@ -72,7 +72,7 @@ class Discount implements JsonSerializable {
 
   @override
   static Discount toClass(Map<String, dynamic> json) {
-    List<Map<String, dynamic>> discountTitles = json['discountTitle'];
+    List<dynamic> discountTitles = json['discountTitle']["translations"];
 
     return Discount(
         json['id'],

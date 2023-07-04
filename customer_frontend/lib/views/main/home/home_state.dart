@@ -3,9 +3,8 @@ import 'package:equatable/equatable.dart';
 import '../../../models/discounts/discount.dart';
 
 abstract class HomeState extends Equatable {
-  List<Discount> discounts;
 
-  HomeState(): this.discounts = [];
+  HomeState();
 
   @override
   List<Object> get props => throw UnimplementedError();
@@ -14,6 +13,10 @@ abstract class HomeState extends Equatable {
 class HomeInitial extends HomeState {}
 
 class HomeLoading extends HomeState {}
+
+class HomeLoaded extends HomeState {}
+
+class HomeError extends HomeState {}
 
 class HomeSuccess extends HomeState {}
 

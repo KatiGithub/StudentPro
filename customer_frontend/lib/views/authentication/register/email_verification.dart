@@ -31,7 +31,7 @@ class _EmailVerificationState extends State<EmailVerification> {
       return BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is EmailVerified) {
-            Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+            Navigator.pushNamedAndRemoveUntil(context, 'main', (route) => false);
           } else if (state is RegistrationError) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.error)));
           }

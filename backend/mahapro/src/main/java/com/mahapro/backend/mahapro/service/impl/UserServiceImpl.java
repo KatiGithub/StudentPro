@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
 
             return userDao.login(userDao.findByFirebaseUserId(uid).getUserId());
         } catch (EmptyResultDataAccessException e) {
-            firebaseAuth.deleteUser(firebaseToken.getUid());
+//            firebaseAuth.deleteUser(firebaseToken.getUid());
             throw e;
         } catch (Exception e) {
             throw new Exception(e.getMessage());

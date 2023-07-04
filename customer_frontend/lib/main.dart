@@ -1,9 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:provider/provider.dart';
 import 'package:studio_projects/shared/common_blocs/auth/auth_cubit.dart';
 import 'package:studio_projects/shared/common_blocs/discounts/discount_bloc.dart';
 import 'package:studio_projects/shared/common_blocs/favorite/favorite_bloc.dart';
@@ -27,13 +24,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  HydratedBloc.storage = await HydratedStorage.build(
-      storageDirectory: await getTemporaryDirectory());
+  HydratedBloc.storage = await HydratedStorage.build(storageDirectory: await getTemporaryDirectory());
   print("Token: ");
   print(await FirebaseMessaging.instance.getToken());
 
@@ -69,25 +65,6 @@ class _MyAppState extends State<MyApp> {
           final settingsBloc = BlocProvider.of<SettingsBloc>(context);
           return MaterialApp(
             navigatorObservers: [HeroController()],
-            theme: ThemeData(
-              fontFamily: 'SF_Pro',
-                brightness: Brightness.light,
-                appBarTheme: AppBarTheme(backgroundColor: Colors.white, elevation: 0)),
-            darkTheme: ThemeData(
-                brightness: Brightness.dark,
-                appBarTheme: AppBarTheme(color: Colors.black12, elevation: 0)),
-            themeMode: settingsBloc.state.settings.darkMode!
-                ? ThemeMode.dark
-                : ThemeMode.light,
-            debugShowCheckedModeBanner: false,
-            localizationsDelegates: [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate
-            ],
-            supportedLocales: [Locale("en"), Locale("th")],
-            locale: Locale(settingsBloc.state.settings.languageId!),
             initialRoute: WelcomeScreen.id,
             routes: {
               WelcomeScreen.id: (context) => WelcomeScreen(),

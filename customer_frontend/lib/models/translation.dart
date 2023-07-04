@@ -32,7 +32,7 @@ class Translation implements JsonSerializable {
 
   @override
   static Translation toClass(Map<String, dynamic> json) {
-    return Translation(json['id'], json['translation'], json['language']);
+    return Translation(json['id'], json['translation'], json['language']['languageCode']);
   }
 
   @override

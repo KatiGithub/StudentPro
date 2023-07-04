@@ -5,7 +5,6 @@ import 'package:studio_projects/models/settings.dart';
 
 import '../../../shared/authentication/auth_service.dart';
 
-
 class SettingsBloc extends HydratedBloc<SettingsEvent, SettingsState> {
   final AuthService _authService = AuthService();
 

@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
             _emailEnabled = false;
             _passwordEnabled = false;
 
-            Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+            Navigator.pushNamedAndRemoveUntil(context, 'main', (route) => false);
           } else if (state is LoginFailure) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 backgroundColor: Colors.redAccent,

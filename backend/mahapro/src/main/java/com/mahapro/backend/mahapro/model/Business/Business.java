@@ -1,32 +1,33 @@
 package com.mahapro.backend.mahapro.model.Business;
 
-import java.io.Serializable;
-import java.util.List;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.mahapro.backend.mahapro.model.Business.Branch.Branch;
-import com.mahapro.backend.mahapro.model.Business.Discount.Discount;
 import com.mahapro.backend.mahapro.model.Text.TextContent;
-
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Entity
-@Table(name="business")
+@Table(name = "business")
 @JsonSerialize
-public class Business implements Serializable{
-    
+public class Business implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="business_id")
+    @Column(name = "business_id")
     private int id;
 
-    @Column(name="business_name")
-    private String name;
 
-    @Column(name="email")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "business_name_text_id", referencedColumnName = "text_id")
+    private TextContent name;
+
+    @Column(name = "email")
     private String email;
 
-    @Column(name="contact_name")
+    @Column(name = "contact_name")
+    @JsonIgnore
     private String contactName;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -38,7 +39,7 @@ public class Business implements Serializable{
     private TextContent businessInfo;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="business_slogan_text_id", referencedColumnName = "text_id")
+    @JoinColumn(name = "business_slogan_text_id", referencedColumnName = "text_id")
     private TextContent businessSlogan;
 
     public int getId() {
@@ -49,11 +50,11 @@ public class Business implements Serializable{
         this.id = id;
     }
 
-    public String getName() {
+    public TextContent getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(TextContent name) {
         this.name = name;
     }
 
@@ -96,5 +97,15 @@ public class Business implements Serializable{
 
     public void setBusinessType(BusinessType businessType) {
         this.businessType = businessType;
+    }
+
+    @Override
+    public String toString() {
+        try {
+            return new ObjectMapper().writeValueAsString(this);
+        } catch (Exception f) {
+            System.out.println(f.getMessage());
+            return null;
+        }
     }
 }

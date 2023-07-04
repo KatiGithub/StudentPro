@@ -9,7 +9,7 @@ public interface UserService {
     List<User> findByUniversityId(int universityId);
     User findByFirebaseUserId(String firebaseUserId);
 
-    void save(String jsonPayload, String authorizationHeader) throws Exception;
+    User save(String jsonPayload, String authorizationHeader) throws Exception;
     void verify_user(String authorizationHeader);
     User login(String authorizationHeader) throws Exception;
 

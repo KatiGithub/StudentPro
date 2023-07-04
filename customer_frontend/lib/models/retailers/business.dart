@@ -5,13 +5,12 @@ import 'package:studio_projects/shared/json_serializable.dart';
 
 class Business implements JsonSerializable {
   int _id;
-  String _name;
+  List<Translation> _name;
   String _email;
-  String _contactName;
   List<Translation> _businessInfo;
   List<Translation> _businessSlogan;
 
-  Business(this._id, this._name, this._email, this._contactName, this._businessInfo, this._businessSlogan);
+  Business(this._id, this._name, this._email, this._businessInfo, this._businessSlogan);
 
   int get businessId => _id;
 
@@ -19,9 +18,9 @@ class Business implements JsonSerializable {
     _id = value;
   }
 
-  String get name => _name;
+  List<Translation> get name => _name;
 
-  set name(String value) {
+  set name(List<Translation> value) {
     _name = value;
   }
 
@@ -29,12 +28,6 @@ class Business implements JsonSerializable {
 
   set email(String value) {
     _email = value;
-  }
-
-  String get contactName => _contactName;
-
-  set contactName(String value) {
-    _contactName = value;
   }
 
   List<Translation> get businessInfo => _businessInfo;
@@ -51,14 +44,14 @@ class Business implements JsonSerializable {
 
   @override
   static Business toClass(Map<String, dynamic> json) {
-    List<Map<String, dynamic>> businessInfo = json['businessInfo'];
-    List<Map<String, dynamic>> businessSlogan = json['businessSlogan'];
+    List<dynamic> businessInfo = json['businessInfo']["translations"];
+    List<dynamic> businessSlogan = json['businessSlogan']["translations"];
+    List<dynamic> businessName = json['name']["translations"];
 
     return Business(
         json['id'],
-        json['name'],
+        businessName.map((dynamic e) => Translation.toClass(e as Map<String, dynamic>)).toList(),
         json['email'],
-        json['contactName'],
         businessInfo.map((e) => Translation.toClass(e)).toList(),
         businessSlogan.map((e) => Translation.toClass(e)).toList());
   }
@@ -70,7 +63,6 @@ class Business implements JsonSerializable {
     data['id'] = _id;
     data['name'] = _name;
     data['email'] = _email;
-    data['contactName'] = _contactName;
     data['businessInfo'] = _businessInfo;
     data['businessSlogan'] = _businessSlogan;
 

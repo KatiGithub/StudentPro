@@ -1,64 +1,48 @@
 package com.mahapro.backend.mahapro.model.Business.Discount;
 
-import java.io.Serializable;
-import java.util.List;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mahapro.backend.mahapro.model.Business.Business;
+import com.mahapro.backend.mahapro.model.Text.TextContent;
+import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.mahapro.backend.mahapro.model.Business.Business;
-import com.mahapro.backend.mahapro.model.Business.Branch.AllowedBranch;
-import com.mahapro.backend.mahapro.model.Business.Discount.DiscountTypes.BonusDiscount;
-import com.mahapro.backend.mahapro.model.Business.Discount.DiscountTypes.FixedAmountDiscount;
-import com.mahapro.backend.mahapro.model.Business.Discount.DiscountTypes.PercentageDiscount;
-import com.mahapro.backend.mahapro.model.Text.TextContent;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import java.io.Serializable;
 
 @Entity
-@Table(name="discount")
+@Table(name = "discount")
 public class Discount implements Serializable {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="discount_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "discount_id")
     private int id;
 
-    @Column(name="is_online_or_instore")
+    @Column(name = "is_online")
     private Boolean isOnlineOrInStore;
 
-    @Column(name="claims_per_user")
+    @Column(name = "claims_per_user")
     private int claimsPerUser;
 
-    @Column(name="minimum_spend")
-    private int minimumSpend;
+    @Column(name = "minimum_spend")
+    private Integer minimumSpend;
 
-    @Column(name="link_online")
+    @Column(name = "link_online")
     private String linkOnline;
 
-    @Column(name="expiry_date")
+    @Column(name = "expiry_date")
     private double expiryDate;
 
+    @Column(name = "is_percentage")
+    private Boolean isPercentage;
+
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name="business_id", nullable = false)
-    @OnDelete(action=OnDeleteAction.CASCADE)
+    @JoinColumn(name = "business_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Business business;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="discount_title_text_id", referencedColumnName = "text_id")
+    @JoinColumn(name = "discount_title_text_id", referencedColumnName = "text_id")
     private TextContent discountTitle;
 
 
@@ -90,11 +74,11 @@ public class Discount implements Serializable {
         this.claimsPerUser = claimsPerUser;
     }
 
-    public int getMinimumSpend() {
+    public Integer getMinimumSpend() {
         return this.minimumSpend;
     }
 
-    public void setMinimumSpend(int minimumSpend) {
+    public void setMinimumSpend(Integer minimumSpend) {
         this.minimumSpend = minimumSpend;
     }
 
@@ -138,5 +122,13 @@ public class Discount implements Serializable {
             System.out.println(f.getMessage());
             return null;
         }
+    }
+
+    public Boolean isPercentage() {
+        return isPercentage;
+    }
+
+    public void setPercentage(Boolean percentage) {
+        isPercentage = percentage;
     }
 }

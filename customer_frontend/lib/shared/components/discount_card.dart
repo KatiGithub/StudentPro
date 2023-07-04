@@ -1,19 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
-import 'package:studio_projects/models/discounts/discounttypes/codeDiscounts.dart';
-import 'package:studio_projects/models/discounts/discounttypes/linkDiscounts.dart';
-import 'package:studio_projects/shared/common_blocs/discounts/discount_bloc.dart';
-import 'package:studio_projects/shared/common_blocs/discounts/discount_event.dart';
-import 'package:studio_projects/shared/utils/discounthandler/coupon_discount_handler.dart';
-import 'package:studio_projects/shared/utils/discounthandler/link_discount_handler.dart';
-import '../../models/discounts/discount.dart';
-import '../common_blocs/discounts/discount_state.dart';
+import 'package:studio_projects/models/discounts/discount.dart';
 
 class DiscountCard extends StatelessWidget {
 
+  Discount discount;
 
-  DiscountCard();
+  DiscountCard(this.discount);
 
   @override
   Widget build(BuildContext context) {

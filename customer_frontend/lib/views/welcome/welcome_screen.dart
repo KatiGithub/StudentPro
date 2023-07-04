@@ -20,7 +20,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           listener: (context, state) {
             print(state);
             if (state is LoginSucess) {
-              Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+              Navigator.pushNamedAndRemoveUntil(context, 'main', (route) => false);
               print("Logged in. Redirecting to Home Page");
             } else {
               Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);

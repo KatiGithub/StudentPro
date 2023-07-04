@@ -4,11 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.mahapro.backend.mahapro.model.Business.Business;
-import com.mahapro.backend.mahapro.model.Business.Discount.Discount;
-import com.mahapro.backend.mahapro.model.Business.Discount.DiscountType;
-import com.mahapro.backend.mahapro.model.Business.Discount.DiscountTypes.BonusDiscount;
-import com.mahapro.backend.mahapro.model.Business.Post.Post;
 
 import jakarta.persistence.*;
 

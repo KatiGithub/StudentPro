@@ -1,21 +1,14 @@
 package com.mahapro.backend.mahapro.dao.impl;
 
-import java.util.List;
-import java.util.Objects;
-
-import jakarta.persistence.ParameterMode;
-import jakarta.persistence.StoredProcedureQuery;
-import jakarta.transaction.Transactional;
-import org.locationtech.jts.geom.Point;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.stereotype.Repository;
-
 import com.mahapro.backend.mahapro.dao.UserDao;
 import com.mahapro.backend.mahapro.model.User.User;
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -55,8 +48,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     @Transactional
-    public void save(User user) {
-        Query query = entityManager.createNativeQuery("SELECT * FROM insert_user(:firstName, :lastName, :personalEmail, :schoolEmail, :dateOfBirth, :universityId, :firebaseUserId)");
+    public User save(User user) {
+        Query query = entityManager.createNativeQuery(
+                "SELECT * FROM insert_user(:firstName, :lastName, :personalEmail, :schoolEmail, :dateOfBirth, :universityId, :firebaseUserId)",
+                User.class
+        );
         query.setParameter("firstName", user.getFirstName());
         query.setParameter("lastName", user.getLastName());
         query.setParameter("personalEmail", user.getPersonalEmail());
@@ -65,7 +61,8 @@ public class UserDaoImpl implements UserDao {
         query.setParameter("universityId", user.getUniversity().getId());
         query.setParameter("firebaseUserId", user.getFirebaseUserId());
 
-        query.getSingleResult();
+        User _user = (User) query.getSingleResult();
+        return _user;
     }
 
     @Transactional

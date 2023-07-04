@@ -22,6 +22,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       builder: (context, state) {
         final settingsBloc = BlocProvider.of<SettingsBloc>(context);
 
+        print(AppLocalizations.of(context)!.preferences);
+        print("Hello");
+
         return Scaffold(
             body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
