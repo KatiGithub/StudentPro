@@ -10,11 +10,4 @@ class SearchInitial extends SearchState {}
 
 class SearchLoading extends SearchState {}
 
-class SearchSuccess extends SearchState {
-  List<Business> retailerSearchResults;
-
-  SearchSuccess({required this.retailerSearchResults});
-
-  @override
-  List<Object> get props => [retailerSearchResults];
-}
+class SearchSuccess extends SearchState {}

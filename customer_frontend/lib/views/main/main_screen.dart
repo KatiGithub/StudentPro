@@ -7,7 +7,7 @@ import 'package:studio_projects/views/main/home/home_cubit.dart';
 import 'package:studio_projects/views/main/home/home_screen.dart';
 import 'package:studio_projects/views/main/settings/settings_bloc.dart';
 import 'package:studio_projects/views/main/settings/settings_screen.dart';
-import 'package:studio_projects/views/search/search_screen.dart';
+import 'package:studio_projects/views/main/search/search_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'home/home_state.dart';
 
@@ -73,12 +73,8 @@ class _MainScreenState extends State<MainScreen> {
           fontFamily: 'SF_Pro',
           brightness: Brightness.light,
           appBarTheme: AppBarTheme(backgroundColor: Colors.white, elevation: 0)),
-      darkTheme: ThemeData(
-          brightness: Brightness.dark,
-          appBarTheme: AppBarTheme(color: Colors.black12, elevation: 0)),
-      themeMode: settingsBloc.state.settings.darkMode!
-          ? ThemeMode.dark
-          : ThemeMode.light,
+      darkTheme: ThemeData(brightness: Brightness.dark, appBarTheme: AppBarTheme(color: Colors.black12, elevation: 0)),
+      themeMode: settingsBloc.state.settings.darkMode! ? ThemeMode.dark : ThemeMode.light,
       localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -108,14 +104,14 @@ class ScaffoldWithNavBar extends StatelessWidget {
               label: "Home",
               backgroundColor: Colors.black),
           BottomNavigationBarItem(
-              icon: Icon(Icons.favorite_outline),
-              activeIcon: Icon(Icons.favorite),
-              label: "Favorite",
-              backgroundColor: Colors.black),
-          BottomNavigationBarItem(
               icon: Icon(Icons.search_outlined),
               activeIcon: Icon(Icons.saved_search),
               label: "Search",
+              backgroundColor: Colors.black),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.favorite_outline),
+              activeIcon: Icon(Icons.favorite),
+              label: "Favorite",
               backgroundColor: Colors.black),
           BottomNavigationBarItem(
               icon: Icon(Icons.settings_outlined),

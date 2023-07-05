@@ -64,9 +64,9 @@ class Discount implements JsonSerializable {
     _business = value;
   }
 
-  List<Translation> get translations => _discountTitle;
+  List<Translation> get discountTitle => _discountTitle;
 
-  set translations(List<Translation> value) {
+  set discountTitle(List<Translation> value) {
     _discountTitle = value;
   }
 

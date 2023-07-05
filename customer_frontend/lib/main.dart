@@ -15,10 +15,11 @@ import 'package:studio_projects/views/authentication/reset_password/reset_passwo
 import 'package:studio_projects/views/main/home/home_cubit.dart';
 import 'package:studio_projects/views/main/home/home_screen.dart';
 import 'package:studio_projects/views/main/main_screen.dart';
+import 'package:studio_projects/views/main/search/search_cubit.dart';
 import 'package:studio_projects/views/main/settings/settings_bloc.dart';
 import 'package:studio_projects/views/main/settings/settings_state.dart';
 import 'package:studio_projects/views/retailer/retailer_screen.dart';
-import 'package:studio_projects/views/search/search_screen.dart';
+import 'package:studio_projects/views/main/search/search_screen.dart';
 import 'package:studio_projects/views/welcome/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -55,7 +56,8 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (_) => ThemeBloc()),
         BlocProvider(create: (_) => RegistrationCubit()),
         BlocProvider(create: (_) => HomeCubit()),
-        BlocProvider(create: (_) => AuthCubit())
+        BlocProvider(create: (_) => AuthCubit()),
+        BlocProvider(create: (_) => SearchCubit())
       ],
       child: BlocConsumer<SettingsBloc, SettingsState>(
         listener: (context, state) {

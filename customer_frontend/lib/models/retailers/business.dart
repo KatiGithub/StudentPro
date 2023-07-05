@@ -1,5 +1,3 @@
-import 'package:equatable/equatable.dart';
-import 'package:studio_projects/models/retailers/business_post.dart';
 import 'package:studio_projects/models/translation.dart';
 import 'package:studio_projects/shared/json_serializable.dart';
 
@@ -36,9 +34,9 @@ class Business implements JsonSerializable {
     _businessInfo = value;
   }
 
-  List<Translation> get businessSLogan => _businessSlogan;
+  List<Translation> get businessSlogan => _businessSlogan;
 
-  set businessSLogan(List<Translation> value) {
+  set businessSlogan(List<Translation> value) {
     _businessSlogan = value;
   }
 

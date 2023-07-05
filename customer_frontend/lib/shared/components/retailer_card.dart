@@ -6,6 +6,7 @@ import 'package:studio_projects/models/retailers/business.dart';
 import 'package:studio_projects/shared/common_blocs/favorite/favorite_bloc.dart';
 import 'package:studio_projects/shared/common_blocs/favorite/favorite_event.dart';
 import 'package:studio_projects/shared/components/container_with_requested_image.dart';
+import 'package:studio_projects/shared/utils/discounthandler/translation_locale_retrieval.dart';
 import 'package:studio_projects/views/main/settings/settings_bloc.dart';
 
 import '../common_blocs/favorite/favorite_state.dart';
@@ -43,7 +44,10 @@ class RetailerCard extends StatelessWidget {
                   ),
                   Container(
                     padding: const EdgeInsets.only(left: 10),
-                    child: const Text("This is where the text goes."),
+                    child: Text(
+                        TranslationLocalePicker.translationPicker(business.businessSlogan, context),
+                      style: TextStyle(color: Colors.white),
+                    ),
                   )
                 ],
               ),
