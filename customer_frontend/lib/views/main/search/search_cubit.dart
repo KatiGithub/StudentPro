@@ -20,10 +20,10 @@ class SearchCubit extends Cubit<SearchState> {
     return retailers;
   }
 
-  void searchByQuery(String query) {
+  void searchByQuery(String query) async {
     emit(SearchLoading());
 
-    searchService.searchByQuery(query).then((List<Business> businesses) {
+    await searchService.searchByQuery(query).then((List<Business> businesses) {
       searchResults = businesses;
       emit(SearchSuccess());
     });

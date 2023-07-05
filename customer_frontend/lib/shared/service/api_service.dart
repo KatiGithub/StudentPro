@@ -5,9 +5,7 @@ import 'package:studio_projects/shared/authentication/auth_service.dart';
 class APIService {
   AuthService authService = AuthService();
 
-  Map<String, dynamic>? queryParameters = {};
-
-  APIService({this.queryParameters});
+  late Map<String, dynamic> queryParameters = Map<String, dynamic>();
 
   Future<http.Response> get(String endPoint) async {
     try {

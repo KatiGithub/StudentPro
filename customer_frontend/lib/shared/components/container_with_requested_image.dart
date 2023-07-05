@@ -50,16 +50,18 @@ class _ImageContainerState extends State<ImageContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: widget.containerPadding,
-      decoration: BoxDecoration(
-          boxShadow: widget.containerBoxShadow,
-          border: widget.containerBorder,
-          borderRadius: widget.containerBorderRadius,
-          color: Colors.black54.withOpacity(0),
-          image: DecorationImage(
-              fit: BoxFit.fitWidth, image: _imageProvider ?? AssetImage("assets/mahapro_logo.png"))),
-      child: widget.containerChild,
+    return Padding(
+      padding: widget.containerPadding == null ? EdgeInsets.zero : widget.containerPadding!,
+      child: Container(
+        decoration: BoxDecoration(
+            boxShadow: widget.containerBoxShadow,
+            border: widget.containerBorder,
+            borderRadius: widget.containerBorderRadius,
+            color: Colors.black54.withOpacity(0),
+            image: DecorationImage(
+                fit: BoxFit.fitWidth, image: _imageProvider ?? AssetImage("assets/mahapro_logo.png"))),
+        child: widget.containerChild,
+      ),
     );
   }
 }

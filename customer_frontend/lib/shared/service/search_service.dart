@@ -10,7 +10,7 @@ class SearchService {
   APIService apiService = APIService();
 
   Future<List<Business>> searchByQuery(String query) {
-    apiService.queryParameters!["query"] = query;
+    apiService.queryParameters["query"] = query;
     return apiService.get(APIConstants.searchEndpoint).then((Response response) {
       List<dynamic> data = jsonDecode(response.body);
       List<Business> businesses = [];
@@ -21,8 +21,8 @@ class SearchService {
   }
 
   Future<List<Business>> searchByLocation(double longitude, double latitude) {
-    apiService.queryParameters!["longitude"] = longitude;
-    apiService.queryParameters!["latitude"] = latitude;
+    apiService.queryParameters!["longitude"] = longitude.toString();
+    apiService.queryParameters!["latitude"] = latitude.toString();
     return apiService.get("${APIConstants.searchEndpoint}/location").then((Response response) {
       List<dynamic> data = jsonDecode(response.body);
       List<Business> businesses = [];

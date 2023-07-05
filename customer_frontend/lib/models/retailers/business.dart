@@ -1,3 +1,4 @@
+import 'package:studio_projects/models/retailers/business_type.dart';
 import 'package:studio_projects/models/translation.dart';
 import 'package:studio_projects/shared/json_serializable.dart';
 
@@ -5,10 +6,12 @@ class Business implements JsonSerializable {
   int _id;
   List<Translation> _name;
   String _email;
+  BusinessType _businessType;
+
   List<Translation> _businessInfo;
   List<Translation> _businessSlogan;
 
-  Business(this._id, this._name, this._email, this._businessInfo, this._businessSlogan);
+  Business(this._id, this._name, this._email, this._businessType, this._businessInfo, this._businessSlogan);
 
   int get businessId => _id;
 
@@ -40,6 +43,12 @@ class Business implements JsonSerializable {
     _businessSlogan = value;
   }
 
+  BusinessType get businessType => _businessType;
+
+  set businessType(BusinessType value) {
+    _businessType = value;
+  }
+
   @override
   static Business toClass(Map<String, dynamic> json) {
     List<dynamic> businessInfo = json['businessInfo']["translations"];
@@ -50,6 +59,7 @@ class Business implements JsonSerializable {
         json['id'],
         businessName.map((dynamic e) => Translation.toClass(e as Map<String, dynamic>)).toList(),
         json['email'],
+        BusinessType.toClass(json['businessType']),
         businessInfo.map((e) => Translation.toClass(e)).toList(),
         businessSlogan.map((e) => Translation.toClass(e)).toList());
   }
@@ -66,4 +76,6 @@ class Business implements JsonSerializable {
 
     return data.toString();
   }
+
+
 }
