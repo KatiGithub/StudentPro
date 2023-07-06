@@ -3,7 +3,7 @@ import 'package:draggable_home/draggable_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
-import 'package:studio_projects/models/discounts/discounttypes/codeDiscounts.dart';
+import 'package:studio_projects/models/discounts/discounttypes/code_discount.dart';
 import 'package:studio_projects/shared/common_blocs/auth/auth_cubit.dart';
 import 'package:studio_projects/shared/components/discount_card.dart';
 import 'package:studio_projects/shared/components/discount_card_grouper.dart';

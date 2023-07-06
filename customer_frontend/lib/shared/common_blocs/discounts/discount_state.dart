@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:studio_projects/models/discounts/discount.dart';
-import 'package:studio_projects/models/discounts/discounttypes/codeDiscounts.dart';
-import 'package:studio_projects/models/discounts/discounttypes/linkDiscounts.dart';
+import 'package:studio_projects/models/discounts/discounttypes/code_discount.dart';
+import 'package:studio_projects/models/discounts/discounttypes/link_discount.dart';
 
 class DiscountState extends Equatable {
   List<Discount>? favoriteDiscounts;

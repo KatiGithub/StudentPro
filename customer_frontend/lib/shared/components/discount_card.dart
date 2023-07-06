@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:studio_projects/models/discounts/discount.dart';
 import 'package:studio_projects/shared/components/container_with_requested_image.dart';
+import 'package:studio_projects/shared/components/display_popup.dart';
 import 'package:studio_projects/shared/utils/discounthandler/translation_locale_retrieval.dart';
 
 class DiscountCard extends StatelessWidget {
@@ -20,33 +21,46 @@ class DiscountCard extends StatelessWidget {
               fit: FlexFit.tight,
               child: AspectRatio(
                 aspectRatio: 16 / 9,
-                child: ImageContainer(
-                  "/discount_banner_${discount.id}",
-                  containerBackgroundColor: Colors.teal,
-                  containerBorderRadius: BorderRadius.circular(40),
-                  containerBoxShadow: const [BoxShadow(color: Colors.black54, blurRadius: 15)],
-                  containerChild: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 20, left: 20, right: 10),
-                            height: 60,
-                            child: AspectRatio(
-                              aspectRatio: 1 / 1,
-                              child: ImageContainer(
-                                "/brand_logo_${discount.business.businessId}",
-                                containerBackgroundColor: Colors.redAccent,
-                                containerBorderRadius: BorderRadius.circular(10),
+                child: GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(top: Radius.circular(20))
+                        ),
+                        builder: (BuildContext context) {
+                          return DiscountPopup(discount);
+                        });
+                  },
+                  child: ImageContainer(
+                    "/discount_banner_${discount.id}",
+                    containerBackgroundColor: Colors.teal,
+                    containerBorderRadius: BorderRadius.circular(40),
+                    containerBoxShadow: const [BoxShadow(color: Colors.black54, blurRadius: 15)],
+                    containerChild: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(bottom: 20, left: 20, right: 10),
+                              height: 60,
+                              child: AspectRatio(
+                                aspectRatio: 1 / 1,
+                                child: ImageContainer(
+                                  "/brand_logo_${discount.business.businessId}",
+                                  containerBackgroundColor: Colors.redAccent,
+                                  containerBorderRadius: BorderRadius.circular(10),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      )
-                    ],
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               )),

@@ -5,9 +5,10 @@ import com.mahapro.backend.mahapro.model.Business.Business;
 import java.util.List;
 
 public interface SearchService {
-    List<Business> searchByQuery(String query);
+    List<Business> searchByQuery(String query, String authorizationHeader) throws Exception;
 
-    List<Business> searchByLocation(double longitude, double latitude);
+    List<Business> searchByLocation(double longitude, double latitude, String authorizationHeader) throws Exception;
 
-    List<Business> searchByCategory(int categoryId);
+    List<Business> searchByCategory(int categoryId, String authorizationHeader) throws Exception;
+
 }

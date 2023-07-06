@@ -66,7 +66,6 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Transactional
-//    @Modifying
     @Override
     public void verifyUser(int userId) {
         try {

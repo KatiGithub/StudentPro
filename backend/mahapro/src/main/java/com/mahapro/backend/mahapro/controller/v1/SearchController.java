@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -19,9 +20,10 @@ public class SearchController {
     SearchService searchService;
 
     @GetMapping
-    public ResponseEntity<String> searchRetailerByQuery(@RequestParam("query") String query) {
+    public ResponseEntity<String> searchRetailerByQuery(@RequestHeader("Authorization") String authorizationHeader,
+                                                        @RequestParam("query") String query) {
         try {
-            List<Business> businesses = searchService.searchByQuery(query);
+            List<Business> businesses = searchService.searchByQuery(query, authorizationHeader);
 
             return ResponseEntity.ok(businesses.toString());
         } catch (Exception e) {
@@ -31,11 +33,12 @@ public class SearchController {
 
     @GetMapping("/location")
     public ResponseEntity<String> searchRetailerByLocation(
+            @RequestHeader("Authorization") String authorizationHeader,
             @RequestParam("longitude") double longitude,
             @RequestParam("latitude") double latitude
-            ) {
+    ) {
         try {
-            List<Business> businesses = searchService.searchByLocation(longitude, latitude);
+            List<Business> businesses = searchService.searchByLocation(longitude, latitude, authorizationHeader);
 
             return ResponseEntity.ok(businesses.toString());
         } catch (Exception e) {
@@ -43,10 +46,18 @@ public class SearchController {
         }
     }
 
-//    @GetMapping("/category")
-//    public ResponseEntity<String> searchRetailerByCategory(
-//        @RequestParam("categoryId") int categoryId
-//    ) {
-//
-//    }
+    @GetMapping("/category")
+    public ResponseEntity<String> searchRetailerByCategory(
+            @RequestHeader("Authorization") String authorizationHeader,
+            @RequestParam("categoryId") int categoryId
+    ) {
+        try {
+            List<Business> businesses = searchService.searchByCategory(categoryId, authorizationHeader);
+            String answer = businesses.toString();
+
+            return ResponseEntity.ok(answer);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

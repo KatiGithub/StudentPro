@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studio_projects/shared/common_blocs/auth/auth_cubit.dart';
 import 'package:studio_projects/shared/common_blocs/discounts/discount_bloc.dart';
-import 'package:studio_projects/shared/common_blocs/favorite/favorite_bloc.dart';
 import 'package:studio_projects/shared/common_blocs/savedforlater/savedforlater_bloc.dart';
 import 'package:studio_projects/shared/common_blocs/theme/theme_bloc.dart';
 import 'package:studio_projects/views/authentication/authentication_screen.dart';
@@ -12,6 +11,7 @@ import 'package:studio_projects/views/authentication/register/email_verification
 import 'package:studio_projects/views/authentication/register/registration_cubit.dart';
 import 'package:studio_projects/views/authentication/register/registration_screen.dart';
 import 'package:studio_projects/views/authentication/reset_password/reset_password.dart';
+import 'package:studio_projects/views/main/favorite/favorite_cubit.dart';
 import 'package:studio_projects/views/main/home/home_cubit.dart';
 import 'package:studio_projects/views/main/home/home_screen.dart';
 import 'package:studio_projects/views/main/main_screen.dart';
@@ -50,7 +50,7 @@ class _MyAppState extends State<MyApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => DiscountBloc()),
-        BlocProvider(create: (_) => FavoriteBloc()),
+        BlocProvider(create: (_) => FavoriteCubit()),
         BlocProvider(create: (_) => SavedForLaterBloc()),
         BlocProvider(create: (_) => SettingsBloc()),
         BlocProvider(create: (_) => ThemeBloc()),

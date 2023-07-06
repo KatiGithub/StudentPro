@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:studio_projects/models/discounts/discounttypes/codeDiscounts.dart';
-import 'package:studio_projects/models/discounts/discounttypes/linkDiscounts.dart';
+import 'package:studio_projects/models/discounts/discounttypes/code_discount.dart';
+import 'package:studio_projects/models/discounts/discounttypes/link_discount.dart';
 import 'package:studio_projects/shared/common_blocs/discounts/discount_event.dart';
 import 'package:studio_projects/shared/common_blocs/discounts/discount_state.dart';
 

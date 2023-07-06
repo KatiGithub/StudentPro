@@ -5,4 +5,6 @@ class APIConstants {
   static String retailerEndpoint = '/retailer';
   static String imageEndpoint = '/image';
   static String searchEndpoint = '/search';
+  static String favoriteEndpoint = '/favorite';
+  static String transactionEndpoint = '/transaction';
 }

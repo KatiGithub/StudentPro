@@ -1,15 +1,16 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:studio_projects/models/discounts/discount.dart';
 import 'package:studio_projects/shared/common_blocs/retailer/retailer_event.dart';
 import 'package:studio_projects/shared/common_blocs/retailer/retailer_state.dart';
 
-import '../../../models/retailers/business.dart';
 import '../../../models/retailers/business_post.dart';
 
-class RetailerBloc extends Bloc<RetailerEvent, RetailerState> {
-  RetailerBloc() : super(RetailerInitial()) {
-    on<OnGetRetailerInformation>(
-        (event, emit) => _OnGetRetailerInformation(event, emit));
-  }
+class RetailerCubit extends Cubit<RetailerState> {
+
+  List<Discount> discounts = [];
+  List<BusinessPost> businessPosts = [];
+
+  RetailerCubit(): super(RetailerInitial());
 
   void _OnGetRetailerInformation(
       OnGetRetailerInformation event, Emitter<RetailerState> emit) {

@@ -1,15 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:studio_projects/models/retailers/business.dart';
-import 'package:studio_projects/shared/common_blocs/favorite/favorite_bloc.dart';
-import 'package:studio_projects/shared/common_blocs/favorite/favorite_event.dart';
 import 'package:studio_projects/shared/components/container_with_requested_image.dart';
 import 'package:studio_projects/shared/utils/discounthandler/translation_locale_retrieval.dart';
 import 'package:studio_projects/views/main/settings/settings_bloc.dart';
-
-import '../common_blocs/favorite/favorite_state.dart';
 
 class RetailerCard extends StatelessWidget {
   Business business;

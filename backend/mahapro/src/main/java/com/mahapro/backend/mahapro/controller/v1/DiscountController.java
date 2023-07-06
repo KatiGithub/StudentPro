@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@ApiController
 @RequestMapping(value = "/discount", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DiscountController {
 
