@@ -41,4 +41,14 @@ public class BusinessDaoImpl implements BusinessDao {
 
         return (List<Business>) query.getResultList();
     }
+
+    @Override
+    public void addBusinessUserClick(int userId, int businessId, double timeClicked) {
+        Query query = entityManager.createNativeQuery("INSERT INTO user_retailer_clicks(user_id, retailer_id, time_clicked) VALUES (:userId, :businessId, :timeClicked)");
+        query.setParameter("userId", userId);
+        query.setParameter("retailerId", businessId);
+        query.setParameter("timeClicked", timeClicked);
+
+        query.getSingleResult();
+    }
 }

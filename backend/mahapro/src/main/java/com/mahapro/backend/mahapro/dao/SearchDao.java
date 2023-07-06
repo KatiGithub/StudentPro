@@ -1,6 +1,7 @@
 package com.mahapro.backend.mahapro.dao;
 
 import com.mahapro.backend.mahapro.model.Business.Business;
+import com.mahapro.backend.mahapro.model.UserSearch;
 
 import java.util.List;
 
@@ -12,4 +13,6 @@ public interface SearchDao {
     List<Business> searchByLocation(double latitude, double longitude);
 
     List<Business> getSearchHistory(int userId);
+
+    void addToSearchHistory(UserSearch userSearch);
 }

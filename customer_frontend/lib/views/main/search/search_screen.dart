@@ -197,17 +197,22 @@ class _SearchScreenState extends State<SearchScreen> {
                               childAspectRatio: 2 / 1,
                               children: [
                                 ...categories.map((BusinessType e) =>
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(15),
-                                          gradient: const LinearGradient(
-                                            colors: [
-                                              Color.fromRGBO(255, 49, 49, 0.8),
-                                              Color.fromRGBO(255, 135, 74, 1.0)
-                                            ],
-                                          )),
-                                      child: Center(
-                                        child: Text(e.name),
+                                    GestureDetector(
+                                      onTap: () {
+                                        BlocProvider.of<SearchCubit>(context).searchByCategory(e.id);
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(15),
+                                            gradient: const LinearGradient(
+                                              colors: [
+                                                Color.fromRGBO(255, 49, 49, 0.8),
+                                                Color.fromRGBO(255, 135, 74, 1.0)
+                                              ],
+                                            )),
+                                        child: Center(
+                                          child: Text(e.name),
+                                        ),
                                       ),
                                     ))
                               ],

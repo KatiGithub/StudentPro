@@ -38,6 +38,14 @@ class SearchCubit extends Cubit<SearchState> {
     });
   }
 
+  void searchByCategory(int categoryId) {
+    emit(SearchLoading());
+    searchService.searchByCategory(categoryId).then((List<Business> businesses) {
+      searchResults = businesses;
+      emit(SearchSuccess());
+    });
+  }
+
   void getSearchHistory() {
     searchHistory.clear();
   }

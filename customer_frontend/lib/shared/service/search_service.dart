@@ -21,8 +21,8 @@ class SearchService {
   }
 
   Future<List<Business>> searchByLocation(double longitude, double latitude) {
-    apiService.queryParameters!["longitude"] = longitude.toString();
-    apiService.queryParameters!["latitude"] = latitude.toString();
+    apiService.queryParameters["longitude"] = longitude.toString();
+    apiService.queryParameters["latitude"] = latitude.toString();
     return apiService.get("${APIConstants.searchEndpoint}/location").then((Response response) {
       List<dynamic> data = jsonDecode(response.body);
       List<Business> businesses = [];
@@ -34,7 +34,7 @@ class SearchService {
   }
 
   Future<List<Business>> searchByCategory(int categoryId) {
-    apiService.queryParameters!["categoryId"] = categoryId;
+    apiService.queryParameters["categoryId"] = categoryId.toString();
     return apiService.get("${APIConstants.searchEndpoint}/category").then((Response response) {
       List<dynamic> data = jsonDecode(response.body);
       List<Business> businesses = [];
