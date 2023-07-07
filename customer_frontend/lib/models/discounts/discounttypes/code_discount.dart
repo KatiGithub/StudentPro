@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:studio_projects/models/discounts/discount.dart';
 import 'package:studio_projects/models/retailers/business.dart';
 import 'package:studio_projects/models/transaction.dart';
@@ -18,8 +17,12 @@ class CodeDiscount extends Discount {
 
   Future<String> claimCoupon() async {
     DiscountService discountService = DiscountService();
-    return await discountService.claimCoupon(id).then((Transaction transaction) {
-      return transaction.couponCode!;
-    });
+    try {
+      return await discountService.claimCoupon(id).then((Transaction transaction) {
+        return transaction.couponCode!;
+      });
+    } catch(e) {
+      throw Exception(e.toString());
+    }
   }
 }

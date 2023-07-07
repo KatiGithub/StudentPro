@@ -49,7 +49,7 @@ public class TransactionServiceImpl implements TransactionService {
             String uid = firebaseToken.getUid();
 
             int userId = userDao.findByFirebaseUserId(uid).getUserId();
-            if(!transactionDao.checkUserLimit(discountId, userId)) {
+            if(transactionDao.checkUserLimit(discountId, userId)) {
                 throw new LimitReachedException("");
             }
 

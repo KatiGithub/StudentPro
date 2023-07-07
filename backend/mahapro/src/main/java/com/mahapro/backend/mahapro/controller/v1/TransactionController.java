@@ -3,6 +3,7 @@ package com.mahapro.backend.mahapro.controller.v1;
 import com.mahapro.backend.mahapro.service.TransactionService;
 import com.mahapro.backend.mahapro.shared.exception.LimitReachedException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,13 +23,13 @@ public class TransactionController {
 
     @PostMapping("/claim/{id}")
     public ResponseEntity<String> claimCoupon(
-            @RequestParam("id") int discountId,
+            @PathVariable("id") int discountId,
             @RequestHeader("Authorization") String authorizationHeader
     ) {
         try {
             return ResponseEntity.ok(transactionService.claimCoupon(discountId, authorizationHeader).toString());
         } catch (LimitReachedException e) {
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
@@ -36,7 +37,7 @@ public class TransactionController {
 
     @GetMapping("/discount/{id}")
     public ResponseEntity checkUseLimit(
-            @RequestParam("id") int discountId,
+            @PathVariable("id") int discountId,
             @RequestHeader("Authorization") String authorizationHeader
     ) {
         try {
@@ -44,7 +45,7 @@ public class TransactionController {
 
             return ResponseEntity.ok().build();
         } catch (LimitReachedException e) {
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }

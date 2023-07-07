@@ -19,7 +19,7 @@ public class Discount implements Serializable {
     private int id;
 
     @Column(name = "is_online")
-    private Boolean isOnlineOrInStore;
+    private Boolean isOnline;
 
     @Column(name = "claims_per_user")
     private int claimsPerUser;
@@ -54,16 +54,16 @@ public class Discount implements Serializable {
         this.id = id;
     }
 
-    public Boolean isIsOnlineOrInStore() {
-        return this.isOnlineOrInStore;
+    public Boolean isIsOnline() {
+        return this.isOnline;
     }
 
-    public Boolean getIsOnlineOrInStore() {
-        return this.isOnlineOrInStore;
+    public Boolean getIsOnline() {
+        return this.isOnline;
     }
 
     public void setIsOnlineOrInStore(Boolean isOnlineOrInStore) {
-        this.isOnlineOrInStore = isOnlineOrInStore;
+        this.isOnline = isOnlineOrInStore;
     }
 
     public int getClaimsPerUser() {

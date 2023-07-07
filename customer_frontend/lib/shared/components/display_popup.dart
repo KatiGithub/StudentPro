@@ -6,6 +6,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:studio_projects/models/discounts/discount.dart';
 import 'package:studio_projects/models/discounts/discounttypes/code_discount.dart';
 import 'package:studio_projects/models/discounts/discounttypes/link_discount.dart';
+import 'package:studio_projects/shared/service/transaction_service.dart';
 import 'package:studio_projects/shared/utils/discounthandler/translation_locale_retrieval.dart';
 
 import 'container_with_requested_image.dart';
@@ -21,12 +22,24 @@ class DiscountPopup extends StatefulWidget {
 
 class _DiscountPopupState extends State<DiscountPopup> {
   bool _discountAvailable = false;
+  bool _limitReached = false;
+
+  final TransactionService transactionService = TransactionService();
+
+  @override
+  void initState() {
+    super.initState();
+    transactionService.checkUserLimit(widget.discount.id).then((bool limitReached) {
+      setState(() {
+        _limitReached = limitReached;
+      });
+    });
+  }
 
   String couponCode = "";
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
         height: MediaQuery.of(context).size.height * 0.8,
         child: Column(
@@ -39,7 +52,7 @@ class _DiscountPopupState extends State<DiscountPopup> {
               flex: 8,
               child: ImageContainer(
                 '/brand_banner_${widget.discount.business.businessId}',
-                containerBorderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+                containerBorderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
               ),
             ),
             Flexible(
@@ -112,20 +125,28 @@ class _DiscountPopupState extends State<DiscountPopup> {
                         child: _discountAvailable
                             ? widget.discount is CodeDiscount
                                 ? Column(
-                          children: [
-                            QrImage(data: couponCode, size: 200, version: QrVersions.auto,),
-                            Text(couponCode, style: const TextStyle(fontSize: 12),)
-                          ],
-                        )
+                                    children: [
+                                      QrImage(
+                                        data: couponCode,
+                                        size: 200,
+                                        version: QrVersions.auto,
+                                      ),
+                                      Text(
+                                        couponCode,
+                                        style: const TextStyle(fontSize: 12),
+                                      )
+                                    ],
+                                  )
                                 : Column()
                             : Center(
                                 child: Container(
                                 margin: const EdgeInsets.symmetric(horizontal: 80),
                                 height: 60,
                                 child: MaterialButton(
+                                  disabledColor: Colors.grey,
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                                   color: const Color.fromRGBO(255, 166, 48, 1),
-                                  onPressed: () {
+                                  onPressed: _limitReached ? null : () {
                                     if (widget.discount is CodeDiscount) {
                                       CodeDiscount discount = widget.discount as CodeDiscount;
                                       discount.claimCoupon().then((String couponCode) {

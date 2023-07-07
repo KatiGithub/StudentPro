@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:studio_projects/models/retailers/business.dart';
 import 'package:studio_projects/views/main/favorite/favorite_screen.dart';
 import 'package:studio_projects/views/main/home/home_cubit.dart';
 import 'package:studio_projects/views/main/home/home_screen.dart';
@@ -9,6 +10,7 @@ import 'package:studio_projects/views/main/settings/settings_bloc.dart';
 import 'package:studio_projects/views/main/settings/settings_screen.dart';
 import 'package:studio_projects/views/main/search/search_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:studio_projects/views/retailer/retailer_screen.dart';
 import 'home/home_state.dart';
 
 class MainScreen extends StatefulWidget {
@@ -42,6 +44,7 @@ class _MainScreenState extends State<MainScreen> {
   int pageCount = 0;
 
   final goRouter = GoRouter(initialLocation: "/home", navigatorKey: _homeNavigatorKey, routes: [
+    GoRoute(path: "/retailer", builder: (BuildContext context, GoRouterState state) => RetailerScreen(state.extra as Business)),
     StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return ScaffoldWithNavBar(navigationShell);
@@ -58,7 +61,7 @@ class _MainScreenState extends State<MainScreen> {
           ]),
           StatefulShellBranch(navigatorKey: _shellNavigatorSettingsKey, routes: <RouteBase>[
             GoRoute(path: "/settings", builder: (BuildContext context, GoRouterState state) => SettingsScreen())
-          ])
+          ]),
         ])
   ]);
 

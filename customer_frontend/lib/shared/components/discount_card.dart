@@ -6,13 +6,17 @@ import 'package:studio_projects/shared/utils/discounthandler/translation_locale_
 
 class DiscountCard extends StatelessWidget {
   Discount discount;
+  double? titleSize;
+  EdgeInsets? cardPadding;
+  BorderRadius? sheetBorderRadius;
+  List<BoxShadow>? sheetBoxShadow;
 
-  DiscountCard(this.discount);
+  DiscountCard(this.discount, {this.titleSize, this.cardPadding, this.sheetBorderRadius, this.sheetBoxShadow});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 10, left: 20, right: 20),
+      margin: cardPadding ?? const EdgeInsets.only(bottom: 10, left: 20, right: 20),
       height: MediaQuery.of(context).size.height / 3.6,
       child: Column(
         children: [
@@ -26,9 +30,7 @@ class DiscountCard extends StatelessWidget {
                     showModalBottomSheet(
                         context: context,
                         isScrollControlled: true,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(top: Radius.circular(20))
-                        ),
+                        shape: RoundedRectangleBorder(borderRadius: sheetBorderRadius ?? BorderRadius.circular(30)),
                         builder: (BuildContext context) {
                           return DiscountPopup(discount);
                         });
@@ -37,27 +39,30 @@ class DiscountCard extends StatelessWidget {
                     "/discount_banner_${discount.id}",
                     containerBackgroundColor: Colors.teal,
                     containerBorderRadius: BorderRadius.circular(40),
-                    containerBoxShadow: const [BoxShadow(color: Colors.black54, blurRadius: 15)],
+                    containerBoxShadow: sheetBoxShadow ?? const [BoxShadow(color: Colors.black54, blurRadius: 15)],
                     containerChild: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(bottom: 20, left: 20, right: 10),
-                              height: 60,
-                              child: AspectRatio(
-                                aspectRatio: 1 / 1,
-                                child: ImageContainer(
-                                  "/brand_logo_${discount.business.businessId}",
-                                  containerBackgroundColor: Colors.redAccent,
-                                  containerBorderRadius: BorderRadius.circular(10),
+                        Flexible(flex: 1, fit: FlexFit.tight, child: Container()),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(bottom: 20, left: 20, right: 10),
+                                child: AspectRatio(
+                                  aspectRatio: 1 / 1,
+                                  child: ImageContainer(
+                                    "/brand_logo_${discount.business.businessId}",
+                                    containerBackgroundColor: Colors.redAccent,
+                                    containerBorderRadius: BorderRadius.circular(10),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         )
                       ],
                     ),
@@ -72,10 +77,11 @@ class DiscountCard extends StatelessWidget {
                   Expanded(
                       child: Container(
                     width: double.infinity,
-                    padding: const EdgeInsets.only(top: 8, left: 20),
+                    padding: const EdgeInsets.only(top: 8, left: 10),
                     child: Text(
                       TranslationLocalePicker.translationPicker(discount.discountTitle, context),
                       textAlign: TextAlign.start,
+                      style: TextStyle(fontSize: titleSize ?? 15),
                     ),
                   ))
                 ],

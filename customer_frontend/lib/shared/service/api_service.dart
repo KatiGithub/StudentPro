@@ -12,9 +12,6 @@ class APIService {
       return authService.getIdToken().then((String idToken) async {
         var url = Uri.http(APIConstants.baseUrl, endPoint, queryParameters);
         http.Response response = await http.get(url, headers: {"Authorization": "Bearer $idToken"});
-        if(response.statusCode != 200) {
-          throw Exception("An error occured");
-        }
 
         return response;
       });
@@ -28,9 +25,7 @@ class APIService {
       return authService.getIdToken().then((String idToken) async {
         var url = Uri.http(APIConstants.baseUrl, endPoint, queryParameters);
         http.Response response = await http.post(url, headers: {"Authorization": "Bearer $idToken"}, body: body);
-        if(response.statusCode != 200) {
-          throw Exception("An error occured.");
-        }
+
         return response;
       });
     } catch (e) {

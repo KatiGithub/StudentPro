@@ -64,10 +64,12 @@ public class TransactionDaoImpl implements TransactionDao {
 
     @Override
     public Boolean checkUserLimit(int discountId, int userId) {
-        Query query = entityManager.createNativeQuery("SELECT * FROM check_user_limit(:userId , :discountId)", Boolean.class);
+        Query query = entityManager.createNativeQuery("SELECT * FROM check_user_limit(:userId, :discountId)", Boolean.class);
         query.setParameter("userId", userId);
         query.setParameter("discountId", discountId);
 
-        return (Boolean) query.getSingleResult();
+        Boolean check = (Boolean) query.getSingleResult();
+
+        return check;
     }
 }

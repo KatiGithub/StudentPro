@@ -12,6 +12,7 @@ class ImageContainer extends StatefulWidget {
   List<BoxShadow>? containerBoxShadow;
   Widget? containerChild;
   EdgeInsets? containerPadding;
+  BoxFit? pictureBoxFit;
 
   ImageContainer(this.endPointEnding,
       {this.containerBackgroundColor,
@@ -19,7 +20,8 @@ class ImageContainer extends StatefulWidget {
       this.containerBorder,
       this.containerBoxShadow,
       this.containerChild,
-        this.containerPadding
+        this.containerPadding,
+        this.pictureBoxFit
       });
 
   @override
@@ -59,7 +61,7 @@ class _ImageContainerState extends State<ImageContainer> {
             borderRadius: widget.containerBorderRadius,
             color: Colors.black54.withOpacity(0),
             image: DecorationImage(
-                fit: BoxFit.fitWidth, image: _imageProvider ?? AssetImage("assets/mahapro_logo.png"))),
+                fit: widget.pictureBoxFit ?? BoxFit.fitWidth, image: _imageProvider ?? AssetImage("assets/mahapro_logo.png"))),
         child: widget.containerChild,
       ),
     );

@@ -29,7 +29,7 @@ public class Transaction {
     private String discountCouponCode;
 
     @Column(name="used_on")
-    private double usedOn;
+    private Double usedOn;
     
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -42,6 +42,65 @@ public class Transaction {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "branch_id")
     private Branch branch;
+
+    @Column(name = "status")
+    private String status;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDiscountCouponCode() {
+        return discountCouponCode;
+    }
+
+    public void setDiscountCouponCode(String discountCouponCode) {
+        this.discountCouponCode = discountCouponCode;
+    }
+
+    public Double getUsedOn() {
+        return usedOn;
+    }
+
+    public void setUsedOn(Double usedOn) {
+        this.usedOn = usedOn;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
+    }
+
+    public Branch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(Branch branch) {
+        this.branch = branch;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     @Override
     public String toString() {

@@ -11,11 +11,10 @@ class RetailerInitial extends RetailerState {}
 
 class RetailerLoading extends RetailerState {}
 
-class RetailerLoadComplete extends RetailerState {
-  Business retailer;
+class RetailerError extends RetailerState {
+  String errorCode;
 
-  RetailerLoadComplete({required this.retailer});
-
-  @override
-  List<Object> get props => [retailer];
+  RetailerError(this.errorCode);
 }
+
+class RetailerSuccess extends RetailerState {}

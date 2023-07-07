@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studio_projects/shared/common_blocs/auth/auth_cubit.dart';
 import 'package:studio_projects/shared/common_blocs/discounts/discount_bloc.dart';
+import 'package:studio_projects/shared/common_blocs/retailer/retailer_cubit.dart';
 import 'package:studio_projects/shared/common_blocs/savedforlater/savedforlater_bloc.dart';
 import 'package:studio_projects/shared/common_blocs/theme/theme_bloc.dart';
 import 'package:studio_projects/views/authentication/authentication_screen.dart';
@@ -57,7 +58,8 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (_) => RegistrationCubit()),
         BlocProvider(create: (_) => HomeCubit()),
         BlocProvider(create: (_) => AuthCubit()),
-        BlocProvider(create: (_) => SearchCubit())
+        BlocProvider(create: (_) => SearchCubit()),
+        BlocProvider(create: (_) => RetailerCubit())
       ],
       child: BlocConsumer<SettingsBloc, SettingsState>(
         listener: (context, state) {
@@ -76,7 +78,6 @@ class _MyAppState extends State<MyApp> {
               RegistrationScreen.id: (context) => RegistrationScreen(),
               EmailVerification.id: (context) => EmailVerification(),
               SearchScreen.id: (context) => SearchScreen(),
-              RetailerScreen.id: (context) => RetailerScreen(),
               ResetPasswordScreen.id: (context) => ResetPasswordScreen(),
               HomeScreen.id: (context) => HomeScreen()
             },

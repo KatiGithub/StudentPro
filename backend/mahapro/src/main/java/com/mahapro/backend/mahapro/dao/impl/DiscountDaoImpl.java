@@ -30,7 +30,7 @@ public class DiscountDaoImpl implements DiscountDao {
 
     @Override
     public List<Discount> findByBusinessId(int businessId) {
-        Query query = entityManager.createNativeQuery("SELECT * FROM discount WHERE discount_id = :businessId", Discount.class);
+        Query query = entityManager.createNativeQuery("SELECT * FROM discount WHERE business_id = :businessId", Discount.class);
         query.setParameter("businessId", businessId);
 
         return (List<Discount>) query.getResultList();
