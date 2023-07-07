@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:studio_projects/models/discounts/discount.dart';
 import 'package:studio_projects/shared/components/container_with_requested_image.dart';
 import 'package:studio_projects/shared/components/display_popup.dart';
-import 'package:studio_projects/shared/utils/discounthandler/translation_locale_retrieval.dart';
+import 'package:studio_projects/shared/utils/translation_locale_retrieval.dart';
 
 class DiscountCard extends StatelessWidget {
   Discount discount;

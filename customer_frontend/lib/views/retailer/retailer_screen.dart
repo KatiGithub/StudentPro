@@ -8,7 +8,7 @@ import 'package:studio_projects/shared/common_blocs/retailer/retailer_state.dart
 import 'package:studio_projects/shared/components/container_with_requested_image.dart';
 import 'package:studio_projects/shared/components/discount_card.dart';
 import 'package:studio_projects/shared/components/loading_screen.dart';
-import 'package:studio_projects/shared/utils/discounthandler/translation_locale_retrieval.dart';
+import 'package:studio_projects/shared/utils/translation_locale_retrieval.dart';
 
 class RetailerScreen extends StatefulWidget {
   static const id = 'retailer';

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:studio_projects/models/retailers/business.dart';
 import 'package:studio_projects/shared/components/container_with_requested_image.dart';
-import 'package:studio_projects/shared/utils/discounthandler/translation_locale_retrieval.dart';
+import 'package:studio_projects/shared/utils/translation_locale_retrieval.dart';
 import 'package:studio_projects/views/main/settings/settings_bloc.dart';
 
 class RetailerCard extends StatelessWidget {

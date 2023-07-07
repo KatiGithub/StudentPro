@@ -7,7 +7,7 @@ import 'package:studio_projects/models/discounts/discount.dart';
 import 'package:studio_projects/models/discounts/discounttypes/code_discount.dart';
 import 'package:studio_projects/models/discounts/discounttypes/link_discount.dart';
 import 'package:studio_projects/shared/service/transaction_service.dart';
-import 'package:studio_projects/shared/utils/discounthandler/translation_locale_retrieval.dart';
+import 'package:studio_projects/shared/utils/translation_locale_retrieval.dart';
 
 import 'container_with_requested_image.dart';
 

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studio_projects/models/retailers/business.dart';
 import 'package:studio_projects/shared/components/container_with_requested_image.dart';
-import 'package:studio_projects/shared/utils/discounthandler/translation_locale_retrieval.dart';
+import 'package:studio_projects/shared/utils/translation_locale_retrieval.dart';
 
 class RecentlyViewedSearch extends StatelessWidget {
   Business business;

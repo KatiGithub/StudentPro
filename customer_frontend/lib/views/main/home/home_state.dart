@@ -7,7 +7,7 @@ abstract class HomeState extends Equatable {
   HomeState();
 
   @override
-  List<Object> get props => throw UnimplementedError();
+  List<Object> get props => [];
 }
 
 class HomeInitial extends HomeState {}

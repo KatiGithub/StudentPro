@@ -1,7 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.studentpro.studentpro.studio_projects">
-   <application
-        android:label="studio_projects"
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <application
+        android:label="MahaPro"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

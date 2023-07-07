@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,11 +27,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
         return Scaffold(
             body: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Text("App Settings", style: TextStyle(fontSize: 16),),
+            ),
+            ListTile(
+              title: const Text("Change Location Settings"),
+              onTap: () {
+                AppSettings.openAppSettings();
+              },
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: [
+              children: const [
                 SizedBox(
                   width: 10,
                 ),
@@ -38,10 +50,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold), textAlign: TextAlign.start),
               ],
             ),
-            ListTile(
+            const ListTile(
               title: Text("Edit Information"),
             ),
-            ListTile(
+            const ListTile(
               title: Text("Change Password"),
             ),
             ListTile(
@@ -49,7 +61,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 settingsBloc.add(OnLogOut());
                 Navigator.pushReplacementNamed(context, 'welcome');
               },
-              title: Text("Log Out"),
+              title: const Text("Log Out"),
             ),
             const SizedBox(
               height: 10,
@@ -57,11 +69,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Text(AppLocalizations.of(context)!.preferences,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold), textAlign: TextAlign.start),
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold), textAlign: TextAlign.start),
               ],
             ),
             SwitchListTile(
@@ -78,11 +90,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               trailing: PopupMenuButton(
                 itemBuilder: (BuildContext context) {
                   return [
-                    PopupMenuItem(
+                    const PopupMenuItem(
                       child: Text("English"),
                       value: "en",
                     ),
-                    PopupMenuItem(
+                    const PopupMenuItem(
                       child: Text("Thai"),
                       value: "th",
                     ),
