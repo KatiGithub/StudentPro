@@ -16,4 +16,6 @@ public interface UserDao {
     User save(User user);
     void verifyUser(int userId);
     User login(int userId);
+
+    void insertUserLocation(Double longitude, Double latitude, int userId);
 }

@@ -24,12 +24,44 @@ public class UserLocation {
     private int id;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "user.user_id")
+    @JoinColumn(name = "user_id")
     private User user;
-
-    @Column(name="user_location", columnDefinition="geography(POINT, 4326)")
-    private Point location;
 
     @Column(name="time_received")
     private double timeReceived;
+
+    @Column(name = "location")
+    private Point location;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public double getTimeReceived() {
+        return timeReceived;
+    }
+
+    public void setTimeReceived(double timeReceived) {
+        this.timeReceived = timeReceived;
+    }
+
+    public Point getLocation() {
+        return location;
+    }
+
+    public void setLocation(Point location) {
+        this.location = location;
+    }
 }

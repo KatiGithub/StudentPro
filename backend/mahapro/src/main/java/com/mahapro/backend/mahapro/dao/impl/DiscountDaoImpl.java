@@ -51,4 +51,14 @@ public class DiscountDaoImpl implements DiscountDao {
 
         return (List<Discount>) query.getResultList();
     }
+
+    @Override
+    public List<Discount> findByLastKnownUserLocation(int userId) {
+        Query query = entityManager.createNativeQuery("SELECT * FROM get_discounts_for_user(:userId)", Discount.class);
+        query.setParameter("userId", userId);
+
+        return (List<Discount>) query.getResultList();
+    }
+
+
 }

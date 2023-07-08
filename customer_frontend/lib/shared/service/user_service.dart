@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:studio_projects/shared/api_constants.dart';
 import 'package:studio_projects/shared/exception/email_not_verified.dart';
 import 'package:studio_projects/shared/exception/registration_unsuccessful.dart';
@@ -31,6 +32,12 @@ class UserService {
         throw Exception("Unauthorized");
       }
     });
+  }
+
+  Future<void> sendUserLocation(LatLng userCoordinates) {
+    apiService.queryParameters['longitude'] = userCoordinates.longitude.toString();
+    apiService.queryParameters['latitude'] = userCoordinates.latitude.toString();
+    return apiService.post("${APIConstants.userEndpoint}/location", "");
   }
 
   Future<void> emailVerifiedConfirm() {

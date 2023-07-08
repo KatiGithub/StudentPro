@@ -28,6 +28,20 @@ public class UserController {
         }
     }
 
+    @PostMapping("/location")
+    public ResponseEntity insertUserLocation(
+            @RequestParam("longitude") Double longitude,
+            @RequestParam("latitude") Double latitude,
+            @RequestHeader("Authorization") String authorizationHeader
+    ) {
+        try {
+            userService.insertUserLocation(longitude, latitude, authorizationHeader);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody String jsonBody, @RequestHeader("Authorization") String authorizationheader) {
         try {

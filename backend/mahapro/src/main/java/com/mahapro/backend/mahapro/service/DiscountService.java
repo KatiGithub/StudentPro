@@ -9,4 +9,5 @@ public interface DiscountService {
     List<Discount> findByBusinessId(int businessId);
     List<Discount> findByLocation(double longitude, double latitude);
     List<Discount> findByRandom();
+    List<Discount> findByLastKnownUserLocation(String authorizationHeader);
 }

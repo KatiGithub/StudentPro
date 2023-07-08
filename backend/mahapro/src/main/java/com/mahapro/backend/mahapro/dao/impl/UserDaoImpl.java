@@ -86,5 +86,14 @@ public class UserDaoImpl implements UserDao {
         return (User) query.getSingleResult();
     }
 
+    @Transactional
+    @Override
+    public void insertUserLocation(Double longitude, Double latitude, int userId) {
+        Query query = entityManager.createNativeQuery("INSERT INTO  user_location(user_id, location, time_received) VALUES (:userId, ST_Makepoint(:longitude ,:latitude), get_current_unix_timestamp())");
+        query.setParameter("userId", userId);
+        query.setParameter("longitude", longitude);
+        query.setParameter("latitude", latitude);
 
+        query.executeUpdate();
+    }
 }

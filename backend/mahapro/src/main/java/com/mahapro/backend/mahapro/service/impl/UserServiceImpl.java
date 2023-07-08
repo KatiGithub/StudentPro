@@ -110,4 +110,16 @@ public class UserServiceImpl implements UserService {
     public boolean checkUser(String uid) {
         return false;
     }
+
+    @Override
+    public void insertUserLocation(Double longitude, Double latitude, String authorizationHeader) {
+        try {
+            String jwtToken = JwtTokenProvider.getToken(authorizationHeader);
+            FirebaseToken firebaseToken = firebaseAuth.verifyIdToken(jwtToken);
+
+            userDao.insertUserLocation(longitude, latitude, userDao.findByFirebaseUserId(firebaseToken.getUid()).getUserId());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

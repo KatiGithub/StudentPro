@@ -9,10 +9,13 @@ import 'package:go_router/go_router.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:studio_projects/models/discounts/discounttypes/code_discount.dart';
 import 'package:studio_projects/shared/common_blocs/auth/auth_cubit.dart';
+import 'package:studio_projects/shared/components/container_with_requested_image.dart';
 import 'package:studio_projects/shared/components/discount_card.dart';
 import 'package:studio_projects/shared/components/discount_card_grouper.dart';
+import 'package:studio_projects/shared/components/display_popup.dart';
 import 'package:studio_projects/shared/components/retailer_card.dart';
 import 'package:studio_projects/shared/utils/location/location_util.dart';
+import 'package:studio_projects/shared/utils/translation_locale_retrieval.dart';
 import 'package:studio_projects/views/main/home/home_cubit.dart';
 
 import '../../../models/discounts/discount.dart';
@@ -30,10 +33,10 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentRetailer = 0;
 
   ScrollController scrollController = ScrollController();
+  List<Discount> inYourAreaDiscounts = [];
 
   void scrollListener() {
-    if (scrollController.offset <= scrollController.position.minScrollExtent &&
-        !scrollController.position.outOfRange) {
+    if (scrollController.offset <= scrollController.position.minScrollExtent && !scrollController.position.outOfRange) {
       // User has scrolled to the top, trigger refresh action
       GoRouter.of(context).refresh();
     }
@@ -48,10 +51,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void initialize() {
     BlocProvider.of<HomeCubit>(context).loadHome();
-    LocationUtil.requestUserPermission().then((LocationPermission locationPermission) {
-      setState(() {
-        _locationEnabled =
-            locationPermission == LocationPermission.always || locationPermission == LocationPermission.whileInUse;
+    BlocProvider.of<HomeCubit>(context).updateUserLocation().then((_) {
+      LocationUtil.requestUserPermission().then((LocationPermission locationPermission) {
+        setState(() {
+          _locationEnabled =
+              locationPermission == LocationPermission.always || locationPermission == LocationPermission.whileInUse;
+        });
       });
     });
   }
@@ -78,6 +83,8 @@ class _HomeScreenState extends State<HomeScreen> {
               BlocProvider.of<HomeCubit>(context).recommendedDiscount.forEach((Discount discount) {
                 recommendedDiscounts.add(DiscountCard(discount));
               });
+              List<Discount> discounts = BlocProvider.of<HomeCubit>(context).discountsInYourArea;
+              inYourAreaDiscounts = discounts;
             });
           }
         },
@@ -203,50 +210,58 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     childAspectRatio: 3 / 10,
                                                     children: [
                                                       for (int i = 0; i < 9; i++)
-                                                        Container(
-                                                          decoration: BoxDecoration(
-                                                              borderRadius: BorderRadius.circular(15),
-                                                              border: Border.all(
-                                                                  color: Colors.black54,
-                                                                  width: 3,
-                                                                  strokeAlign: BorderSide.strokeAlignOutside)),
-                                                          margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                                                          child: Row(
-                                                            children: [
-                                                              Expanded(
-                                                                  child: AspectRatio(
-                                                                aspectRatio: 1 / 1,
-                                                                child: Container(
-                                                                  margin: const EdgeInsets.all(10),
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            showModalBottomSheet(
+                                                                context: context,
+                                                                isScrollControlled: true,
+                                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                                                                builder: (BuildContext context) {
+                                                                  return DiscountPopup(inYourAreaDiscounts[i]);
+                                                                });
+                                                          },
+                                                          child: Container(
+                                                            decoration: BoxDecoration(
+                                                                borderRadius: BorderRadius.circular(15),
+                                                                border: Border.all(
+                                                                    color: Colors.black54,
+                                                                    width: 3,
+                                                                    strokeAlign: BorderSide.strokeAlignOutside)),
+                                                            margin:
+                                                                const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                                                            child: Row(
+                                                              children: [
+                                                                Expanded(
+                                                                    child: AspectRatio(
+                                                                  aspectRatio: 1 / 1,
                                                                   child: Container(
-                                                                    decoration: BoxDecoration(
-                                                                        borderRadius: BorderRadius.circular(5),
-                                                                        color: Colors.black,
-                                                                        boxShadow: const [
-                                                                          BoxShadow(color: Colors.black54, blurRadius: 8)
-                                                                        ]),
-                                                                  ),
-                                                                ),
-                                                              )),
-                                                              Flexible(
-                                                                  flex: 3,
-                                                                  fit: FlexFit.tight,
-                                                                  child: Container(
-                                                                    padding: const EdgeInsets.only(left: 10),
-                                                                    decoration: const BoxDecoration(
-                                                                        border: Border(
-                                                                            left: BorderSide(
-                                                                                color: Colors.grey, width: 3))),
-                                                                    child: Column(
-                                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                                      children: [
-                                                                        const Text("Name"),
-                                                                        const Text("Discount")
-                                                                      ],
+                                                                    margin: const EdgeInsets.all(10),
+                                                                    child: ImageContainer(
+                                                                      "/brand_logo_${inYourAreaDiscounts[i].business.businessId}",
+                                                                      containerBorderRadius: BorderRadius.circular(5),
                                                                     ),
-                                                                  ))
-                                                            ],
+                                                                  ),
+                                                                )),
+                                                                Flexible(
+                                                                    flex: 3,
+                                                                    fit: FlexFit.tight,
+                                                                    child: Container(
+                                                                      padding: const EdgeInsets.only(left: 10),
+                                                                      decoration: const BoxDecoration(
+                                                                          border: Border(
+                                                                              left: BorderSide(
+                                                                                  color: Colors.grey, width: 3))),
+                                                                      child: Column(
+                                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                                        children: [
+                                                                          Text(TranslationLocalePicker.translationPicker(inYourAreaDiscounts[i].business.name, context)),
+                                                                          Text(TranslationLocalePicker.translationPicker(inYourAreaDiscounts[i].discountTitle, context))
+                                                                        ],
+                                                                      ),
+                                                                    ))
+                                                              ],
+                                                            ),
                                                           ),
                                                         )
                                                     ]),
@@ -269,4 +284,3 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 }
-

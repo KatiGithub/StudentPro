@@ -51,7 +51,7 @@ public class SearchDaoImpl implements SearchDao {
     @Override
     @Transactional
     public void addToSearchHistory(UserSearch userSearch) {
-        Query query = entityManager.createNativeQuery("INSERT INTO user_search(user_id, query, longitude, latitude, business_type_id) VALUES (:userId, :query, :longitude, :latitude, :businessTypeId)");
+        Query query = entityManager.createNativeQuery("INSERT INTO user_search(user_id, query, longitude, latitude, business_type_id, timestamp) VALUES (:userId, :query, :longitude, :latitude, :businessTypeId, get_current_unix_timestamp())");
         query.setParameter("userId", userSearch.getUserId().getUserId());
         query.setParameter("query", userSearch.getQuery());
         query.setParameter("longitude", userSearch.getLongitude());

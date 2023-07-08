@@ -23,6 +23,23 @@ class HomeService {
     });
   }
 
+  Future<List<Discount>> getDiscountsLastKnownLocation() async {
+    apiService.queryParameters = {
+      "sort": "lastKnownLocation"
+    };
+    return await apiService.get("${APIConstants.discountEndpoint}/").then((Response response) {
+      String jsonBody = response.body;
+      List<dynamic> data = jsonDecode(jsonBody);
+      List<Discount> discounts = [];
+
+      data.forEach((element) {
+        discounts.add(Discount.toClass(element));
+      });
+
+      return discounts;
+    });
+  }
+
   Future<List<Discount>> getRandomDiscounts() async {
     apiService.queryParameters = {
       "sort": "random"

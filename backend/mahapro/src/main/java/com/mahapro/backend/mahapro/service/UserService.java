@@ -14,4 +14,6 @@ public interface UserService {
     User login(String authorizationHeader) throws Exception;
 
     boolean checkUser(String uid);
+
+    void insertUserLocation(Double longitude, Double latitude, String authorizationHeader);
 }
