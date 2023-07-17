@@ -20,7 +20,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
     private BusinessAuthInterceptor businessAuthInterceptor;
 
     private List<String> userAuthInterceptorExcludePatterns = new ArrayList<>() {{
-        add("/register/user");
+        add("/register");
+        add("/login");
         add("/business/*");
     }};
 
@@ -30,7 +31,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(userAuthInterceptor).excludePathPatterns(this.userAuthInterceptorExcludePatterns);
-//        registry.addInterceptor(businessAuthInterceptor).addPathPatterns(this.businessAuthInterceptorIncludePatterns);
+        registry.addInterceptor(userAuthInterceptor).excludePathPatterns(this.userAuthInterceptorExcludePatterns);
+        registry.addInterceptor(businessAuthInterceptor).addPathPatterns(this.businessAuthInterceptorIncludePatterns);
     }
 }

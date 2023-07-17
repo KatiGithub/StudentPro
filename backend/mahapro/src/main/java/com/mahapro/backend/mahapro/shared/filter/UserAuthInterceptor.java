@@ -2,6 +2,7 @@ package com.mahapro.backend.mahapro.shared.filter;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseToken;
+import com.mahapro.backend.mahapro.model.User.User;
 import com.mahapro.backend.mahapro.service.UserService;
 import com.mahapro.backend.mahapro.shared.config.FirebaseAuthConfig;
 import com.mahapro.backend.mahapro.shared.provider.JwtTokenProvider;
@@ -28,7 +29,9 @@ public class UserAuthInterceptor implements HandlerInterceptor {
             FirebaseToken token = firebaseAuth.verifyIdToken(jwtToken);
             String uid = token.getUid();
 
-            if(userService.checkUser(uid)) {
+            User user = userService.findByFirebaseUserId(uid);
+
+            if(user != null) {
                return true;
             } else {
                 return false;
@@ -36,8 +39,6 @@ public class UserAuthInterceptor implements HandlerInterceptor {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
-        } finally {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         }
     }
 

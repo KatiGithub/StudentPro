@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:studio_projects/models/retailers/business.dart';
 import 'package:studio_projects/shared/components/container_with_requested_image.dart';
 import 'package:studio_projects/shared/utils/translation_locale_retrieval.dart';
@@ -51,7 +52,9 @@ class RetailerListView extends StatelessWidget {
                                         Text(businesses[index].businessType.name)
                                       ],
                                     ),
-                                    IconButton(splashRadius: 0.1, onPressed: () {}, icon: Icon(Icons.navigate_next))
+                                    IconButton(splashRadius: 0.1, onPressed: () {
+                                      GoRouter.of(context).push("/retailer", extra: businesses[index]);
+                                    }, icon: Icon(Icons.navigate_next))
                                   ],
                                 ),
                               ))

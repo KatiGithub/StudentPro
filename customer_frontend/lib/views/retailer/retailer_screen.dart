@@ -125,11 +125,7 @@ class _StateRetailerScreen extends State<RetailerScreen> {
                                     ),
                                   )
                                 : const SizedBox.shrink(),
-                            SizedBox(height: 20,),
-                            Container(
-                              height: MediaQuery.of(context).size.height/15,
-                              color: Colors.black,
-                            )
+                            SizedBox(height: 20,)
                           ],
                         ),
                       ),
