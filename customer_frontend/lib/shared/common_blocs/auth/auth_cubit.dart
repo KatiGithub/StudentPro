@@ -60,10 +60,12 @@ class AuthCubit extends Cubit<AuthState> {
     }
 
     try {
-      _authService.authenticationWithEmailAndPassword(state.user.schoolEmail!, state.password!).then((_) {
+      await _authService.authenticationWithEmailAndPassword(state.user.schoolEmail!, state.password!).then((_) {
         _userService.login().then((User user) {
           state.user = user;
           emit(LoginSucess(user: state.user));
+        }).onError((error, stackTrace) {
+          emit(LoginFailure(error: error.toString(), user: state.user));
         });
       });
     } catch (e) {
