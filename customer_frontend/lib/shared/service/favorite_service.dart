@@ -21,4 +21,21 @@ class FavoriteService {
             }
     );
   }
+
+  Future<bool> checkFavoriteRetailer(int businessId) async {
+    apiService.queryParameters['businessId'] = businessId.toString();
+    return await apiService.get("${APIConstants.favoriteEndpoint}/user").then((Response response) {
+      return response.statusCode == 200;
+    });
+  }
+
+  Future<void> favoritePress(int businessId) async {
+    apiService.queryParameters['businessId'] = businessId.toString();
+    return await apiService.post("${APIConstants.favoriteEndpoint}/retailer", {}.toString())
+        .then((Response response) {
+      if(response.statusCode != 200) {
+        throw new Exception("An error occured while liking/disliking");
+      }
+    });
+  }
 }

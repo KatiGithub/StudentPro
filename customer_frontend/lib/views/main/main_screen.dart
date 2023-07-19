@@ -129,6 +129,9 @@ class ScaffoldWithNavBar extends StatelessWidget {
   }
 
   void _onTap(BuildContext context, int index) {
+    if(navigationShell.currentIndex == 1) {
+      print("Helo");
+    }
     navigationShell.goBranch(index, initialLocation: index == navigationShell.currentIndex);
   }
 }

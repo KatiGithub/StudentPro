@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:studio_projects/models/retailers/business.dart';
 import 'package:studio_projects/models/retailers/business_type.dart';
 import 'package:studio_projects/shared/components/loading_screen.dart';
 import 'package:studio_projects/shared/components/map_dialog.dart';
+import 'package:studio_projects/shared/components/recently_viewed_search.dart';
 import 'package:studio_projects/shared/components/retailer_list.dart';
 import 'package:studio_projects/views/main/search/search_cubit.dart';
 import 'package:studio_projects/views/main/search/search_state.dart';
@@ -24,7 +26,12 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<SearchCubit>(context).getSearchHistory();
+    BlocProvider.of<SearchCubit>(context).getSearchHistory().then((_) {
+      BlocProvider.of<SearchCubit>(context).searchHistory.forEach(
+          (Business business) =>
+              recentlyViewed.add(RecentlyViewedSearch(business)));
+      setState(() {});
+    });
   }
 
   List<Widget> recentlyViewed = [];
@@ -74,14 +81,16 @@ class _SearchScreenState extends State<SearchScreen> {
                             _searchResultsAvailable = false;
                             _searchLoading = false;
 
-                            BlocProvider.of<SearchCubit>(context).clearSearchResult();
+                            BlocProvider.of<SearchCubit>(context)
+                                .clearSearchResult();
                           });
                         })
                     : const SizedBox.shrink()),
             body: _searchLoading && !_searchResultsAvailable
                 ? LoadingScreen()
                 : !_searchLoading && _searchResultsAvailable
-                    ? RetailerListView(BlocProvider.of<SearchCubit>(context).searchResults)
+                    ? RetailerListView(
+                        BlocProvider.of<SearchCubit>(context).searchResults)
                     : SafeArea(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -98,8 +107,13 @@ class _SearchScreenState extends State<SearchScreen> {
                                         child: TextField(
                                           controller: _searchBarController,
                                           decoration: InputDecoration(
-                                              contentPadding: const EdgeInsets.symmetric(vertical: 8),
-                                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                                              contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 8),
+                                              border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          12)),
                                               prefixIcon: const Icon(
                                                 Icons.search,
                                                 color: Colors.black,
@@ -115,8 +129,10 @@ class _SearchScreenState extends State<SearchScreen> {
                                                 },
                                               )),
                                           onSubmitted: (_) {
-                                            BlocProvider.of<SearchCubit>(context)
-                                                .searchByQuery(_searchBarController.text);
+                                            BlocProvider.of<SearchCubit>(
+                                                    context)
+                                                .searchByQuery(
+                                                    _searchBarController.text);
                                           },
                                         )),
                                     Flexible(
@@ -129,13 +145,19 @@ class _SearchScreenState extends State<SearchScreen> {
                                         fit: FlexFit.tight,
                                         child: GestureDetector(
                                           onTap: () async {
-                                            LatLng? pickedLocation = await showDialog<LatLng>(
-                                                context: context, builder: (context) => MapDialog());
+                                            LatLng? pickedLocation =
+                                                await showDialog<LatLng>(
+                                                    context: context,
+                                                    builder: (context) =>
+                                                        MapDialog());
 
                                             print(pickedLocation);
                                             if (pickedLocation != null) {
-                                              BlocProvider.of<SearchCubit>(context)
-                                                  .searchByLocation(pickedLocation.longitude, pickedLocation.latitude);
+                                              BlocProvider.of<SearchCubit>(
+                                                      context)
+                                                  .searchByLocation(
+                                                      pickedLocation.longitude,
+                                                      pickedLocation.latitude);
                                             }
                                           },
                                           child: Image.asset(
@@ -175,10 +197,13 @@ class _SearchScreenState extends State<SearchScreen> {
                                   ),
                                   Container(
                                     padding: const EdgeInsets.only(top: 10),
-                                    height: MediaQuery.of(context).size.height / 2,
-                                    child: NotificationListener<OverscrollIndicatorNotification>(
+                                    height:
+                                        MediaQuery.of(context).size.height / 2,
+                                    child: NotificationListener<
+                                        OverscrollIndicatorNotification>(
                                       onNotification: (notification) {
-                                        if (notification is OverscrollIndicatorNotification) {
+                                        if (notification
+                                            is OverscrollIndicatorNotification) {
                                           notification.disallowIndicator();
                                         }
                                         return false;
@@ -189,17 +214,25 @@ class _SearchScreenState extends State<SearchScreen> {
                                         crossAxisSpacing: 10,
                                         childAspectRatio: 2 / 1,
                                         children: [
-                                          ...categories.map((BusinessType e) => GestureDetector(
+                                          ...categories.map((BusinessType e) =>
+                                              GestureDetector(
                                                 onTap: () {
-                                                  BlocProvider.of<SearchCubit>(context).searchByCategory(e.id);
+                                                  BlocProvider.of<SearchCubit>(
+                                                          context)
+                                                      .searchByCategory(e.id);
                                                 },
                                                 child: Container(
                                                   decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.circular(15),
-                                                      gradient: const LinearGradient(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15),
+                                                      gradient:
+                                                          const LinearGradient(
                                                         colors: [
-                                                          Color.fromRGBO(255, 49, 49, 0.8),
-                                                          Color.fromRGBO(255, 135, 74, 1.0)
+                                                          Color.fromRGBO(
+                                                              255, 49, 49, 0.8),
+                                                          Color.fromRGBO(
+                                                              255, 135, 74, 1.0)
                                                         ],
                                                       )),
                                                   child: Center(

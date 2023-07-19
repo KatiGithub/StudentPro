@@ -141,7 +141,7 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), boxShadow: [
                                         _focusNodeFirstName.hasFocus
                                             ? BoxShadow(
-                                                color: Colors.pinkAccent.withOpacity(0.5),
+                                                color: Color.fromRGBO(241, 119, 32, 1),
                                                 spreadRadius: 2,
                                                 blurRadius: 5,
                                               )
@@ -172,7 +172,7 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), boxShadow: [
                                       _focusNodeLastName.hasFocus
                                           ? BoxShadow(
-                                              color: Colors.pinkAccent.withOpacity(0.5),
+                                              color: Color.fromRGBO(241, 119, 32, 1),
                                               spreadRadius: 2,
                                               blurRadius: 5,
                                             )
@@ -203,13 +203,14 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), boxShadow: [
                               _focusNodePersonalEmail.hasFocus
                                   ? BoxShadow(
-                                      color: Colors.pinkAccent.withOpacity(0.5),
+                                      color: Color.fromRGBO(241, 119, 32, 1),
                                       spreadRadius: 2,
                                       blurRadius: 5,
                                     )
                                   : const BoxShadow()
                             ]),
                             child: TextField(
+                              keyboardType: TextInputType.emailAddress,
                                 controller: _personalEmailController,
                                 focusNode: _focusNodePersonalEmail,
                                 decoration: !_focusNodePersonalEmail.hasFocus
@@ -232,13 +233,14 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), boxShadow: [
                               _focusNodeSchoolEmail.hasFocus
                                   ? BoxShadow(
-                                      color: Colors.pinkAccent.withOpacity(0.5),
+                                      color: Color.fromRGBO(241, 119, 32, 1),
                                       spreadRadius: 2,
                                       blurRadius: 5,
                                     )
                                   : const BoxShadow()
                             ]),
                             child: TextField(
+                              keyboardType: TextInputType.emailAddress,
                                 controller: _schoolEmailController,
                                 focusNode: _focusNodeSchoolEmail,
                                 decoration: !_focusNodeSchoolEmail.hasFocus
@@ -261,7 +263,7 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                               decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), boxShadow: [
                                 _focusNodePassword.hasFocus
                                     ? BoxShadow(
-                                        color: Colors.pinkAccent.withOpacity(0.5),
+                                        color: Color.fromRGBO(241, 119, 32, 1),
                                         spreadRadius: 2,
                                         blurRadius: 5,
                                       )
@@ -312,7 +314,7 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                           child: Container(
                             padding: const EdgeInsets.symmetric(vertical: 4),
                             height: 50,
-                            width: MediaQuery.of(context).size.width / 3,
+                            width: MediaQuery.of(context).size.width / 1,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -342,8 +344,8 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                         height: 10,
                       ),
                       MaterialButton(
-                        color: Colors.blueAccent,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                        color: Color.fromRGBO(241, 119, 32, 0.7),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         onPressed: () {
                           _updateFirstName(_firstNameController.text, context);
                           _updateLastName(_lastNameController.text, context);
@@ -358,7 +360,7 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                           currentFocus.unfocus();
                         },
                         child: Container(
-                          height: 60,
+                          height: 55,
                           width: MediaQuery.of(context).size.width,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -368,7 +370,9 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                                 "Sign Up",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
+                                  color: Colors.white,
                                   fontSize: 20,
+                                  fontWeight: FontWeight.bold
                                 ),
                               ))
                             ],

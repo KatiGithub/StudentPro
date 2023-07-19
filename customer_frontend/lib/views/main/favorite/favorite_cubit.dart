@@ -18,4 +18,18 @@ class FavoriteCubit extends Cubit<FavoriteState> {
     });
 
   }
+
+  Future<bool> checkFavoriteRetailer(int businessId) async {
+    return await favoriteService.checkFavoriteRetailer(businessId);
+  }
+
+  Future<void> favoritePress(int businessId) async {
+    try {
+      return await favoriteService.favoritePress(businessId);
+    } catch (e) {
+      emit(FavoriteError(e.toString()));
+    } finally {
+      emit(FavoriteInitial());
+    }
+  }
 }

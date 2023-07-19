@@ -44,7 +44,13 @@ class SearchService {
     });
   }
 
-  // Future<List<Business>> getSearchHistory() {
-  //
-  // }
+  Future<List<Business>> getSearchHistory() {
+    return apiService.get("${APIConstants.searchEndpoint}/history").then((Response response) {
+      List<dynamic> data = jsonDecode(response.body);
+      List<Business> businesses = [];
+      data.forEach((e) => businesses.add(Business.toClass(e)));
+
+      return businesses;
+    });
+  }
 }

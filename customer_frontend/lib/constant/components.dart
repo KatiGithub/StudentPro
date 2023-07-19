@@ -14,9 +14,11 @@ const kTextFieldDecoration = InputDecoration(
 const Color kBlack45Color = Color(0x73000000);
 
 final kTextFieldDecorationUnfocused = InputDecoration(
-    fillColor: Color.fromRGBO(209, 205, 205, 1),
+    fillColor: Colors.white,
     filled: true,
-    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0), borderSide: BorderSide.none));
+    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0), borderSide: BorderSide(
+      width: 0.5
+    )));
 
 final kTextFieldDecorationFocused = InputDecoration(
     border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0), borderSide: BorderSide.none),

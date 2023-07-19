@@ -31,13 +31,17 @@ class RetailerListView extends StatelessWidget {
                             children: [
                               AspectRatio(
                                 aspectRatio: 1,
-                                child: ImageContainer(
-                                  "/brand_logo_${businesses[index].businessId}",
-                                  containerPadding: const EdgeInsets.all(20),
-                                  containerBorderRadius: BorderRadius.circular(20),
-                                  containerBackgroundColor: Colors.black,
+                                child: Padding(
+                                  padding: EdgeInsets.all(10),
+                                  child: ImageContainer(
+                                    "/brand_logo_${businesses[index].businessId}",
+                                    containerPadding: const EdgeInsets.all(20),
+                                    containerBorderRadius: BorderRadius.circular(20),
+                                    containerBackgroundColor: Colors.black,
+                                  ),
                                 ),
                               ),
+                              SizedBox(width: 20,),
                               Expanded(
                                   child: Container(
                                 child: Row(

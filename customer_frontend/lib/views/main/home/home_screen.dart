@@ -184,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Expanded(
                                         child: Container(
                                       child: const Text(
-                                        "In Your Area",
+                                        "Recommended",
                                         style: TextStyle(fontSize: 30),
                                       ),
                                     )),

@@ -2,6 +2,7 @@ import 'package:app_settings/app_settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:restart_app/restart_app.dart';
 import 'package:studio_projects/views/main/settings/settings_bloc.dart';
 import 'package:studio_projects/views/main/settings/settings_event.dart';
@@ -60,7 +61,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ListTile(
               onTap: () {
                 settingsBloc.add(OnLogOut());
-                Restart.restartApp();
+                Navigator.of(context).pushReplacementNamed("welcome");
               },
               title: const Text("Log Out"),
             ),
@@ -77,7 +78,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold), textAlign: TextAlign.start),
               ],
             ),
-            SwitchListTile(
+            SwitchListTile.adaptive(
                 title: Text(AppLocalizations.of(context)!.darkMode),
                 value: settingsBloc.state.settings.darkMode!,
                 onChanged: (value) {

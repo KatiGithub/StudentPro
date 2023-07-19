@@ -46,8 +46,12 @@ class SearchCubit extends Cubit<SearchState> {
     });
   }
 
-  void getSearchHistory() {
+  Future<void> getSearchHistory() async {
     searchHistory.clear();
+
+    return await searchService.getSearchHistory().then((List<Business> businesses) {
+      this.searchHistory = businesses;
+    });
   }
 
   void clearSearchResult() {

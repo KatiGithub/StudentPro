@@ -3,6 +3,7 @@ import 'package:studio_projects/models/discounts/discount.dart';
 import 'package:studio_projects/models/retailers/business.dart';
 import 'package:studio_projects/shared/common_blocs/retailer/retailer_state.dart';
 import 'package:studio_projects/shared/service/discount_service.dart';
+import 'package:studio_projects/shared/service/retailer_service.dart';
 
 import '../../../models/retailers/business_post.dart';
 
@@ -14,6 +15,7 @@ class RetailerCubit extends Cubit<RetailerState> {
   List<BusinessPost> posts = [];
 
   final DiscountService discountService = DiscountService();
+  final RetailerService retailerService = RetailerService();
 
   RetailerCubit(): super(RetailerInitial());
 
@@ -26,6 +28,13 @@ class RetailerCubit extends Cubit<RetailerState> {
       });
     } catch(e) {
       emit(RetailerError(e.toString()));
+    }
+  }
+  void addUserClick() async {
+    try {
+      await retailerService.addBusinessUserClick(business.businessId);
+    } catch (e) {
+      emit(RetailerError("error"));
     }
   }
 }
