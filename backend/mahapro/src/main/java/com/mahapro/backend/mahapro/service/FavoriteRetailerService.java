@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface FavoriteRetailerService {
     public List<FavoriteRetailer> findByUserId(String authorizationHeader);
+    public boolean checkUser(String authorizationHeader, int businessId) throws Exception;
+    public void favoritePressed(String authorizationHeader, int businessId);
 }

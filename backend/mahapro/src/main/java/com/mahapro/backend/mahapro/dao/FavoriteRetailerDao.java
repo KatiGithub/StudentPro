@@ -10,4 +10,7 @@ public interface FavoriteRetailerDao {
     FavoriteRetailer findById(int favoriteRetailerId);
     List<FavoriteRetailer> findByUserId(int userId);
     List<FavoriteRetailer> findByBusinessId(int businessId);
+    boolean checkFavoriteRetailer(int userId, int businessId);
+    void like(int userId, int businessId);
+    void unlike(int userId, int businessId);
 }

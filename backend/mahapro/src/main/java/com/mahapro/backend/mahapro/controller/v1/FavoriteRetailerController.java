@@ -2,6 +2,7 @@ package com.mahapro.backend.mahapro.controller.v1;
 
 import com.mahapro.backend.mahapro.service.FavoriteRetailerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,11 +26,32 @@ public class FavoriteRetailerController {
         }
     }
 
-//    @PostMapping("/retailer")
-//    public ResponseEntity insertFavoriteRetailerByUserId(
-//            @RequestHeader("Authorization") String authorizationHeader,
-//            @RequestParam("businessId") int businessId
-//    ) {
-//
-//    }
+    @GetMapping("/user")
+    public ResponseEntity checkFavoriteRetailer(
+            @RequestHeader("Authorization") String authorizationHeader,
+            @RequestParam("businessId") int businessId
+    ) {
+        try {
+            if(!favoriteRetailerService.checkUser(authorizationHeader, businessId)) {
+                return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            }
+
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/retailer")
+    public ResponseEntity favoritePressed(
+            @RequestHeader("Authorization") String authorizationHeader,
+            @RequestParam("businessId") int businessId
+    ) {
+        try {
+            favoriteRetailerService.favoritePressed(authorizationHeader, businessId);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

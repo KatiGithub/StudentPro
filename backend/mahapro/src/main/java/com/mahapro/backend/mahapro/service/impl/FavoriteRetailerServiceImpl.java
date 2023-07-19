@@ -38,4 +38,33 @@ public class FavoriteRetailerServiceImpl implements FavoriteRetailerService {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public boolean checkUser(String authorizationHeader, int businessId) throws Exception {
+        try {
+            String jwtToken = JwtTokenProvider.getToken(authorizationHeader);
+            FirebaseToken firebaseToken = firebaseAuth.verifyIdToken(jwtToken);
+
+            int userId = userService.findByFirebaseUserId(firebaseToken.getUid()).getUserId();
+            return favoriteRetailerDao.checkFavoriteRetailer(userId, businessId);
+        } catch (Exception e) {
+            throw new Exception("Error while checking for like/dislike");
+        }
+    }
+
+    @Override
+    public void favoritePressed(String authorizationHeader, int businessId) {
+        try {
+            String jwtToken = JwtTokenProvider.getToken(authorizationHeader);
+            FirebaseToken firebaseToken = firebaseAuth.verifyIdToken(jwtToken);
+
+            int userId = userService.findByFirebaseUserId(firebaseToken.getUid()).getUserId();
+            if (favoriteRetailerDao.checkFavoriteRetailer(userId, businessId)) {
+                favoriteRetailerDao.unlike(userId, businessId);
+            } else {
+                favoriteRetailerDao.like(userId, businessId);
+            }
+        } catch (Exception e) {
+        }
+    }
 }
