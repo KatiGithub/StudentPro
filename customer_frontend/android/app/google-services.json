@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "836220196127",
+    "project_id": "mahapro-c24bd",
+    "storage_bucket": "mahapro-c24bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:836220196127:android:e72a121e9036d0d4f74c2a",
+        "android_client_info": {
+          "package_name": "com.studentpro.studentpro.studio_projects"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "836220196127-jt7dbvtg330itkbvosac221opretgj41.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbXPSEl5Q38zYlytGUKoPD8M-jnhmp_-w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "836220196127-jt7dbvtg330itkbvosac221opretgj41.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

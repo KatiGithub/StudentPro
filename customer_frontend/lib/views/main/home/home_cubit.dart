@@ -35,8 +35,17 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> getDiscountsInYourArea() {
-    return homeService.getDiscountsLastKnownLocation().then((List<Discount> discounts) {
-      discountsInYourArea = discounts;
+
+    return LocationUtil.requestUserPermission().then((LocationPermission locationPermission) {
+      if(locationPermission == LocationPermission.whileInUse || locationPermission == LocationPermission.always) {
+        return homeService.getDiscountsLastKnownLocation().then((List<Discount> discounts) {
+          discountsInYourArea = discounts;
+        });
+      } else {
+        return homeService.getRandomDiscounts().then((List<Discount> discounts) {
+          discountsInYourArea = discounts;
+        });
+      }
     });
   }
 
