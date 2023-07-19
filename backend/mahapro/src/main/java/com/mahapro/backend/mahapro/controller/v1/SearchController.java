@@ -2,6 +2,7 @@ package com.mahapro.backend.mahapro.controller.v1;
 
 import com.mahapro.backend.mahapro.model.Business.Business;
 import com.mahapro.backend.mahapro.service.SearchService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -58,6 +59,17 @@ public class SearchController {
             return ResponseEntity.ok(answer);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @GetMapping("/history")
+    public ResponseEntity<String> getSearchHistory(
+            @RequestHeader("Authorization") String authorizationHeader
+    ) {
+        try {
+            return ResponseEntity.ok(searchService.getSearchHistory(authorizationHeader).toString());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
         }
     }
 }

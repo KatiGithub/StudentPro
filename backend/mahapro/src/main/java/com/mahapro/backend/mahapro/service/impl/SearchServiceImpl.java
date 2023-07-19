@@ -81,4 +81,18 @@ public class SearchServiceImpl implements SearchService {
             throw new Exception("authorization header error");
         }
     }
+
+    @Override
+    public List<Business> getSearchHistory(String authorizationHeader) throws Exception {
+        try {
+            String jwtToken = JwtTokenProvider.getToken(authorizationHeader);
+            FirebaseToken firebaseToken = firebaseAuth.verifyIdToken(jwtToken);
+
+            int userId = userService.findByFirebaseUserId(firebaseToken.getUid()).getUserId();
+
+            return searchDao.getSearchHistory(userId);
+        } catch (Exception e) {
+            throw new Exception();
+        }
+    }
 }

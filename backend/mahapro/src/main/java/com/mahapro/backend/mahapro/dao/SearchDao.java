@@ -13,6 +13,5 @@ public interface SearchDao {
     List<Business> searchByLocation(double latitude, double longitude);
 
     List<Business> getSearchHistory(int userId);
-
     void addToSearchHistory(UserSearch userSearch);
 }

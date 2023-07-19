@@ -11,4 +11,5 @@ public interface SearchService {
 
     List<Business> searchByCategory(int categoryId, String authorizationHeader) throws Exception;
 
+    List<Business> getSearchHistory(String authorizationHeader) throws Exception;
 }
