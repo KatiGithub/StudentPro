@@ -60,24 +60,9 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     });
 
-
-    setState(() {
-      retailers.clear();
-      recommendedDiscounts.clear();
-      inYourAreaDiscounts.clear();
-
-      BlocProvider.of<HomeCubit>(context).retailers.forEach((Business business) {
-        retailers.add(RetailerCard(business));
-      });
-
-      BlocProvider.of<HomeCubit>(context).recommendedDiscount.forEach((Discount discount) {
-        recommendedDiscounts.add(DiscountCard(discount));
-      });
-      List<Discount> discounts = BlocProvider.of<HomeCubit>(context).discountsInYourArea;
-      inYourAreaDiscounts = discounts;
-
-      key = UniqueKey();
-    });
+    retailers.clear();
+    recommendedDiscounts.clear();
+    inYourAreaDiscounts.clear();
   }
 
   bool _locationEnabled = false;
@@ -104,14 +89,16 @@ class _HomeScreenState extends State<HomeScreen> {
               });
               List<Discount> discounts = BlocProvider.of<HomeCubit>(context).discountsInYourArea;
               inYourAreaDiscounts = discounts;
+              key = UniqueKey();
             });
+
           }
         },
         child: retailers.isEmpty
             ? const SizedBox.shrink()
             : SafeArea(
                 child: Scaffold(
-                  key: key,
+                    key: key,
                     appBar: PreferredSize(
                       preferredSize: Size.fromHeight(MediaQuery.of(context).size.height / 12),
                       child: Container(

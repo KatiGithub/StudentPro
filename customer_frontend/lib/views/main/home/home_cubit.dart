@@ -26,6 +26,7 @@ class HomeCubit extends Cubit<HomeState> {
         });
       });
     });
+    emit(HomeInitial());
   }
 
   Future<void> getRetailer() {
