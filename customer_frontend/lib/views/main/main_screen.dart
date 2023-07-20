@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -44,7 +46,11 @@ class _MainScreenState extends State<MainScreen> {
   int pageCount = 0;
 
   final goRouter = GoRouter(initialLocation: "/home", navigatorKey: _homeNavigatorKey, routes: [
-    GoRoute(path: "/retailer", builder: (BuildContext context, GoRouterState state) => RetailerScreen(state.extra as Business)),
+    GoRoute(
+        path: "/retailer",
+        builder: (BuildContext context, GoRouterState state) {
+          return RetailerScreen(state.extra as Business);
+        }),
     StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return ScaffoldWithNavBar(navigationShell);
@@ -92,7 +98,7 @@ class _MainScreenState extends State<MainScreen> {
 class ScaffoldWithNavBar extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
 
-  ScaffoldWithNavBar(this.navigationShell);
+  ScaffoldWithNavBar(this.navigationShell, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -129,9 +135,11 @@ class ScaffoldWithNavBar extends StatelessWidget {
   }
 
   void _onTap(BuildContext context, int index) {
-    if(navigationShell.currentIndex == 1) {
-      print("Helo");
-    }
+    print(index);
+    print(navigationShell.currentIndex);
     navigationShell.goBranch(index, initialLocation: index == navigationShell.currentIndex);
+    if (index == 0) {
+      GoRouter.of(context).go("/home");
+    }
   }
 }

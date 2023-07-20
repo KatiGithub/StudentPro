@@ -27,9 +27,9 @@ class _SearchScreenState extends State<SearchScreen> {
   void initState() {
     super.initState();
     BlocProvider.of<SearchCubit>(context).getSearchHistory().then((_) {
-      BlocProvider.of<SearchCubit>(context).searchHistory.forEach(
-          (Business business) =>
-              recentlyViewed.add(RecentlyViewedSearch(business)));
+      BlocProvider.of<SearchCubit>(context)
+          .searchHistory
+          .forEach((Business business) => recentlyViewed.add(RecentlyViewedSearch(business)));
       setState(() {});
     });
   }
@@ -81,16 +81,14 @@ class _SearchScreenState extends State<SearchScreen> {
                             _searchResultsAvailable = false;
                             _searchLoading = false;
 
-                            BlocProvider.of<SearchCubit>(context)
-                                .clearSearchResult();
+                            BlocProvider.of<SearchCubit>(context).clearSearchResult();
                           });
                         })
                     : const SizedBox.shrink()),
             body: _searchLoading && !_searchResultsAvailable
                 ? LoadingScreen()
                 : !_searchLoading && _searchResultsAvailable
-                    ? RetailerListView(
-                        BlocProvider.of<SearchCubit>(context).searchResults)
+                    ? RetailerListView(BlocProvider.of<SearchCubit>(context).searchResults)
                     : SafeArea(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -107,13 +105,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                         child: TextField(
                                           controller: _searchBarController,
                                           decoration: InputDecoration(
-                                              contentPadding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 8),
-                                              border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          12)),
+                                              contentPadding: const EdgeInsets.symmetric(vertical: 8),
+                                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                                               prefixIcon: const Icon(
                                                 Icons.search,
                                                 color: Colors.black,
@@ -129,10 +122,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                                 },
                                               )),
                                           onSubmitted: (_) {
-                                            BlocProvider.of<SearchCubit>(
-                                                    context)
-                                                .searchByQuery(
-                                                    _searchBarController.text);
+                                            BlocProvider.of<SearchCubit>(context)
+                                                .searchByQuery(_searchBarController.text);
                                           },
                                         )),
                                     Flexible(
@@ -145,19 +136,13 @@ class _SearchScreenState extends State<SearchScreen> {
                                         fit: FlexFit.tight,
                                         child: GestureDetector(
                                           onTap: () async {
-                                            LatLng? pickedLocation =
-                                                await showDialog<LatLng>(
-                                                    context: context,
-                                                    builder: (context) =>
-                                                        MapDialog());
+                                            LatLng? pickedLocation = await showDialog<LatLng>(
+                                                context: context, builder: (context) => MapDialog());
 
                                             print(pickedLocation);
                                             if (pickedLocation != null) {
-                                              BlocProvider.of<SearchCubit>(
-                                                      context)
-                                                  .searchByLocation(
-                                                      pickedLocation.longitude,
-                                                      pickedLocation.latitude);
+                                              BlocProvider.of<SearchCubit>(context)
+                                                  .searchByLocation(pickedLocation.longitude, pickedLocation.latitude);
                                             }
                                           },
                                           child: Image.asset(
@@ -171,80 +156,78 @@ class _SearchScreenState extends State<SearchScreen> {
                               Container(
                                 height: 10,
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  recentlyViewed.isEmpty
-                                      ? const SizedBox.shrink()
-                                      : const Text(
-                                          "Recently Viewed",
-                                          style: TextStyle(fontSize: 20),
-                                        ),
-                                  recentlyViewed.isEmpty
-                                      ? const SizedBox.shrink()
-                                      : Column(
-                                          children: recentlyViewed,
-                                        ),
-                                ],
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  const Text(
-                                    "Categories",
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    height:
-                                        MediaQuery.of(context).size.height / 2,
-                                    child: NotificationListener<
-                                        OverscrollIndicatorNotification>(
-                                      onNotification: (notification) {
-                                        if (notification
-                                            is OverscrollIndicatorNotification) {
-                                          notification.disallowIndicator();
-                                        }
-                                        return false;
-                                      },
-                                      child: GridView.count(
-                                        crossAxisCount: 2,
-                                        mainAxisSpacing: 10,
-                                        crossAxisSpacing: 10,
-                                        childAspectRatio: 2 / 1,
+                              Expanded(
+                                child: SingleChildScrollView(
+                                  physics: PageScrollPhysics(),
+                                  child: Column(
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.stretch,
                                         children: [
-                                          ...categories.map((BusinessType e) =>
-                                              GestureDetector(
-                                                onTap: () {
-                                                  BlocProvider.of<SearchCubit>(
-                                                          context)
-                                                      .searchByCategory(e.id);
-                                                },
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              15),
-                                                      gradient:
-                                                          const LinearGradient(
-                                                        colors: [
-                                                          Color.fromRGBO(
-                                                              255, 49, 49, 0.8),
-                                                          Color.fromRGBO(
-                                                              255, 135, 74, 1.0)
-                                                        ],
-                                                      )),
-                                                  child: Center(
-                                                    child: Text(e.name),
-                                                  ),
+                                          recentlyViewed.isEmpty
+                                              ? const SizedBox.shrink()
+                                              : const Text(
+                                                  "Recently Viewed",
+                                                  style: TextStyle(fontSize: 20),
                                                 ),
-                                              ))
+                                          recentlyViewed.isEmpty
+                                              ? const SizedBox.shrink()
+                                              : Column(
+                                                  children: recentlyViewed,
+                                                ),
                                         ],
                                       ),
-                                    ),
-                                  )
-                                ],
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                                        children: [
+                                          const Text(
+                                            "Categories",
+                                            style: TextStyle(fontSize: 20),
+                                          ),
+                                          Container(
+                                            padding: const EdgeInsets.only(top: 10),
+                                            height: MediaQuery.of(context).size.height / 2,
+                                            child: NotificationListener<OverscrollIndicatorNotification>(
+                                              onNotification: (notification) {
+                                                if (notification is OverscrollIndicatorNotification) {
+                                                  notification.disallowIndicator();
+                                                }
+                                                return false;
+                                              },
+                                              child: GridView.count(
+                                                crossAxisCount: 2,
+                                                mainAxisSpacing: 10,
+                                                crossAxisSpacing: 10,
+                                                childAspectRatio: 2 / 1,
+                                                children: [
+                                                  ...categories.map((BusinessType e) => GestureDetector(
+                                                        onTap: () {
+                                                          BlocProvider.of<SearchCubit>(context).searchByCategory(e.id);
+                                                        },
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                              borderRadius: BorderRadius.circular(15),
+                                                              gradient: const LinearGradient(
+                                                                colors: [
+                                                                  Color.fromRGBO(255, 49, 49, 0.8),
+                                                                  Color.fromRGBO(255, 135, 74, 1.0)
+                                                                ],
+                                                              )),
+                                                          child: Center(
+                                                            child: Text(e.name),
+                                                          ),
+                                                        ),
+                                                      ))
+                                                ],
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
                               )
                             ],
                           ),

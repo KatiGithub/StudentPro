@@ -8,6 +8,7 @@ import 'package:studio_projects/shared/common_blocs/retailer/retailer_state.dart
 import 'package:studio_projects/shared/components/container_with_requested_image.dart';
 import 'package:studio_projects/shared/components/discount_card.dart';
 import 'package:studio_projects/shared/components/loading_screen.dart';
+import 'package:studio_projects/shared/components/recently_viewed_search.dart';
 import 'package:studio_projects/shared/utils/translation_locale_retrieval.dart';
 import 'package:studio_projects/views/main/favorite/favorite_cubit.dart';
 import 'package:studio_projects/views/main/favorite/favorite_state.dart';
@@ -25,6 +26,7 @@ class RetailerScreen extends StatefulWidget {
 
 class _StateRetailerScreen extends State<RetailerScreen> {
   List<Discount> discounts = [];
+  List<Widget> relatedBusinesses = [];
 
   bool _isLoading = false;
   bool _resultsReady = false;
@@ -37,6 +39,7 @@ class _StateRetailerScreen extends State<RetailerScreen> {
     BlocProvider.of<RetailerCubit>(context).business = widget.business;
     BlocProvider.of<RetailerCubit>(context).getDiscountsByBusinessId();
     BlocProvider.of<RetailerCubit>(context).addUserClick();
+    BlocProvider.of<RetailerCubit>(context).getRelatedBusinesses().then((_) {});
 
     BlocProvider.of<FavoriteCubit>(context)
         .checkFavoriteRetailer(widget.business.businessId)
@@ -61,6 +64,9 @@ class _StateRetailerScreen extends State<RetailerScreen> {
               _isLoading = false;
               _resultsReady = true;
               discounts = BlocProvider.of<RetailerCubit>(context).discounts;
+              BlocProvider.of<RetailerCubit>(context).relatedBusinesses.forEach((Business business) {
+                this.relatedBusinesses.add(RecentlyViewedSearch(business));
+              });
             });
           } else if (state is RetailerError) {
             ScaffoldMessenger.of(context)
@@ -189,8 +195,16 @@ class _StateRetailerScreen extends State<RetailerScreen> {
                                     ),
                                   )
                                 : const SizedBox.shrink(),
-                            SizedBox(
-                              height: 20,
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Related"),
+                                  SizedBox(height: 10,),
+                                  ...this.relatedBusinesses
+                                ],
+                              ),
                             )
                           ],
                         ),
