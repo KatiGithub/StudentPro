@@ -45,7 +45,7 @@ public class SearchDaoImpl implements SearchDao {
 
     @Override
     public List<Business> getSearchHistory(int userId) {
-        Query query = entityManager.createNativeQuery("SELECT DISTINCT b.* FROM (SELECT * FROM user_retailer_clicks ORDER BY time_clicked DESC ) r JOIN business b ON r.retailer_id = b.business_id WHERE user_id = :userId LIMIT 2", Business.class);
+        Query query = entityManager.createNativeQuery("SELECT DISTINCT b.* FROM (SELECT * FROM user_retailer_clicks ORDER BY time_clicked DESC ) r JOIN business b ON r.retailer_id = b.business_id WHERE user_id = :userId LIMIT 3", Business.class);
         query.setParameter("userId", userId);
 
         List<Business> businesses = (List<Business>) query.getResultList();
