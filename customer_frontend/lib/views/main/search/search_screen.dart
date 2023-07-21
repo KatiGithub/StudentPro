@@ -208,12 +208,14 @@ class _SearchScreenState extends State<SearchScreen> {
                                                         child: Container(
                                                           decoration: BoxDecoration(
                                                               borderRadius: BorderRadius.circular(15),
-                                                              gradient: const LinearGradient(
-                                                                colors: [
-                                                                  Color.fromRGBO(255, 49, 49, 0.8),
-                                                                  Color.fromRGBO(255, 135, 74, 1.0)
-                                                                ],
-                                                              )),
+                                                              color: Color.fromRGBO(255, 166, 48, 1)
+                                                              // gradient: const LinearGradient(
+                                                              //   colors: [
+                                                              //     Color.fromRGBO(255, 49, 49, 0.8),
+                                                              //     Color.fromRGBO(255, 135, 74, 1.0)
+                                                              //   ],
+                                                              // )
+                                                          ),
                                                           child: Center(
                                                             child: Text(e.name),
                                                           ),

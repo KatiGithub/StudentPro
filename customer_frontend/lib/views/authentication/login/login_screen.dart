@@ -3,10 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:go_router/go_router.dart';
 import 'package:studio_projects/shared/common_blocs/auth/auth_cubit.dart';
 import 'package:studio_projects/shared/common_blocs/auth/auth_state.dart';
 import 'package:studio_projects/shared/components/CustomTextField_Rounded.dart';
 import 'package:studio_projects/shared/utils/location/location_util.dart';
+import 'package:studio_projects/views/authentication/register/email_verification.dart';
+import 'package:studio_projects/views/authentication/register/registration_screen.dart';
+import 'package:studio_projects/views/main/main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login';
@@ -35,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
             _passwordEnabled = false;
 
             LocationUtil.requestUserPermission().then((_) {
-              Navigator.pushNamedAndRemoveUntil(context, 'main', (route) => false);
+              GoRouter.of(context).pushReplacementNamed(MainScreen.id);
             });
           } else if (state is LoginFailure) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -44,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   state.error,
                 )));
           } else if (state is EmailVerificationNeeded) {
-            Navigator.pushNamedAndRemoveUntil(context, 'email_verification', (route) => false);
+            GoRouter.of(context).pushReplacementNamed(EmailVerification.id);
           }
         },
         child: Scaffold(
@@ -188,7 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                Navigator.pushNamed(context, 'registration');
+                                GoRouter.of(context).pushNamed(RegistrationScreen.id);
                               },
                               child: Container(
                                 child: Text(

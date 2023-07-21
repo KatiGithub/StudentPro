@@ -73,6 +73,8 @@ dependencies:
   geolocator: ^9.0.2
   app_settings: ^4.2.0
   restart_app: ^1.1.2
+  flutter_phoenix: ^1.1.1
+  flutter_launcher_icons: ^0.13.1
 
 
 dev_dependencies:
@@ -147,5 +149,10 @@ flutter_native_splash:
   color: "#faab31"
 #  background_image: "assets/splash_background.png"
 
+  image_ios: "assets/splash_background.png"
   android_12:
     image: "assets/splash_background.png"
+
+flutter_launcher_icons:
+  ios: true
+  image_path: assets/ios_icon.png

@@ -64,6 +64,7 @@ class _StateRetailerScreen extends State<RetailerScreen> {
               _isLoading = false;
               _resultsReady = true;
               discounts = BlocProvider.of<RetailerCubit>(context).discounts;
+              this.relatedBusinesses.clear();
               BlocProvider.of<RetailerCubit>(context).relatedBusinesses.forEach((Business business) {
                 this.relatedBusinesses.add(RecentlyViewedSearch(business));
               });

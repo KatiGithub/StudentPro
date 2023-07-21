@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 
 abstract class SettingsEvent extends Equatable {
   @override
@@ -17,4 +18,8 @@ class OnThemeModeChanged extends SettingsEvent {
   OnThemeModeChanged({required this.darkMode});
 }
 
-class OnLogOut extends SettingsEvent {}
+class OnLogOut extends SettingsEvent {
+  BuildContext context;
+
+  OnLogOut(this.context);
+}

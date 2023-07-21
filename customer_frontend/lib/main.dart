@@ -1,6 +1,10 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:go_router/go_router.dart';
+import 'package:studio_projects/models/retailers/business.dart';
+import 'package:studio_projects/shared/authentication/auth_service.dart';
 import 'package:studio_projects/shared/common_blocs/auth/auth_cubit.dart';
 import 'package:studio_projects/shared/common_blocs/discounts/discount_bloc.dart';
 import 'package:studio_projects/shared/common_blocs/retailer/retailer_cubit.dart';
@@ -26,14 +30,21 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/src/widgets_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  HydratedBloc.storage = await HydratedStorage.build(storageDirectory: await getTemporaryDirectory());
+  HydratedBloc.storage = await HydratedStorage.build(
+      storageDirectory: await getTemporaryDirectory());
   print("Token: ");
-  print(await FirebaseMessaging.instance.getToken());
+  FirebaseMessaging.instance
+      .requestPermission()
+      .then((NotificationSettings ntfSettings) async {
+    print(await FirebaseMessaging.instance.getToken());
+  });
 
   runApp(const MyApp());
 }
@@ -45,10 +56,65 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+var key = UniqueKey();
+
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    AuthService authService = AuthService();
+    authService.isLoggedInSingle().then((bool isLoggedIn) {
+      if (!isLoggedIn) {
+        runApp(MyApp());
+      }
+    });
+  }
+
+  final goRoutes = GoRouter(initialLocation: "/welcome",
+      routes: [
+    GoRoute(
+        path: '/welcome',
+        name: WelcomeScreen.id,
+        builder: (context, state) => WelcomeScreen()),
+    GoRoute(
+        path: "/main",
+        name: MainScreen.id,
+        builder: (context, state) => MainScreen(),
+    ),
+    GoRoute(
+        path: "/retailer",
+        name: RetailerScreen.id,
+        builder: (context, state) => RetailerScreen(state.extra as Business)),
+    GoRoute(
+        path: "/login",
+        name: LoginScreen.id,
+        builder: (context, state) => LoginScreen()),
+    GoRoute(
+        path: "/register",
+        name: RegistrationScreen.id,
+        builder: (context, state) => RegistrationScreen()),
+    GoRoute(
+        path: "/email_verification",
+        name: EmailVerification.id,
+        builder: (context, state) => EmailVerification())
+  ]);
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
+      key: key,
       providers: [
         BlocProvider(create: (_) => DiscountBloc()),
         BlocProvider(create: (_) => FavoriteCubit()),
@@ -67,20 +133,27 @@ class _MyAppState extends State<MyApp> {
         },
         builder: (context, state) {
           final settingsBloc = BlocProvider.of<SettingsBloc>(context);
-          return MaterialApp(
-            navigatorObservers: [HeroController()],
-            initialRoute: WelcomeScreen.id,
-            routes: {
-              WelcomeScreen.id: (context) => WelcomeScreen(),
-              AuthenticationScreen.id: (context) => AuthenticationScreen(),
-              LoginScreen.id: (context) => LoginScreen(),
-              MainScreen.id: (context) => MainScreen(),
-              RegistrationScreen.id: (context) => RegistrationScreen(),
-              EmailVerification.id: (context) => EmailVerification(),
-              SearchScreen.id: (context) => SearchScreen(),
-              ResetPasswordScreen.id: (context) => ResetPasswordScreen(),
-              HomeScreen.id: (context) => HomeScreen()
-            },
+          return MaterialApp.router(
+            supportedLocales: [Locale("en"), Locale("th")],
+            locale: Locale(settingsBloc.state.settings.languageId!),
+            theme: ThemeData(
+                fontFamily: 'SF_Pro',
+                brightness: Brightness.light,
+                appBarTheme:
+                    AppBarTheme(backgroundColor: Colors.white, elevation: 0)),
+            darkTheme: ThemeData(
+                brightness: Brightness.dark,
+                appBarTheme: AppBarTheme(color: Colors.black12, elevation: 0)),
+            themeMode: settingsBloc.state.settings.darkMode!
+                ? ThemeMode.dark
+                : ThemeMode.light,
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate
+            ],
+            routerConfig: goRoutes,
           );
         },
       ),

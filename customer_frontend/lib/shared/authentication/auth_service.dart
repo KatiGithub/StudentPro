@@ -18,8 +18,10 @@ class AuthService {
     return await _auth.sendPasswordResetEmail(email: email);
   }
 
-  void logOut() async {
-    return await _auth.signOut();
+  Future<void> logOut() async {
+    return _auth.signOut().then((_) {
+      print(_auth.currentUser);
+    });
   }
 
   Future<User?> authenticationWithEmailAndPassword(String email,

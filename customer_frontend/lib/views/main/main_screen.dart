@@ -6,52 +6,30 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:studio_projects/models/retailers/business.dart';
 import 'package:studio_projects/views/main/favorite/favorite_screen.dart';
-import 'package:studio_projects/views/main/home/home_cubit.dart';
 import 'package:studio_projects/views/main/home/home_screen.dart';
 import 'package:studio_projects/views/main/settings/settings_bloc.dart';
 import 'package:studio_projects/views/main/settings/settings_screen.dart';
 import 'package:studio_projects/views/main/search/search_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:studio_projects/views/retailer/retailer_screen.dart';
-import 'home/home_state.dart';
 
-class MainScreen extends StatefulWidget {
-  static const String id = 'main';
-
-  @override
-  _MainScreenState createState() => _MainScreenState();
-}
-
-final _homeNavigatorKey = GlobalKey<NavigatorState>();
+final _globalNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorHomeKey = GlobalKey<NavigatorState>(debugLabel: 'shellHome');
 final _shellNavigatorSearchKey = GlobalKey<NavigatorState>(debugLabel: 'shellSearch');
 final _shellNavigatorFavoriteKey = GlobalKey<NavigatorState>(debugLabel: 'shellFavorite');
 final _shellNavigatorSettingsKey = GlobalKey<NavigatorState>(debugLabel: 'shellSettings');
 
-class _MainScreenState extends State<MainScreen> {
-  final List<Widget> pages = <Widget>[
-    BlocProvider(
-        create: (create) => HomeCubit(),
-        child: BlocBuilder<HomeCubit, HomeState>(
-          builder: (context, state) {
-            return HomeScreen();
-          },
-        )),
-    // SavedForLaterScreen(),
-    FavoriteScreen(),
-    SearchScreen(),
-    SettingsScreen()
-  ];
+class MainScreen extends StatelessWidget {
 
-  int pageCount = 0;
-
-  final goRouter = GoRouter(initialLocation: "/home", navigatorKey: _homeNavigatorKey, routes: [
+  static String id = "main";
+  final goRouter = GoRouter(initialLocation: "/home" , navigatorKey: _globalNavigatorKey, routes: [
     GoRoute(
         path: "/retailer",
         builder: (BuildContext context, GoRouterState state) {
           return RetailerScreen(state.extra as Business);
         }),
     StatefulShellRoute.indexedStack(
+      parentNavigatorKey: _globalNavigatorKey,
         builder: (context, state, navigationShell) {
           return ScaffoldWithNavBar(navigationShell);
         },
