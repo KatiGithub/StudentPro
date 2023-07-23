@@ -58,28 +58,16 @@ class MyApp extends StatefulWidget {
 
 var key = UniqueKey();
 
-class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+class _MyAppState extends State<MyApp>{
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    AuthService authService = AuthService();
-    authService.isLoggedInSingle().then((bool isLoggedIn) {
-      if (!isLoggedIn) {
-        runApp(MyApp());
-      }
-    });
   }
 
   final goRoutes = GoRouter(initialLocation: "/welcome",

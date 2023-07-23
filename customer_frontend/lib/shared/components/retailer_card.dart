@@ -19,7 +19,7 @@ class RetailerCard extends StatelessWidget {
         GoRouter.of(context).push("/retailer", extra: business);
       },
       child: ImageContainer(
-        "/brand_banner_${this.business.businessId}",
+        "brand_banner/${this.business.businessId}",
         containerBackgroundColor: Colors.red,
         containerBorderRadius: BorderRadius.circular(20),
         containerChild: Column(
@@ -36,7 +36,7 @@ class RetailerCard extends StatelessWidget {
                     AspectRatio(
                       aspectRatio: 1 / 1,
                       child: ImageContainer(
-                        "/brand_logo_${this.business.businessId}",
+                        "brand_logo/${this.business.businessId}",
                         containerBorderRadius: BorderRadius.circular(15),
                       )
                     ),

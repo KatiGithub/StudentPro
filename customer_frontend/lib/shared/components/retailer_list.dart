@@ -34,7 +34,7 @@ class RetailerListView extends StatelessWidget {
                                 child: Padding(
                                   padding: EdgeInsets.all(10),
                                   child: ImageContainer(
-                                    "/brand_logo_${businesses[index].businessId}",
+                                    "brand_logo/${businesses[index].businessId}",
                                     containerPadding: const EdgeInsets.all(20),
                                     containerBorderRadius: BorderRadius.circular(20),
                                     containerBackgroundColor: Colors.black,

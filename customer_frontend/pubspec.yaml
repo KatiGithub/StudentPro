@@ -72,7 +72,6 @@ dependencies:
   qr_flutter: ^4.0.0
   geolocator: ^9.0.2
   app_settings: ^4.2.0
-  restart_app: ^1.1.2
   flutter_phoenix: ^1.1.1
   flutter_launcher_icons: ^0.13.1
 

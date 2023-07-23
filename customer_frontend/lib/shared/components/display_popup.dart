@@ -51,7 +51,7 @@ class _DiscountPopupState extends State<DiscountPopup> {
               fit: FlexFit.tight,
               flex: 8,
               child: ImageContainer(
-                '/brand_banner_${widget.discount.business.businessId}',
+                'brand_banner/${widget.discount.business.businessId}',
                 containerBorderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
               ),
             ),
@@ -76,7 +76,7 @@ class _DiscountPopupState extends State<DiscountPopup> {
                               child: AspectRatio(
                                 aspectRatio: 1 / 1,
                                 child: ImageContainer(
-                                  "/brand_logo_${widget.discount.business.businessId}",
+                                  "brand_logo/${widget.discount.business.businessId}",
                                 ),
                               ),
                             ),
@@ -126,10 +126,10 @@ class _DiscountPopupState extends State<DiscountPopup> {
                             ? widget.discount is CodeDiscount
                                 ? Column(
                                     children: [
-                                      QrImage(
-                                        data: couponCode,
+                                      QrImageView(
+                                          data: couponCode,
                                         size: 200,
-                                        version: QrVersions.auto,
+                                          version: QrVersions.auto,
                                       ),
                                       Text(
                                         couponCode,

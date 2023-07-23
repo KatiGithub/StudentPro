@@ -45,7 +45,7 @@ class DiscountCard extends StatelessWidget {
                         });
                   },
                   child: ImageContainer(
-                    "/discount_banner_${discount.id}",
+                    "discount_banner/${discount.id}",
                     containerBackgroundColor: Colors.teal,
                     containerBorderRadius: BorderRadius.circular(40),
                     containerBoxShadow: sheetBoxShadow ??
@@ -75,7 +75,7 @@ class DiscountCard extends StatelessWidget {
                                   child: AspectRatio(
                                     aspectRatio: 1 / 1,
                                     child: ImageContainer(
-                                      "/brand_logo_${discount.business.businessId}",
+                                      "brand_logo/${discount.business.businessId}",
                                       containerBorderRadius:
                                           BorderRadius.circular(10),
                                     ),

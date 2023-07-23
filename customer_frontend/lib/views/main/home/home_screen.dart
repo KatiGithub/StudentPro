@@ -236,7 +236,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             child: Container(
                                                               margin: const EdgeInsets.all(10),
                                                               child: ImageContainer(
-                                                                "/brand_logo_${inYourAreaDiscounts[i].business.businessId}",
+                                                                "brand_logo/${inYourAreaDiscounts[i].business.businessId}",
                                                                 containerBorderRadius: BorderRadius.circular(5),
                                                               ),
                                                             ),

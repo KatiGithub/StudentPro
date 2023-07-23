@@ -95,7 +95,7 @@ class _StateRetailerScreen extends State<RetailerScreen> {
                                       child: AspectRatio(
                                     aspectRatio: 1,
                                     child: ImageContainer(
-                                        "/brand_logo_${widget.business.businessId}"),
+                                        "/brand_logo/${widget.business.businessId}"),
                                   )),
                                   const SizedBox(
                                     width: 20,

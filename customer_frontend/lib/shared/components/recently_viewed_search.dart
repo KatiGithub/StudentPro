@@ -26,7 +26,7 @@ class RecentlyViewedSearch extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(10),
                 child: ImageContainer(
-                  '/brand_logo_${business.businessId}',
+                  'brand_logo/${business.businessId}',
                   containerBorderRadius: BorderRadius.circular(5),
                   containerBoxShadow: const [BoxShadow(color: Colors.black54, blurRadius: 5)],
                 ),

@@ -58,7 +58,9 @@ class AuthService {
     return _auth.currentUser != null;
   }
 
-  Future<String> getIdToken() async {
-    return _auth.currentUser!.getIdToken();
+  Future<String?> getIdToken() async {
+    return await _auth.currentUser!.getIdToken().then((String? idToken) {
+      return idToken;
+    });
   }
 }

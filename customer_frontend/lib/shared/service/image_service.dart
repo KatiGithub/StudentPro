@@ -6,6 +6,7 @@ class ImageService {
   APIService apiService = APIService();
 
   Future<Response> getImage(String imageEndpontEnding) async {
-    return await apiService.get("${APIConstants.imageEndpoint}$imageEndpontEnding");
+    apiService.queryParameters["imageRoute"] = imageEndpontEnding;
+    return await apiService.get("${APIConstants.imageEndpoint}");
   }
 }
