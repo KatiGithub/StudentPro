@@ -42,8 +42,9 @@ public class UserDaoImpl implements UserDao {
     public User findByFirebaseUserId(String firebaseUserId) {
         Query query = entityManager.createNativeQuery("SELECT * FROM public.\"user\" WHERE firebase_user_id = :firebaseUserId", User.class);
         query.setParameter("firebaseUserId", firebaseUserId);
+        User user = (User) query.getSingleResult();
 
-        return (User) query.getSingleResult();
+        return user;
     }
 
     @Override
