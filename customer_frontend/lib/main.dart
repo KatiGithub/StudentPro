@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,12 +41,27 @@ void main() async {
 
   HydratedBloc.storage = await HydratedStorage.build(
       storageDirectory: await getTemporaryDirectory());
-  print("Token: ");
-  FirebaseMessaging.instance
-      .requestPermission()
-      .then((NotificationSettings ntfSettings) async {
-    print(await FirebaseMessaging.instance.getToken());
+  // if(Platform.isAndroid) {
+  //   print(FirebaseMessaging.instance.getToken());
+  // } else {
+  //   FirebaseMessaging.instance
+  //       .requestPermission()
+  //       .then((NotificationSettings ntfSettings) async {
+  //     print(await FirebaseMessaging.instance.getToken());
+  //   });
+  // }
+  
+  FirebaseMessaging.instance.getToken()
+    .then((String? token) {
+      print("Token: $token");
   });
+  
+  FirebaseMessaging.instance
+    .requestPermission()
+    .then((NotificationSettings ntfSettings) {
+      print(ntfSettings.authorizationStatus);
+  });
+
 
   runApp(const MyApp());
 }
@@ -55,8 +72,6 @@ class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
-
-var key = UniqueKey();
 
 class _MyAppState extends State<MyApp>{
 
@@ -102,7 +117,6 @@ class _MyAppState extends State<MyApp>{
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      key: key,
       providers: [
         BlocProvider(create: (_) => DiscountBloc()),
         BlocProvider(create: (_) => FavoriteCubit()),
