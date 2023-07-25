@@ -10,6 +10,7 @@ import 'package:studio_projects/shared/components/CustomTextField_Rounded.dart';
 import 'package:studio_projects/shared/utils/location/location_util.dart';
 import 'package:studio_projects/views/authentication/register/email_verification.dart';
 import 'package:studio_projects/views/authentication/register/registration_screen.dart';
+import 'package:studio_projects/views/authentication/reset_password/reset_password.dart';
 import 'package:studio_projects/views/main/main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -145,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         GestureDetector(
                           onTap: () {
                             print("User Forgot Password");
-                            Navigator.pushNamed(context, 'reset_password');
+                            context.goNamed(ResetPasswordScreen.id);
                           },
                           child: Text(
                             "Forgot Password",

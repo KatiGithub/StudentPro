@@ -14,10 +14,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:studio_projects/views/retailer/retailer_screen.dart';
 
 final _globalNavigatorKey = GlobalKey<NavigatorState>();
-final _shellNavigatorHomeKey = GlobalKey<NavigatorState>(debugLabel: 'shellHome');
-final _shellNavigatorSearchKey = GlobalKey<NavigatorState>(debugLabel: 'shellSearch');
-final _shellNavigatorFavoriteKey = GlobalKey<NavigatorState>(debugLabel: 'shellFavorite');
-final _shellNavigatorSettingsKey = GlobalKey<NavigatorState>(debugLabel: 'shellSettings');
 
 class MainScreen extends StatelessWidget {
 
@@ -29,21 +25,20 @@ class MainScreen extends StatelessWidget {
           return RetailerScreen(state.extra as Business);
         }),
     StatefulShellRoute.indexedStack(
-      parentNavigatorKey: _globalNavigatorKey,
         builder: (context, state, navigationShell) {
           return ScaffoldWithNavBar(navigationShell);
         },
         branches: <StatefulShellBranch>[
-          StatefulShellBranch(navigatorKey: _shellNavigatorHomeKey, routes: <RouteBase>[
-            GoRoute(path: "/home", builder: (BuildContext context, GoRouterStatestate) => HomeScreen())
+          StatefulShellBranch( routes: <RouteBase>[
+            GoRoute(path: "/home", builder: (BuildContext context, GoRouterState state) => HomeScreen())
           ]),
-          StatefulShellBranch(navigatorKey: _shellNavigatorSearchKey, routes: <RouteBase>[
+          StatefulShellBranch( routes: <RouteBase>[
             GoRoute(path: "/search", builder: (BuildContext context, GoRouterState state) => SearchScreen())
           ]),
-          StatefulShellBranch(navigatorKey: _shellNavigatorFavoriteKey, routes: <RouteBase>[
+          StatefulShellBranch(routes: <RouteBase>[
             GoRoute(path: "/favorite", builder: (BuildContext context, GoRouterState state) => FavoriteScreen())
           ]),
-          StatefulShellBranch(navigatorKey: _shellNavigatorSettingsKey, routes: <RouteBase>[
+          StatefulShellBranch(routes: <RouteBase>[
             GoRoute(path: "/settings", builder: (BuildContext context, GoRouterState state) => SettingsScreen())
           ]),
         ])
@@ -76,14 +71,14 @@ class MainScreen extends StatelessWidget {
 class ScaffoldWithNavBar extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
 
-  ScaffoldWithNavBar(this.navigationShell, {super.key});
+  ScaffoldWithNavBar(this.navigationShell);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.white,
         items: const [
           BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined),

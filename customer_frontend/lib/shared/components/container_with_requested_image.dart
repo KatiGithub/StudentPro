@@ -33,8 +33,8 @@ class _ImageContainerState extends State<ImageContainer> {
 
   final ImageService _imageService = ImageService();
 
-  Future<void> _fetchImage() async {
-    await _imageService.getImage(widget.endPointEnding).then((Response response) {
+  Future<void> _fetchImage(){
+    return _imageService.getImage(widget.endPointEnding).then((Response response) {
       if (response.statusCode == 200) {
         setState(() {
           _imageProvider = MemoryImage(response.bodyBytes);
