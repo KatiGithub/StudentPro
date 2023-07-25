@@ -41,15 +41,6 @@ void main() async {
 
   HydratedBloc.storage = await HydratedStorage.build(
       storageDirectory: await getTemporaryDirectory());
-  // if(Platform.isAndroid) {
-  //   print(FirebaseMessaging.instance.getToken());
-  // } else {
-  //   FirebaseMessaging.instance
-  //       .requestPermission()
-  //       .then((NotificationSettings ntfSettings) async {
-  //     print(await FirebaseMessaging.instance.getToken());
-  //   });
-  // }
   
   FirebaseMessaging.instance.getToken()
     .then((String? token) {
