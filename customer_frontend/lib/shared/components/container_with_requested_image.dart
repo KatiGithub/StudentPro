@@ -33,15 +33,17 @@ class _ImageContainerState extends State<ImageContainer> {
 
   final ImageService _imageService = ImageService();
 
-  Future<void> _fetchImage(){
-    return _imageService.getImage(widget.endPointEnding).then((Response response) {
+  void _fetchImage() {
+    _imageService.getImage(widget.endPointEnding).then((Response response) {
       if (response.statusCode == 200) {
         setState(() {
           _imageProvider = MemoryImage(response.bodyBytes);
-          precacheImage(_imageProvider!, context);
+          print("Image received: ${widget.endPointEnding}");
         });
       }
     });
+
+    print("Gotten image route: ${widget.endPointEnding}");
   }
 
   @override
