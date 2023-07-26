@@ -146,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         GestureDetector(
                           onTap: () {
                             print("User Forgot Password");
-                            context.goNamed(ResetPasswordScreen.id);
+                            GoRouter.of(context).pushNamed(ResetPasswordScreen.id);
                           },
                           child: Text(
                             "Forgot Password",

@@ -19,7 +19,7 @@ class AuthService {
   }
 
   Future<void> logOut() async {
-    return _auth.signOut().then((_) {
+    return await _auth.signOut().then((_) {
       print(_auth.currentUser);
     });
   }
@@ -59,7 +59,7 @@ class AuthService {
   }
 
   Future<String?> getIdToken() async {
-    return await _auth.currentUser!.getIdToken().then((String? idToken) {
+    return _auth.currentUser!.getIdToken().then((String? idToken) {
       return idToken;
     });
   }
