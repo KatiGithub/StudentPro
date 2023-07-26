@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ParameterUtils {
-    private static final Map<String, String> parameters = new HashMap<>();
+    public static final Map<String, String> parameters = new HashMap<>();
 
     // Function to add parameter key-value pairs to the map
     public static void addParameter(String key, String value) {

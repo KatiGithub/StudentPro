@@ -24,16 +24,25 @@ public class MahaproApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MahaproApplication.class, args);
+		for (String arg : args) {
+			String[] parts = arg.split("=", 2);
+			String key = parts[0].substring(2);
+			String value = parts[1];
+
+			ParameterUtils.addParameter(key, value);
+			System.out.println(key + ": " + value);
+		}
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		for (String arg : args) {
-			String[] parts = arg.split("=", 2);
-			String key = parts[0].substring(parts[0].indexOf("--"));
-			String value = parts[1];
-
-			ParameterUtils.addParameter(key, value);
-		}
+//		for (String arg : args) {
+//			String[] parts = arg.split("=", 2);
+//			String key = parts[0].substring(2);
+//			String value = parts[1];
+//
+//			ParameterUtils.addParameter(key, value);
+//			System.out.println(key + ": " + value);
+//		}
 	}
 }
