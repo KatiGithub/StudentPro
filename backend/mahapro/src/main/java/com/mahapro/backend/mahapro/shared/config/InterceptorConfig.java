@@ -20,8 +20,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
     private BusinessAuthInterceptor businessAuthInterceptor;
 
     private List<String> userAuthInterceptorExcludePatterns = new ArrayList<>() {{
-        add("/register");
-        add("/login");
+        add("/user/register");
+        add("/user/login");
         add("/business/*");
     }};
 

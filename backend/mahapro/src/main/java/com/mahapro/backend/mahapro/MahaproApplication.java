@@ -4,6 +4,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.S3Object;
+import com.mahapro.backend.mahapro.shared.utils.ParameterUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -27,18 +28,12 @@ public class MahaproApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		S3Object object = s3Client.getObject("studentpro-image-bucket", "brand_banner/1.png");
+		for (String arg : args) {
+			String[] parts = arg.split("=", 2);
+			String key = parts[0].substring(parts[0].indexOf("--"));
+			String value = parts[1];
 
-//		displayTextInputStream(object.getObjectContent());
-	}
-
-	private static void displayTextInputStream(InputStream input) throws IOException {
-		// Read the text input stream one line at a time and display each line.
-		BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-		String line = null;
-		while ((line = reader.readLine()) != null) {
-			System.out.println(line);
+			ParameterUtils.addParameter(key, value);
 		}
-		System.out.println();
 	}
 }
