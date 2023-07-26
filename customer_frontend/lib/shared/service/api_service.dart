@@ -1,6 +1,8 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:studio_projects/shared/api_constants.dart';
 import 'package:studio_projects/shared/authentication/auth_service.dart';
+import 'package:studio_projects/shared/common_blocs/auth/auth_cubit.dart';
 
 class APIService {
   AuthService authService = AuthService();
@@ -9,12 +11,24 @@ class APIService {
 
   Future<http.Response> get(String endPoint) async {
     try {
-      return authService.getIdToken().then((String? idToken) async {
-        var url = Uri.https(APIConstants.baseUrl, endPoint, queryParameters);
-        http.Response response = await http.get(url, headers: {"Authorization": "Bearer $idToken"});
+      var url = Uri.https(APIConstants.baseUrl, endPoint, queryParameters);
 
-        return response;
-      });
+      if (authService.getcurrentToken() != "") {
+        return http.get(url, headers: {
+          "Authorization": "Bearer ${authService.getcurrentToken()}"
+        }).then((http.Response response) {
+          return response;
+        });
+      } else {
+        return authService.getIdToken().then((String? idToken) {
+          return http
+              .get(url, headers: {"Authorization": "Bearer $idToken"}).then(
+                  (http.Response response) {
+                return response;
+              });
+        });
+      }
+
     } catch (e) {
       throw Exception(e.toString());
     }
@@ -24,26 +38,31 @@ class APIService {
     try {
       return authService.getIdToken().then((String? idToken) async {
         var url = Uri.https(APIConstants.baseUrl, endPoint, queryParameters);
-        http.Response response = await http.post(url, headers: {"Authorization": "Bearer $idToken"}, body: body);
-
-        return response;
+        return http
+            .post(url,
+                headers: {"Authorization": "Bearer $idToken"}, body: body)
+            .then((http.Response response) {
+          return response;
+        });
       });
     } catch (e) {
       throw Exception(e.toString());
     }
   }
+
   Future<http.Response> put(String endPoint, String body) {
     try {
       return authService.getIdToken().then((String? idToken) async {
         var url = Uri.https(APIConstants.baseUrl, endPoint, queryParameters);
-        http.Response response = await http.put(url, headers:  {"Authorization": "Bearer $idToken"}, body: body);
+        http.Response response = await http.put(url,
+            headers: {"Authorization": "Bearer $idToken"}, body: body);
 
-        if(response.statusCode != 200) {
+        if (response.statusCode != 200) {
           throw Exception("An error occured.");
         }
         return response;
       });
-    } catch(e) {
+    } catch (e) {
       throw Exception(e.toString());
     }
   }

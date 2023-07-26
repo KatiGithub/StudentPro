@@ -5,8 +5,8 @@ import 'package:studio_projects/shared/service/api_service.dart';
 class ImageService {
   APIService apiService = APIService();
 
-  Future<Response> getImage(String imageEndpontEnding) async {
+  Future<Response> getImage(String imageEndpontEnding) {
     apiService.queryParameters["imageRoute"] = imageEndpontEnding;
-    return await apiService.get("${APIConstants.imageEndpoint}");
+    return apiService.get("${APIConstants.imageEndpoint}");
   }
 }

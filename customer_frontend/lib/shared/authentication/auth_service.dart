@@ -6,6 +6,8 @@ class AuthService {
 
   final _auth = FirebaseAuth.instance;
 
+  static String _userJwtId = "";
+
   String getUserID() {
     return _auth.currentUser!.uid;
   }
@@ -14,12 +16,17 @@ class AuthService {
     return _auth.authStateChanges().map((user) => user != null);
   }
 
+  String getcurrentToken() {
+    return _userJwtId;
+  }
+
   void sendPasswordResetEmail(String email) async {
     return await _auth.sendPasswordResetEmail(email: email);
   }
 
   Future<void> logOut() async {
     return await _auth.signOut().then((_) {
+      _userJwtId = "";
       print(_auth.currentUser);
     });
   }
@@ -60,6 +67,7 @@ class AuthService {
 
   Future<String?> getIdToken() async {
     return _auth.currentUser!.getIdToken().then((String? idToken) {
+      _userJwtId = idToken!;
       return idToken;
     });
   }

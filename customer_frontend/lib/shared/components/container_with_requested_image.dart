@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:studio_projects/shared/api_constants.dart';
 import 'package:studio_projects/shared/service/image_service.dart';
 
 class ImageContainer extends StatefulWidget {
@@ -36,12 +37,14 @@ class _ImageContainerState extends State<ImageContainer> {
   void _fetchImage() {
     _imageService.getImage(widget.endPointEnding).then((Response response) {
       if (response.statusCode == 200) {
+        ImageProvider imageProvider = MemoryImage(response.bodyBytes);
         setState(() {
-          _imageProvider = MemoryImage(response.bodyBytes);
+          _imageProvider = imageProvider;
           print("Image received: ${widget.endPointEnding}");
         });
       }
     });
+
 
     print("Gotten image route: ${widget.endPointEnding}");
   }
