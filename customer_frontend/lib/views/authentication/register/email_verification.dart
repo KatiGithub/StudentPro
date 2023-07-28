@@ -2,10 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:studio_projects/shared/common_blocs/auth/auth_cubit.dart';
 import 'package:studio_projects/shared/common_blocs/auth/auth_state.dart';
 import 'package:studio_projects/shared/components/rounded_buttons.dart';
 import 'package:studio_projects/shared/utils/location/location_util.dart';
+import 'package:studio_projects/views/authentication/register/steps/intro_registration_screen.dart';
+import 'package:studio_projects/views/main/main_screen.dart';
 
 class EmailVerification extends StatefulWidget {
   static const String id = 'email_verification';
@@ -33,7 +36,7 @@ class _EmailVerificationState extends State<EmailVerification> {
         listener: (context, state) {
           if (state is EmailVerified) {
             LocationUtil.requestUserPermission().then((_) {
-            Navigator.pushNamedAndRemoveUntil(context, 'main', (route) => false);
+              GoRouter.of(context).pushReplacementNamed(IntroRegistrationScreen.id);
             });
           } else if (state is RegistrationError) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.error)));

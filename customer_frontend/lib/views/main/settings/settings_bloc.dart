@@ -22,9 +22,7 @@ class SettingsBloc extends HydratedBloc<SettingsEvent, SettingsState> {
   }
 
   void _onSignOut(OnLogOut event, Emitter<SettingsState> emit) {
-    _authService.logOut().then((_) {
-      exit(0);
-    });
+     return _authService.logOut();
   }
 
   void _languageChanged(OnLanguageChanged event, Emitter<SettingsState> emit) {

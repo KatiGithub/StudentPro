@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -24,10 +25,13 @@ class AuthService {
     return await _auth.sendPasswordResetEmail(email: email);
   }
 
-  Future<void> logOut() async {
-    return await _auth.signOut().then((_) {
+  void logOut() async {
+    await FirebaseAuth.instance.signOut().then((_) {
       _userJwtId = "";
       print(_auth.currentUser);
+      if(_auth.currentUser == null) {
+        exit(0);
+      }
     });
   }
 

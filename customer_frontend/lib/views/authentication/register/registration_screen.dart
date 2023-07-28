@@ -39,7 +39,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     }
   }
 
-  final List<Widget> _steps = [IntroRegistrationScreen(), RegistrationPage1()];
+  final List<Widget> _steps = [RegistrationPage1()];
 
   @override
   Widget build(BuildContext context) {
@@ -47,31 +47,32 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         resizeToAvoidBottomInset: true,
         body: SafeArea(
           child: Column(children: [
-            Flexible(
-              flex: 1,
-              fit: FlexFit.tight,
-              child: StepProgressIndicator(
-                totalSteps: _steps.length,
-                currentStep: currentPage + 1,
-              ),
-            ),
-            Flexible(
-              flex: 24,
-              fit: FlexFit.tight,
-              child: PageView.builder(
-                onPageChanged: (int index) {
-                  if (currentPage < index) {
-                    _goToNextPage();
-                  } else {
-                    _goToPreviousPage();
-                  }
-                },
-                physics: currentPage == 0 ? const RightBlockedScrollPhysics() : const LeftBlockedScrollPhysics(),
-                itemBuilder: (BuildContext context, int index) {
-                  return _steps[currentPage];
-                },
-              ),
-            )
+            Expanded(child: _steps[0])
+            // Flexible(
+            //   flex: 1,
+            //   fit: FlexFit.tight,
+            //   child: StepProgressIndicator(
+            //     totalSteps: _steps.length,
+            //     currentStep: currentPage + 1,
+            //   ),
+            // ),
+            // Flexible(
+            //   flex: 24,
+            //   fit: FlexFit.tight,
+            //   child: PageView.builder(
+            //     onPageChanged: (int index) {
+            //       if (currentPage < index) {
+            //         _goToNextPage();
+            //       } else {
+            //         _goToPreviousPage();
+            //       }
+            //     },
+            //     physics: currentPage == 0 ? const RightBlockedScrollPhysics() : const LeftBlockedScrollPhysics(),
+            //     itemBuilder: (BuildContext context, int index) {
+            //       return _steps[currentPage];
+            //     },
+            //   ),
+            // )
           ]),
         ));
   }

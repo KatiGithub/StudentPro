@@ -1,8 +1,6 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:studio_projects/shared/api_constants.dart';
 import 'package:studio_projects/shared/authentication/auth_service.dart';
-import 'package:studio_projects/shared/common_blocs/auth/auth_cubit.dart';
 
 class APIService {
   AuthService authService = AuthService();

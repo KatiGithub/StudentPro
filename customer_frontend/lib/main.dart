@@ -15,6 +15,7 @@ import 'package:studio_projects/views/authentication/login/login_screen.dart';
 import 'package:studio_projects/views/authentication/register/email_verification.dart';
 import 'package:studio_projects/views/authentication/register/registration_cubit.dart';
 import 'package:studio_projects/views/authentication/register/registration_screen.dart';
+import 'package:studio_projects/views/authentication/register/steps/intro_registration_screen.dart';
 import 'package:studio_projects/views/authentication/reset_password/reset_password.dart';
 import 'package:studio_projects/views/main/favorite/favorite_cubit.dart';
 import 'package:studio_projects/views/main/home/home_cubit.dart';
@@ -35,13 +36,16 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  HydratedBloc.storage = await HydratedStorage.build(storageDirectory: await getTemporaryDirectory());
+  HydratedBloc.storage = await HydratedStorage.build(
+      storageDirectory: await getTemporaryDirectory());
 
   FirebaseMessaging.instance.getToken().then((String? token) {
     print("Token: $token");
   });
 
-  FirebaseMessaging.instance.requestPermission().then((NotificationSettings ntfSettings) {
+  FirebaseMessaging.instance
+      .requestPermission()
+      .then((NotificationSettings ntfSettings) {
     print(ntfSettings.authorizationStatus);
   });
 
@@ -67,20 +71,39 @@ class _MyAppState extends State<MyApp> {
   }
 
   final goRoutes = GoRouter(initialLocation: "/welcome", routes: [
-    GoRoute(path: '/welcome', name: WelcomeScreen.id, builder: (context, state) => WelcomeScreen()),
+    GoRoute(
+        path: '/welcome',
+        name: WelcomeScreen.id,
+        builder: (context, state) => WelcomeScreen()),
     GoRoute(
       path: "/main",
       name: MainScreen.id,
       builder: (context, state) => MainScreen(),
     ),
-    GoRoute(path: '/password_reset', name: ResetPasswordScreen.id, builder: (context, state) => ResetPasswordScreen()),
+    GoRoute(
+        path: '/password_reset',
+        name: ResetPasswordScreen.id,
+        builder: (context, state) => ResetPasswordScreen()),
     GoRoute(
         path: "/retailer",
         name: RetailerScreen.id,
         builder: (context, state) => RetailerScreen(state.extra as Business)),
-    GoRoute(path: "/login", name: LoginScreen.id, builder: (context, state) => LoginScreen()),
-    GoRoute(path: "/register", name: RegistrationScreen.id, builder: (context, state) => RegistrationScreen()),
-    GoRoute(path: "/email_verification", name: EmailVerification.id, builder: (context, state) => EmailVerification())
+    GoRoute(
+        path: "/login",
+        name: LoginScreen.id,
+        builder: (context, state) => LoginScreen()),
+    GoRoute(
+        path: "/register",
+        name: RegistrationScreen.id,
+        builder: (context, state) => RegistrationScreen()),
+    GoRoute(
+        path: "/email_verification",
+        name: EmailVerification.id,
+        builder: (context, state) => EmailVerification()),
+    GoRoute(
+        path: "/intro_registration",
+        name: IntroRegistrationScreen.id,
+        builder: (context, state) => IntroRegistrationScreen())
   ]);
 
   @override
@@ -110,10 +133,14 @@ class _MyAppState extends State<MyApp> {
             theme: ThemeData(
                 fontFamily: 'SF_Pro',
                 brightness: Brightness.light,
-                appBarTheme: AppBarTheme(backgroundColor: Colors.white, elevation: 0)),
-            darkTheme:
-                ThemeData(brightness: Brightness.dark, appBarTheme: AppBarTheme(color: Colors.black12, elevation: 0)),
-            themeMode: settingsBloc.state.settings.darkMode! ? ThemeMode.dark : ThemeMode.light,
+                appBarTheme:
+                    AppBarTheme(backgroundColor: Colors.white, elevation: 0)),
+            darkTheme: ThemeData(
+                brightness: Brightness.dark,
+                appBarTheme: AppBarTheme(color: Colors.black12, elevation: 0)),
+            themeMode: settingsBloc.state.settings.darkMode!
+                ? ThemeMode.dark
+                : ThemeMode.light,
             localizationsDelegates: [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
