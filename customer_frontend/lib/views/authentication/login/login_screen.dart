@@ -56,10 +56,11 @@ class _LoginScreenState extends State<LoginScreen> {
             resizeToAvoidBottomInset: true,
             body: SafeArea(
               child: Container(
-                padding: const EdgeInsetsDirectional.symmetric(horizontal: 15),
+                padding: const EdgeInsetsDirectional.symmetric(horizontal: 35),
                 width: MediaQuery.of(context).size.height,
                 child: Column(
                   children: [
+                    const SizedBox(height: 80,),
                     const Flexible(
                       flex: 3,
                       child: Column(
@@ -84,8 +85,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Container(
-                              padding: const EdgeInsetsDirectional.symmetric(
-                                  horizontal: 20),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -106,8 +105,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 top: 2,
                               ),
                               child: Container(
-                                padding: const EdgeInsetsDirectional.symmetric(
-                                    horizontal: 20),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -144,8 +141,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               height: 10,
                             ),
                             Container(
-                              padding: const EdgeInsetsDirectional.symmetric(
-                                  horizontal: 20),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -187,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             FocusScope.of(context);
                                         currentFocus.unfocus();
                                       },
-                                      color: const Color.fromRGBO(241, 119, 32, 0.7),
+                                      color: const Color.fromRGBO(255, 166, 48, 1.0),
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(12.0)),
@@ -237,7 +232,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 style: TextStyle(
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.bold,
-                                                  color: Color.fromRGBO(241, 119, 32, 0.7)
+                                                  color: Color.fromRGBO(255, 166, 48, 1.0),
                                                 ),
                                               )
                                             ],

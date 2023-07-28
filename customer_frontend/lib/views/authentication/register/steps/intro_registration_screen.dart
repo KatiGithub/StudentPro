@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../main/main_screen.dart';
 
 class IntroRegistrationScreen extends StatelessWidget {
   static final id = 'intro_registration';
@@ -17,12 +20,14 @@ class IntroRegistrationScreen extends StatelessWidget {
               bottom: 10,
               right: 20,
               child: MaterialButton(
-                color: const Color.fromRGBO(241, 119, 32, 0.7),
-                onPressed: () {},
+                color: const Color.fromRGBO(255, 166, 48, 1.0),
+                onPressed: () {
+                  GoRouter.of(context).pushReplacementNamed(MainScreen.id);
+                },
                 child: AspectRatio(
                   aspectRatio: 3 / 2,
                   child: Container(
-                    child: Text("Continue to Main Screen"),
+                    child: Icon(Icons.arrow_forward_sharp, color: Colors.white,),
                   ),
                 ),
               ))

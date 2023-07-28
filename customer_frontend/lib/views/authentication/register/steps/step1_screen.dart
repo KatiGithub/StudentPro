@@ -39,7 +39,7 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
         builder: (context) {
           DateTime tempPickedDate = DateTime.now();
           return Container(
-            height: 250,
+            height: 400,
             child: Column(
               children: [
                 Container(
@@ -47,13 +47,16 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CupertinoButton(
-                        child: const Text("Cancel"), onPressed: () {
+                        child: const Text("Cancel"),
+                        onPressed: () {
                           GoRouter.of(context).pop();
-                    }),
-                    CupertinoButton(child: const Text("Done"), onPressed: () {
-                      this.dateChanged = true;
-                      GoRouter.of(context).pop(tempPickedDate);
-                    })
+                        }),
+                    CupertinoButton(
+                        child: const Text("Done"),
+                        onPressed: () {
+                          this.dateChanged = true;
+                          GoRouter.of(context).pop(tempPickedDate);
+                        })
                   ],
                 )),
                 Divider(
@@ -62,7 +65,7 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                 ),
                 Expanded(
                   child: CupertinoDatePicker(
-                    initialDateTime: _selectedDate,
+                      initialDateTime: _selectedDate,
                       mode: CupertinoDatePickerMode.date,
                       onDateTimeChanged: (DateTime dateTime) {
                         tempPickedDate = dateTime;
@@ -75,7 +78,7 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
 
     bool isBefore = pickedDate!.isBefore(DateTime.now());
 
-    if(isBefore) {
+    if (isBefore) {
       setState(() {
         _selectedDate = pickedDate;
         print(pickedDate);
@@ -159,11 +162,14 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
           child: Container(
             color: Colors.white,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 35),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  SizedBox(
+                    height: 20,
+                  ),
                   const Flexible(
                       flex: 3,
                       fit: FlexFit.tight,
@@ -171,10 +177,17 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Registration", style: TextStyle(fontSize: 40),),
-                          SizedBox(height: 10,),
-                          Opacity(opacity: 0.5,
-                          child: Text("Enter your details to create a StudentPro account"))
+                          Text(
+                            "Sign Up",
+                            style: TextStyle(fontSize: 40),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Opacity(
+                              opacity: 0.5,
+                              child: Text(
+                                  "Enter your details to create a StudentPro account"))
                         ],
                       )),
                   Flexible(
@@ -201,9 +214,9 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                                                   BorderRadius.circular(12),
                                               boxShadow: [
                                                 _focusNodeFirstName.hasFocus
-                                                    ? BoxShadow(
+                                                    ? const BoxShadow(
                                                         color: Color.fromRGBO(
-                                                            241, 119, 32, 1),
+                                                            255, 166, 48, 1.0),
                                                         spreadRadius: 2,
                                                         blurRadius: 5,
                                                       )
@@ -307,7 +320,7 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                                     borderRadius: BorderRadius.circular(12),
                                     boxShadow: [
                                       _focusNodeSchoolEmail.hasFocus
-                                          ? BoxShadow(
+                                          ? const BoxShadow(
                                               color: Color.fromRGBO(
                                                   241, 119, 32, 1),
                                               spreadRadius: 2,
@@ -392,41 +405,37 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                           const SizedBox(
                             height: 10,
                           ),
-                          MaterialButton(
-                              color: Colors.black54.withOpacity(0.5),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(40)),
-                              child: Container(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 4),
-                                height: 50,
-                                width: MediaQuery.of(context).size.width / 1,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    const Icon(Icons.calendar_month_outlined),
-                                    Expanded(
-                                        child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        !dateChanged
-                                            ? const Text("Date of Birth")
-                                            : Text(DateFormat('MMMM d yyyy')
-                                                .format(_selectedDate))
-                                      ],
-                                    ))
-                                  ],
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              const Text("Date of Birth"),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  _selectDate();
+                                },
+                                child: AbsorbPointer(
+                                  ignoringSemantics: true,
+                                  child: TextField(
+                                      keyboardType: TextInputType.emailAddress,
+                                      controller: _schoolEmailController,
+                                      decoration: kTextFieldDecorationUnfocused
+                                          .copyWith(
+                                              hintText: dateChanged
+                                                  ? DateFormat("MMMM d yyyy")
+                                                      .format(_selectedDate)
+                                                  : "")),
                                 ),
                               ),
-                              onPressed: () {
-                                _selectDate();
-                              }),
+                            ],
+                          ),
                           const SizedBox(
                             height: 10,
                           ),
                           MaterialButton(
-                            color: Color.fromRGBO(241, 119, 32, 0.7),
+                            color: const Color.fromRGBO(255, 166, 48, 1.0),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12)),
                             onPressed: () {
@@ -454,9 +463,9 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                             child: Container(
                               height: 55,
                               width: MediaQuery.of(context).size.width,
-                              child: Row(
+                              child: const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
+                                children: [
                                   Expanded(
                                       child: Text(
                                     "Sign Up",
