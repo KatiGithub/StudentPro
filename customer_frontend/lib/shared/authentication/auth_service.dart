@@ -75,4 +75,8 @@ class AuthService {
       return idToken;
     });
   }
+
+  void sendEmailVerificationAgain() {
+    _auth.sendPasswordResetEmail(email: _auth.currentUser!.email!);
+  }
 }

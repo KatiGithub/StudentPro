@@ -177,12 +177,10 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          SizedBox(height: 80,),
                           Text(
                             "Sign Up",
                             style: TextStyle(fontSize: 40),
-                          ),
-                          SizedBox(
-                            height: 10,
                           ),
                           Opacity(
                               opacity: 0.5,
@@ -433,10 +431,9 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                           const SizedBox(
                             height: 10,
                           ),
-                          MaterialButton(
+                          CupertinoButton(
                             color: const Color.fromRGBO(255, 166, 48, 1.0),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12)),
+                            borderRadius: BorderRadius.circular(12),
                             onPressed: () {
                               _updateFirstName(
                                   _firstNameController.text, context);
@@ -460,7 +457,7 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                               currentFocus.unfocus();
                             },
                             child: Container(
-                              height: 55,
+                              height: 40,
                               width: MediaQuery.of(context).size.width,
                               child: const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -471,8 +468,7 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
+                                        fontSize: 20),
                                   ))
                                 ],
                               ),

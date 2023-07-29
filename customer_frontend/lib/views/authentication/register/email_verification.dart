@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -27,7 +28,8 @@ class _EmailVerificationState extends State<EmailVerification> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: BlocBuilder<AuthCubit, AuthState>(builder: (context, state) {
+    return Scaffold(
+        body: BlocBuilder<AuthCubit, AuthState>(builder: (context, state) {
       BlocProvider.of<AuthCubit>(context).verifyEmail();
       timer = Timer.periodic(const Duration(seconds: 10), (_) {
         BlocProvider.of<AuthCubit>(context).checkEmailVerfied();
@@ -36,10 +38,12 @@ class _EmailVerificationState extends State<EmailVerification> {
         listener: (context, state) {
           if (state is EmailVerified) {
             LocationUtil.requestUserPermission().then((_) {
-              GoRouter.of(context).pushReplacementNamed(IntroRegistrationScreen.id);
+              GoRouter.of(context)
+                  .pushReplacementNamed(IntroRegistrationScreen.id);
             });
           } else if (state is RegistrationError) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.error)));
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(state.error)));
           }
         },
         child: Center(
@@ -50,7 +54,11 @@ class _EmailVerificationState extends State<EmailVerification> {
                 "Click on the link sent to your school email to verify.",
                 textAlign: TextAlign.center,
               ),
-              RoundedButton(title: 'Resend E-mail', colour: Colors.blueAccent, onPressed: () {})
+              CupertinoButton(
+                  color: const Color.fromRGBO(255, 166, 48, 1.0),
+                  onPressed: () {},
+                  child:
+                      Container(height: 40, child: const Text("Resend E-mail")))
             ],
           ),
         ),

@@ -29,7 +29,9 @@ class _DiscountPopupState extends State<DiscountPopup> {
   @override
   void initState() {
     super.initState();
-    transactionService.checkUserLimit(widget.discount.id).then((bool limitReached) {
+    transactionService
+        .checkUserLimit(widget.discount.id)
+        .then((bool limitReached) {
       setState(() {
         _limitReached = limitReached;
       });
@@ -52,7 +54,8 @@ class _DiscountPopupState extends State<DiscountPopup> {
               flex: 8,
               child: ImageContainer(
                 'brand_banner/${widget.discount.business.businessId}',
-                containerBorderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+                containerBorderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(10)),
               ),
             ),
             Flexible(
@@ -85,7 +88,8 @@ class _DiscountPopupState extends State<DiscountPopup> {
                                 flex: 15,
                                 fit: FlexFit.tight,
                                 child: Text(
-                                  TranslationLocalePicker.translationPicker(widget.discount.business.name, context),
+                                  TranslationLocalePicker.translationPicker(
+                                      widget.discount.business.name, context),
                                   style: const TextStyle(fontSize: 20),
                                 )),
                           ],
@@ -100,13 +104,16 @@ class _DiscountPopupState extends State<DiscountPopup> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                TranslationLocalePicker.translationPicker(widget.discount.discountTitle, context),
+                                TranslationLocalePicker.translationPicker(
+                                    widget.discount.discountTitle, context),
                                 style: const TextStyle(fontSize: 20),
                               ),
                               const SizedBox(
                                 height: 10,
                               ),
-                              Text(widget.discount is LinkDiscount ? "Online" : "Instore")
+                              Text(widget.discount is LinkDiscount
+                                  ? "Online"
+                                  : "Instore")
                             ],
                           ),
                         )),
@@ -115,8 +122,10 @@ class _DiscountPopupState extends State<DiscountPopup> {
                         fit: FlexFit.tight,
                         child: Column(
                           children: [
-                            Text("Minimum Spend: ${widget.discount.minimumSpend ?? "No Limit"}"),
-                            Text("Claims Per User: ${widget.discount.claimsPerUser ?? "No Limit"} ")
+                            Text(
+                                "Minimum Spend: ${widget.discount.minimumSpend ?? "No Limit"}"),
+                            Text(
+                                "Claims Per User: ${widget.discount.claimsPerUser ?? "No Limit"} ")
                           ],
                         )),
                     Flexible(
@@ -127,9 +136,9 @@ class _DiscountPopupState extends State<DiscountPopup> {
                                 ? Column(
                                     children: [
                                       QrImageView(
-                                          data: couponCode,
+                                        data: couponCode,
                                         size: 200,
-                                          version: QrVersions.auto,
+                                        version: QrVersions.auto,
                                       ),
                                       Text(
                                         couponCode,
@@ -140,32 +149,42 @@ class _DiscountPopupState extends State<DiscountPopup> {
                                 : Column()
                             : Center(
                                 child: Container(
-                                margin: const EdgeInsets.symmetric(horizontal: 80),
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 80),
                                 height: 60,
-                                child: MaterialButton(
+                                child: CupertinoButton(
                                   disabledColor: Colors.grey,
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                  borderRadius: BorderRadius.circular(10),
                                   color: const Color.fromRGBO(255, 166, 48, 1),
-                                  onPressed: _limitReached ? null : () {
-                                    if (widget.discount is CodeDiscount) {
-                                      CodeDiscount discount = widget.discount as CodeDiscount;
-                                      discount.claimCoupon().then((String couponCode) {
-                                        setState(() {
-                                          this.couponCode = couponCode;
-                                          _discountAvailable = true;
-                                        });
-                                      });
-                                    } else if (widget.discount is LinkDiscount) {
-                                      LinkDiscount discount = widget.discount as LinkDiscount;
-                                      discount.claimCoupon().then((_) => null);
-                                    }
-                                  },
+                                  onPressed: _limitReached
+                                      ? null
+                                      : () {
+                                          if (widget.discount is CodeDiscount) {
+                                            CodeDiscount discount =
+                                                widget.discount as CodeDiscount;
+                                            discount
+                                                .claimCoupon()
+                                                .then((String couponCode) {
+                                              setState(() {
+                                                this.couponCode = couponCode;
+                                                _discountAvailable = true;
+                                              });
+                                            });
+                                          } else if (widget.discount
+                                              is LinkDiscount) {
+                                            LinkDiscount discount =
+                                                widget.discount as LinkDiscount;
+                                            discount
+                                                .claimCoupon()
+                                                .then((_) => null);
+                                          }
+                                        },
                                   child: Container(
                                     constraints: const BoxConstraints.expand(),
                                     child: const Center(
                                       child: Text(
                                         "Claim Discount!",
-                                        style: TextStyle(fontSize: 20),
+                                        style: TextStyle(fontSize: 16),
                                       ),
                                     ),
                                   ),

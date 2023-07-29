@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
@@ -68,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Welcome to StudentPro",
+                            "Welcome to StudentPro,",
                             style: TextStyle(fontSize: 30),
                           ),
                           Opacity(
@@ -154,8 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: const Text(
                                       "Forgot Password?",
                                       style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
+                                          fontSize: 16),
                                     ),
                                   ),
                                   const SizedBox(
@@ -164,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   SizedBox(
                                     width: double.infinity,
                                     height: 55,
-                                    child: MaterialButton(
+                                    child: CupertinoButton(
                                       onPressed: () {
                                         BlocProvider.of<AuthCubit>(context)
                                                 .state
@@ -183,9 +183,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         currentFocus.unfocus();
                                       },
                                       color: const Color.fromRGBO(255, 166, 48, 1.0),
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12.0)),
+                                      borderRadius: BorderRadius.circular(12),
                                       child: Container(
                                         height: 55,
                                         child: const Row(
@@ -225,13 +223,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                               Text(
                                                 "Don't have an account? ",
                                                 style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold),
+                                                    fontSize: 16),
                                               ),
-                                              Text("Sign Up!",
+                                              Text("Sign Up",
                                                 style: TextStyle(
                                                   fontSize: 16,
-                                                  fontWeight: FontWeight.bold,
                                                   color: Color.fromRGBO(255, 166, 48, 1.0),
                                                 ),
                                               )
