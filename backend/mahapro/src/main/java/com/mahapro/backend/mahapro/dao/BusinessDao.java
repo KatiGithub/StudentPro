@@ -10,5 +10,5 @@ public interface BusinessDao {
     Business findByFavoriteId(int favoriteId);
     Business findByEmail(String email);
     List<Business> findByRandom();
-    void addBusinessUserClick(int userId, int businessId, double timeClicked);
+    void addBusinessUserClick(int userId, int businessId);
 }

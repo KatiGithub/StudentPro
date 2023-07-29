@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface BusinessService {
     List<Business> findBusinessByRandom();
+    void  addBusinessUserClick(String authorizationHeader, int retailerId) throws Exception;
 }
