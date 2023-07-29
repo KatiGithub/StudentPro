@@ -420,7 +420,6 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                                   ignoringSemantics: true,
                                   child: TextField(
                                       keyboardType: TextInputType.emailAddress,
-                                      controller: _schoolEmailController,
                                       decoration: kTextFieldDecorationUnfocused
                                           .copyWith(
                                               hintText: dateChanged

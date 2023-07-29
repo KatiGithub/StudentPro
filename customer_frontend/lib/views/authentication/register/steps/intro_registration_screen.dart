@@ -10,24 +10,32 @@ class IntroRegistrationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints: const BoxConstraints.expand(),
+      color: Colors.grey,
       child: Stack(
         children: [
           Image.asset(
             "assets/test_fullscreen.jpg",
             fit: BoxFit.cover,
+            height: double.infinity,
           ),
-          Positioned(
-              bottom: 10,
-              right: 20,
-              child: MaterialButton(
-                color: const Color.fromRGBO(255, 166, 48, 1.0),
-                onPressed: () {
-                  GoRouter.of(context).pushReplacementNamed(MainScreen.id);
-                },
-                child: AspectRatio(
-                  aspectRatio: 3 / 2,
+          Positioned.fill(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: GestureDetector(
+                  onTap: () {
+                    GoRouter.of(context).pushReplacementNamed(MainScreen.id);
+                  },
                   child: Container(
-                    child: Icon(Icons.arrow_forward_sharp, color: Colors.white,),
+                    width: 120,
+                    height: 60,
+                    margin: const EdgeInsets.only(bottom: 40),
+                    decoration: BoxDecoration(
+                        color: const Color.fromRGBO(255, 166, 48, 1.0),
+                        borderRadius: BorderRadius.circular(100)),
+                    child: const Icon(
+                      Icons.arrow_forward_sharp,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ))

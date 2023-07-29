@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
 
 class MapDialog extends StatefulWidget {
@@ -90,7 +91,7 @@ class _MapDialogState extends State<MapDialog> {
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.horizontal(left: Radius.circular(20), right: Radius.circular(20))),
                     onPressed: () {
-                      Navigator.pop(context, _pickedLocation);
+                      GoRouter.of(context).pop(_pickedLocation);
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
