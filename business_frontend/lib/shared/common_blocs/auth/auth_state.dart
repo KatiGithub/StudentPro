@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 
 class AuthState extends Equatable {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
@@ -10,7 +9,9 @@ class AuthInitial extends AuthState {}
 
 class AuthLoading extends AuthState {}
 
-class AuthSuccess extends AuthState {}
+class LoginSuccess extends AuthState {}
+
+class RegistrationSuccess extends AuthState {}
 
 class AuthError extends AuthState {
   String error;
