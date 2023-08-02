@@ -1,6 +1,6 @@
-package com.mahapro.backend.mahapro.dao.impl;
+package com.mahapro.backend.mahapro.dao.Business.impl;
 
-import com.mahapro.backend.mahapro.dao.BusinessUserDao;
+import com.mahapro.backend.mahapro.dao.Business.BusinessUserDao;
 import com.mahapro.backend.mahapro.model.BusinessUser;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;

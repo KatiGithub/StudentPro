@@ -2,7 +2,7 @@ package com.mahapro.backend.mahapro.shared.filter;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseToken;
-import com.mahapro.backend.mahapro.dao.BusinessUserDao;
+import com.mahapro.backend.mahapro.dao.Business.BusinessUserDao;
 import com.mahapro.backend.mahapro.shared.provider.JwtTokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

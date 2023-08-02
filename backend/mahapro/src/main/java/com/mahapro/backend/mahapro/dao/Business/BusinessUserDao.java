@@ -1,4 +1,4 @@
-package com.mahapro.backend.mahapro.dao;
+package com.mahapro.backend.mahapro.dao.Business;
 
 import com.mahapro.backend.mahapro.model.BusinessUser;
 

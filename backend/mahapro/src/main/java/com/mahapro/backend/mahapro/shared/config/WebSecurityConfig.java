@@ -1,12 +1,11 @@
 package com.mahapro.backend.mahapro.shared.config;
 
-import com.mahapro.backend.mahapro.dao.BusinessUserDao;
+import com.mahapro.backend.mahapro.dao.Business.BusinessUserDao;
 import com.mahapro.backend.mahapro.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
