@@ -140,6 +140,13 @@ flutter:
         - asset: assets/fonts/sf_pro/SF_Pro_Regular.ttf
         - asset: assets/fonts/sf_pro/SF_Pro_Bold.ttf
           weight: 700
+    - family: Frutiger
+      fonts:
+        - asset: assets/fonts/Frutiger.ttf
+        - asset: assets/fonts/Frutiger_bold.ttf
+          weight: 500
+        - asset: assets/fonts/Frutiger_extra_bold.ttf
+          weight: 700
 
 flutter_intl:
   enabled: true

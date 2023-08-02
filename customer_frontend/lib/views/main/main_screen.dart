@@ -49,10 +49,11 @@ class MainScreen extends StatelessWidget {
     SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
 
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       supportedLocales: [Locale("en"), Locale("th")],
       locale: Locale(settingsBloc.state.settings.languageId!),
       theme: ThemeData(
-          fontFamily: 'SF_Pro',
+          fontFamily: 'Frutiger',
           brightness: Brightness.light,
           appBarTheme: AppBarTheme(backgroundColor: Colors.white, elevation: 0)),
       darkTheme: ThemeData(brightness: Brightness.dark, appBarTheme: AppBarTheme(color: Colors.black12, elevation: 0)),
@@ -79,27 +80,28 @@ class ScaffoldWithNavBar extends StatelessWidget {
       body: navigationShell,
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
+        selectedItemColor: Colors.black,
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              activeIcon: Icon(Icons.home),
+              icon: Icon(Icons.home_outlined, color: Colors.black,),
+              activeIcon: Icon(Icons.home, color: Colors.black),
               label: "Home",
-              backgroundColor: Colors.black),
+              backgroundColor: Colors.white),
           BottomNavigationBarItem(
-              icon: Icon(Icons.search_outlined),
-              activeIcon: Icon(Icons.saved_search),
+              icon: Icon(Icons.search_outlined, color: Colors.black),
+              activeIcon: Icon(Icons.saved_search, color: Colors.black),
               label: "Search",
-              backgroundColor: Colors.black),
+              backgroundColor: Colors.white),
           BottomNavigationBarItem(
-              icon: Icon(Icons.favorite_outline),
-              activeIcon: Icon(Icons.favorite),
+              icon: Icon(Icons.favorite_outline, color: Colors.black,),
+              activeIcon: Icon(Icons.favorite, color: Colors.black),
               label: "Favorite",
-              backgroundColor: Colors.black),
+              backgroundColor: Colors.white),
           BottomNavigationBarItem(
-              icon: Icon(Icons.settings_outlined),
-              activeIcon: Icon(Icons.settings),
+              icon: Icon(Icons.settings_outlined, color: Colors.black,),
+              activeIcon: Icon(Icons.settings, color: Colors.black),
               label: "Settings",
-              backgroundColor: Colors.black)
+              backgroundColor: Colors.white)
         ],
         onTap: (int index) => _onTap(context, index),
         currentIndex: navigationShell.currentIndex,

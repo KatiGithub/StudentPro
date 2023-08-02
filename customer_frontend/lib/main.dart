@@ -128,6 +128,7 @@ class _MyAppState extends State<MyApp> {
         builder: (context, state) {
           final settingsBloc = BlocProvider.of<SettingsBloc>(context);
           return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
             supportedLocales: [Locale("en"), Locale("th")],
             locale: Locale(settingsBloc.state.settings.languageId!),
             theme: ThemeData(

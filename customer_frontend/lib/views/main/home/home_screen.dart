@@ -116,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       padding: const EdgeInsets.only(left: 20),
                                       child: Text(
                                         "Hi, ${BlocProvider.of<AuthCubit>(context).state.user.firstName!}",
-                                        style: const TextStyle(fontSize: 25),
+                                        style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w500).apply(fontWeightDelta: 4),
                                       ),
                                     )
                                   ],
@@ -182,18 +182,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                               Container(
-                                margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
+                                margin: const EdgeInsets.only(left: 20, right: 20),
                                 height: MediaQuery.of(context).size.height / 2.3,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Expanded(
-                                        child: Container(
-                                      child: const Text(
-                                        "Recommended",
-                                        style: TextStyle(fontSize: 30),
+                                        child: Column(
+                                          children: [
+                                            SizedBox(height: 15,),
+                                            Container(
+                                      child: Text(
+                                            "Recommended",
+                                            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w500).apply(fontWeightDelta: 3),
                                       ),
-                                    )),
+                                    ),
+                                          ],
+                                        )),
                                     Flexible(
                                         flex: 8,
                                         fit: FlexFit.tight,
@@ -254,7 +259,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                                   children: [
                                                                     Text(TranslationLocalePicker.translationPicker(
-                                                                        inYourAreaDiscounts[i].business.name, context)),
+                                                                        inYourAreaDiscounts[i].business.name, context), style: const TextStyle(fontWeight: FontWeight.w500).apply(fontWeightDelta: 5),),
+                                                                    const SizedBox(height: 5,),
                                                                     Text(TranslationLocalePicker.translationPicker(
                                                                         inYourAreaDiscounts[i].discountTitle, context))
                                                                   ],
