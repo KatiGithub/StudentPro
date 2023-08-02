@@ -212,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               mainAxisSpacing: 20,
                                               childAspectRatio: 3 / 10,
                                               children: [
-                                                for (int i = 0; i < 9; i++)
+                                                for (int i = 0; i < inYourAreaDiscounts.length; i++)
                                                   GestureDetector(
                                                     onTap: () {
                                                       showModalBottomSheet(
