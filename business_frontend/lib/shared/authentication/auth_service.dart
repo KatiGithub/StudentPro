@@ -6,6 +6,8 @@ class AuthService {
 
   final _auth = FirebaseAuth.instance;
 
+  static String _userJwtId = "";
+
   String getUserId() {
     return _auth.currentUser!.uid;
   }
@@ -24,4 +26,16 @@ class AuthService {
           return userCredential.user;
     });
   }
+
+  String getCurrentToken() {
+    return _userJwtId;
+  }
+
+  Future<String?> getIdToken() async {
+    return _auth.currentUser!.getIdToken().then((String? idToken) {
+      _userJwtId = idToken!;
+      return idToken;
+    });
+  }
+
 }

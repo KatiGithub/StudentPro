@@ -18,15 +18,20 @@ public class BusinessUserDaoImpl implements BusinessUserDao {
     EntityManager entityManager;
 
     @Override
-    public BusinessUser saveUser(String businessUserId, String firebaseUserId, int businessId, int roleId) {
-        Query query = entityManager.createNativeQuery("SELECT * FROM insert_business_user(:businessUserId, :firebaseUserId, :businessId, :roleId)", BusinessUser.class);
-        query.setParameter("businessUserId", businessUserId);
-        query.setParameter("firebaseUserId", firebaseUserId);
-        query.setParameter("businessId", businessId);
-        query.setParameter("roleId", roleId);
+    public BusinessUser saveUser(BusinessUser businessUser) {
+        Query query = entityManager.createNativeQuery("SELECT * FROM insert_business_user(p_firebase_user_id := :firebaseUserId, p_business_id := :businessId, p_name := :name, p_can_claim_coupon := :canClaimCoupon, p_can_edit_discount := :canEditDiscount, p_can_edit_business_user := :canEditBusinessUser, p_can_edit_business_info := :canEditBusinessInfo, p_can_edit_admin := :canEditAdmin, p_email := :email)", BusinessUser.class);
+        query.setParameter("firebaseUserId", businessUser.getFirebaseUserId());
+        query.setParameter("businessId", businessUser.getBusiness().getId());
+        query.setParameter("name", businessUser.getName());
+        query.setParameter("canClaimCoupon", businessUser.getCanClaimCoupon());
+        query.setParameter("canEditDiscount", businessUser.getCanEditDiscount());
+        query.setParameter("canEditBusinessUser", businessUser.getCanEditBusinessUser());
+        query.setParameter("canEditBusinessInfo", businessUser.getCanEditBusinessinfo());
+        query.setParameter("canEditAdmin", businessUser.getCanEditAdmin());
+        query.setParameter("email", businessUser.getEmail());
 
-        BusinessUser businessUser = (BusinessUser) query.getSingleResult();
-        return businessUser;
+        BusinessUser _businessUser = (BusinessUser) query.getSingleResult();
+        return _businessUser;
     }
 
     @Override
@@ -59,5 +64,14 @@ public class BusinessUserDaoImpl implements BusinessUserDao {
 
         BusinessUser user = (BusinessUser) query.getSingleResult();
         return user;
+    }
+
+    @Override
+    public BusinessUser getBusinessUserById(int businessUserId) {
+        Query query = entityManager.createNativeQuery("SELECT * FROM business_user WHERE business_user_id = :businessUserId", BusinessUser.class);
+        query.setParameter("businessUserId", businessUserId);
+
+        BusinessUser _businessUser = (BusinessUser) query.getSingleResult();
+        return _businessUser;
     }
 }

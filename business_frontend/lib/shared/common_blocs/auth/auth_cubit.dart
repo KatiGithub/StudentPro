@@ -23,4 +23,8 @@ class AuthCubit extends Cubit<AuthState> {
   Stream<bool> getLoggedInSubscription() {
     return authService.isLoggedIn();
   }
+
+  void login(String email, String password) {
+
+  }
 }

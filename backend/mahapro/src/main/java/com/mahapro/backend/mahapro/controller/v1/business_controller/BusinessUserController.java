@@ -34,7 +34,7 @@ public class BusinessUserController {
         return ResponseEntity.ok("");
     }
 
-    @GetMapping("/")
+    @GetMapping()
     public ResponseEntity<String> getBusinessUserFromCode(@RequestParam("code") String code) {
         return ResponseEntity.ok("");
     }

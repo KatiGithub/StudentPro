@@ -10,16 +10,13 @@ public class BusinessUser {
 
     @Id
     @Column(name = "business_user_id")
-    private Integer businessUserId;
+    private Integer userId;
 
     @Column(name = "firebase_user_id")
     private String firebaseUserId;
 
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "can_claim_coupon")
     private Boolean canClaimCoupon;
@@ -43,12 +40,12 @@ public class BusinessUser {
     @JoinColumn(name = "business_id", referencedColumnName = "business_id")
     private Business business;
 
-    public Integer getBusinessUserId() {
-        return businessUserId;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setBusinessUserId(Integer businessUserId) {
-        this.businessUserId = businessUserId;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getFirebaseUserId() {
@@ -67,21 +64,14 @@ public class BusinessUser {
         this.business = business;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String firstName) {
+        this.name = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public Boolean getCanClaimCoupon() {
         return canClaimCoupon;

@@ -33,7 +33,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: [
             const Padding(
               padding: EdgeInsets.only(left: 10),
-              child: Text("App Settings", style: TextStyle(fontSize: 16),),
+              child: Text("App Settings", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
             ),
             ListTile(
               title: const Text("Change Location Settings"),
@@ -51,21 +51,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold), textAlign: TextAlign.start),
               ],
             ),
-            const ListTile(
-              title: Text("Edit Information"),
-            ),
-            const ListTile(
-              title: Text("Change Password"),
-            ),
             ListTile(
               onTap: () {
                 settingsBloc.add(OnLogOut(context));
                 print("Logged Out");
               },
               title: const Text("Log Out"),
-            ),
-            const SizedBox(
-              height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,

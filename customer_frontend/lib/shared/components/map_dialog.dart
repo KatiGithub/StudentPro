@@ -35,9 +35,9 @@ class _MapDialogState extends State<MapDialog> {
           hintText: "Search address",
           suffixIcon: IconButton(
             splashRadius: 0.1,
-            icon: Icon(Icons.clear),
+            icon: const Icon(Icons.clear),
             onPressed: () {
-              _addressSearchController.clear();
+              Navigator.pop(context);
             },
           )
         ),

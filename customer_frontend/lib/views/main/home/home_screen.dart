@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
@@ -13,6 +14,7 @@ import 'package:studio_projects/shared/components/display_popup.dart';
 import 'package:studio_projects/shared/components/retailer_card.dart';
 import 'package:studio_projects/shared/utils/location/location_util.dart';
 import 'package:studio_projects/shared/utils/translation_locale_retrieval.dart';
+import 'package:studio_projects/views/main/home/components/user_information_display.dart';
 import 'package:studio_projects/views/main/home/home_cubit.dart';
 
 import '../../../models/discounts/discount.dart';
@@ -121,7 +123,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     )
                                   ],
                                 )),
-                            Expanded(child: Image.asset("assets/mahapro_logo.png"))
+                            GestureDetector(
+                              onTap: () {
+                                showDialog(context: context, builder: (context) => UserInformationDisplay(BlocProvider.of<AuthCubit>(context).state.user));
+                              },
+                                child: Expanded(child: Image.asset("assets/mahapro_logo.png"))
+                            )
                           ],
                         ),
                       ),

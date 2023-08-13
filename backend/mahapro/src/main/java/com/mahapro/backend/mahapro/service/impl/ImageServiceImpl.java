@@ -17,8 +17,13 @@ public class ImageServiceImpl implements ImageService  {
     @Override
     public InputStream getImage(String route) throws FileNotFoundException {
         imageLocation = ParameterUtils.getParameterValue("imageLocation");
+        String pathSplitter = "/";
 
-        String[] parts = route.split("/", 2);
+        if(imageLocation.contains("\\")) {
+            pathSplitter = "\\";
+        }
+
+        String[] parts = route.split(pathSplitter, 2);
         String imageType = parts[0];
         String key = parts[1];
 
@@ -26,7 +31,7 @@ public class ImageServiceImpl implements ImageService  {
 
         Integer subfolder = MathUtils.findMaxDivision(Integer.parseInt(parts[1]), 1000);
 
-        f_imageLocation = f_imageLocation.concat(imageType+"/"+subfolder.toString()+"/"+key+".png");
+        f_imageLocation = f_imageLocation.concat(imageType+pathSplitter+subfolder.toString()+pathSplitter+key+".png");
         InputStream inputStream = new FileInputStream(f_imageLocation);
 
         return inputStream;

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:studio_projects/models/university.dart';
-import 'package:studio_projects/models/usercredentials.dart';
 import 'package:studio_projects/shared/json_serializable.dart';
 
 class User implements JsonSerializable {

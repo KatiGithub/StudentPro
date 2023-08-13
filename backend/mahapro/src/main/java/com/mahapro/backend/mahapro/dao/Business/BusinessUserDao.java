@@ -5,9 +5,10 @@ import com.mahapro.backend.mahapro.model.BusinessUser;
 import java.util.List;
 
 public interface BusinessUserDao {
-    public BusinessUser saveUser(String businessUserId, String firebaseUserId, int businessId, int roleId);
+    BusinessUser saveUser(BusinessUser businessUser);
     public List<BusinessUser> getBusinessUserByBusinessId(int businessId);
     public void deleteUser(int userToDeleteId);
     public void changeUserPermission(int businessUserId, int roleId);
-    public  BusinessUser getBusinessUserByFirebaseUserId(String firebaseUserId);
+    public  BusinessUser getBusinessUserById(int businessUserId);
+    public BusinessUser getBusinessUserByFirebaseUserId(String firebaseUserId);
 }

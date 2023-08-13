@@ -68,7 +68,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 centerTitle: true,
                 title: const Text(
                   "Search",
-                  style: TextStyle(fontSize: 30, color: Colors.black),
+                  style: TextStyle(fontSize: 30, color: Colors.black, fontWeight: FontWeight.bold),
                 ),
                 leading: (_searchResultsAvailable || _searchLoading)
                     ? IconButton(
@@ -168,7 +168,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                               ? const SizedBox.shrink()
                                               : const Text(
                                                   "Recently Viewed",
-                                                  style: TextStyle(fontSize: 20),
+                                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                                                 ),
                                           recentlyViewed.isEmpty
                                               ? const SizedBox.shrink()
@@ -183,7 +183,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                         children: [
                                           const Text(
                                             "Categories",
-                                            style: TextStyle(fontSize: 20),
+                                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                                           ),
                                           Container(
                                             padding: const EdgeInsets.only(top: 10),
