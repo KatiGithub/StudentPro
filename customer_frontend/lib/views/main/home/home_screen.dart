@@ -37,7 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
   var key = UniqueKey();
 
   void scrollListener() {
-    if (scrollController.offset <= scrollController.position.minScrollExtent && !scrollController.position.outOfRange) {
+    if (scrollController.offset <= scrollController.position.minScrollExtent &&
+        !scrollController.position.outOfRange) {
       // User has scrolled to the top, trigger refresh action
       GoRouter.of(context).refresh();
     }
@@ -53,10 +54,12 @@ class _HomeScreenState extends State<HomeScreen> {
   void initialize() {
     BlocProvider.of<HomeCubit>(context).loadHome();
     BlocProvider.of<HomeCubit>(context).updateUserLocation().then((_) {
-      LocationUtil.requestUserPermission().then((LocationPermission locationPermission) {
+      LocationUtil.requestUserPermission().then((
+          LocationPermission locationPermission) {
         setState(() {
           _locationEnabled =
-              locationPermission == LocationPermission.always || locationPermission == LocationPermission.whileInUse;
+              locationPermission == LocationPermission.always ||
+                  locationPermission == LocationPermission.whileInUse;
         });
       });
     });
@@ -81,218 +84,283 @@ class _HomeScreenState extends State<HomeScreen> {
         listener: (context, state) {
           if (state is HomeLoaded) {
             setState(() {
-              BlocProvider.of<HomeCubit>(context).retailers.forEach((Business business) {
+              BlocProvider
+                  .of<HomeCubit>(context)
+                  .retailers
+                  .forEach((Business business) {
                 retailers.add(RetailerCard(business));
               });
 
-              BlocProvider.of<HomeCubit>(context).recommendedDiscount.forEach((Discount discount) {
+              BlocProvider
+                  .of<HomeCubit>(context)
+                  .recommendedDiscount
+                  .forEach((Discount discount) {
                 recommendedDiscounts.add(DiscountCard(discount));
               });
-              List<Discount> discounts = BlocProvider.of<HomeCubit>(context).discountsInYourArea;
+              List<Discount> discounts = BlocProvider
+                  .of<HomeCubit>(context)
+                  .discountsInYourArea;
               inYourAreaDiscounts = discounts;
               key = UniqueKey();
             });
-
           }
         },
         child: retailers.isEmpty
             ? const SizedBox.shrink()
             : SafeArea(
-                child: Scaffold(
-                    key: key,
-                    appBar: PreferredSize(
-                      preferredSize: Size.fromHeight(MediaQuery.of(context).size.height / 12),
-                      child: Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
+          child: Scaffold(
+              key: key,
+              appBar: PreferredSize(
+                preferredSize: Size.fromHeight(MediaQuery
+                    .of(context)
+                    .size
+                    .height / 12),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Flexible(
+                        flex: 3,
+                        fit: FlexFit.tight,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Flexible(
-                                flex: 3,
-                                fit: FlexFit.tight,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.only(left: 20),
-                                      child: Text(
-                                        "Hi, ${BlocProvider.of<AuthCubit>(context).state.user.firstName!}",
-                                        style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w500).apply(fontWeightDelta: 4),
-                                      ),
-                                    )
-                                  ],
-                                )),
-                            GestureDetector(
-                              onTap: () {
-                                showDialog(context: context, builder: (context) => UserInformationDisplay(BlocProvider.of<AuthCubit>(context).state.user));
-                              },
-                                child: Expanded(child: Image.asset("assets/mahapro_logo.png"))
+                            Container(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: Text(
+                                "Hi, ${BlocProvider
+                                    .of<AuthCubit>(context)
+                                    .state
+                                    .user
+                                    .firstName!}",
+                                style: const TextStyle(
+                                    fontSize: 25, fontWeight: FontWeight.w500)
+                                    .apply(fontWeightDelta: 4),
+                              ),
                             )
                           ],
-                        ),
-                      ),
-                    ),
-                    body: RefreshIndicator(
-                      onRefresh: () {
-                        return Future.delayed(const Duration(), () {
-                          initialize();
-                        });
-                      },
-                      child: SingleChildScrollView(
-                        child: IntrinsicHeight(
+                        )),
+                    Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            showDialog(context: context,
+                                builder: (context) =>
+                                    UserInformationDisplay(BlocProvider
+                                        .of<AuthCubit>(context)
+                                        .state
+                                        .user));
+                          },
+                          child: Image.asset("assets/mahapro_logo.png"),))
+                  ],
+                ),
+              ),
+              body: RefreshIndicator(
+                onRefresh: () {
+                  return Future.delayed(const Duration(), () {
+                    initialize();
+                  });
+                },
+                child: SingleChildScrollView(
+                  child: IntrinsicHeight(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height / 3.6,
+                          padding: const EdgeInsets.only(left: 20, right: 20),
+                          margin: const EdgeInsets.only(top: 20),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Container(
-                                height: MediaQuery.of(context).size.height / 3.6,
-                                padding: const EdgeInsets.only(left: 20, right: 20),
-                                margin: const EdgeInsets.only(top: 20),
-                                child: Column(
-                                  children: [
-                                    AspectRatio(
-                                      aspectRatio: 16 / 9,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(20),
-                                        ),
-                                        child: CarouselSlider(
-                                          carouselController: carouselController,
-                                          items: retailers,
-                                          options: CarouselOptions(
-                                              animateToClosest: true,
-                                              viewportFraction: 0.999,
-                                              aspectRatio: 16 / 9,
-                                              enlargeCenterPage: true,
-                                              onPageChanged: (int index, CarouselPageChangedReason _) {
-                                                setState(() {
-                                                  _currentRetailer = index;
-                                                });
-                                              }),
-                                        ),
-                                      ),
-                                    ),
-                                    Flexible(
-                                        flex: 1,
-                                        fit: FlexFit.tight,
-                                        child: Container(
-                                          width: MediaQuery.of(context).size.width / 1.5,
-                                          child: StepProgressIndicator(
-                                            totalSteps: retailers.length,
-                                            currentStep: _currentRetailer + 1,
-                                            selectedColor: Colors.black,
-                                            roundedEdges: const Radius.circular(20),
-                                          ),
-                                        ))
-                                  ],
+                              AspectRatio(
+                                aspectRatio: 16 / 9,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: CarouselSlider(
+                                    carouselController: carouselController,
+                                    items: retailers,
+                                    options: CarouselOptions(
+                                        animateToClosest: true,
+                                        viewportFraction: 0.999,
+                                        aspectRatio: 16 / 9,
+                                        enlargeCenterPage: true,
+                                        onPageChanged: (int index,
+                                            CarouselPageChangedReason _) {
+                                          setState(() {
+                                            _currentRetailer = index;
+                                          });
+                                        }),
+                                  ),
                                 ),
                               ),
-                              Container(
-                                margin: const EdgeInsets.only(left: 20, right: 20),
-                                height: MediaQuery.of(context).size.height / 2.3,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                        child: Column(
-                                          children: [
-                                            SizedBox(height: 15,),
-                                            Container(
-                                      child: Text(
-                                            "Recommended",
-                                            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w500).apply(fontWeightDelta: 3),
-                                      ),
+                              Flexible(
+                                  flex: 1,
+                                  fit: FlexFit.tight,
+                                  child: Container(
+                                    width: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .width / 1.5,
+                                    child: StepProgressIndicator(
+                                      totalSteps: retailers.length,
+                                      currentStep: _currentRetailer + 1,
+                                      selectedColor: Colors.black,
+                                      roundedEdges: const Radius.circular(20),
                                     ),
-                                          ],
-                                        )),
-                                    Flexible(
-                                        flex: 8,
-                                        fit: FlexFit.tight,
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 20),
-                                          child: GridView.count(
-                                              physics: const ClampingScrollPhysics(),
-                                              scrollDirection: Axis.horizontal,
-                                              crossAxisCount: 3,
-                                              crossAxisSpacing: 5,
-                                              mainAxisSpacing: 20,
-                                              childAspectRatio: 3 / 10,
-                                              children: [
-                                                for (int i = 0; i < inYourAreaDiscounts.length; i++)
-                                                  GestureDetector(
-                                                    onTap: () {
-                                                      showModalBottomSheet(
-                                                          context: context,
-                                                          isScrollControlled: true,
-                                                          shape: RoundedRectangleBorder(
-                                                              borderRadius: BorderRadius.circular(30)),
-                                                          builder: (BuildContext context) {
-                                                            return DiscountPopup(inYourAreaDiscounts[i]);
-                                                          });
-                                                    },
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(15),
-                                                          border: Border.all(
-                                                              color: Colors.black54,
-                                                              width: 3,
-                                                              strokeAlign: BorderSide.strokeAlignOutside)),
-                                                      margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                                                      child: Row(
-                                                        children: [
-                                                          Expanded(
-                                                              child: AspectRatio(
-                                                            aspectRatio: 1 / 1,
-                                                            child: Container(
-                                                              margin: const EdgeInsets.all(10),
-                                                              child: ImageContainer(
-                                                                "brand_logo/${inYourAreaDiscounts[i].business.businessId}",
-                                                                containerBorderRadius: BorderRadius.circular(5),
-                                                              ),
-                                                            ),
-                                                          )),
-                                                          Flexible(
-                                                              flex: 3,
-                                                              fit: FlexFit.tight,
-                                                              child: Container(
-                                                                padding: const EdgeInsets.only(left: 10),
-                                                                decoration: const BoxDecoration(
-                                                                    border: Border(
-                                                                        left:
-                                                                            BorderSide(color: Colors.grey, width: 3))),
-                                                                child: Column(
-                                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                                  children: [
-                                                                    Text(TranslationLocalePicker.translationPicker(
-                                                                        inYourAreaDiscounts[i].business.name, context), style: const TextStyle(fontWeight: FontWeight.w500).apply(fontWeightDelta: 5),),
-                                                                    const SizedBox(height: 5,),
-                                                                    Text(TranslationLocalePicker.translationPicker(
-                                                                        inYourAreaDiscounts[i].discountTitle, context))
-                                                                  ],
-                                                                ),
-                                                              ))
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  )
-                                              ]),
-                                        ))
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                  child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: recommendedDiscounts,
-                              ))
+                                  ))
                             ],
                           ),
                         ),
-                      ),
-                    )),
-              ),
+                        Container(
+                          margin: const EdgeInsets.only(left: 20, right: 20),
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height / 2.3,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                  child: Column(
+                                    children: [
+                                      SizedBox(height: 15,),
+                                      Container(
+                                        child: Text(
+                                          "Recommended",
+                                          style: const TextStyle(fontSize: 30,
+                                              fontWeight: FontWeight.w500)
+                                              .apply(fontWeightDelta: 3),
+                                        ),
+                                      ),
+                                    ],
+                                  )),
+                              Flexible(
+                                  flex: 8,
+                                  fit: FlexFit.tight,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 20),
+                                    child: GridView.count(
+                                        physics: const ClampingScrollPhysics(),
+                                        scrollDirection: Axis.horizontal,
+                                        crossAxisCount: 3,
+                                        crossAxisSpacing: 5,
+                                        mainAxisSpacing: 20,
+                                        childAspectRatio: 3 / 10,
+                                        children: [
+                                          for (int i = 0; i <
+                                              inYourAreaDiscounts.length; i++)
+                                            GestureDetector(
+                                              onTap: () {
+                                                showModalBottomSheet(
+                                                    context: context,
+                                                    isScrollControlled: true,
+                                                    shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius
+                                                            .circular(30)),
+                                                    builder: (
+                                                        BuildContext context) {
+                                                      return DiscountPopup(
+                                                          inYourAreaDiscounts[i]);
+                                                    });
+                                              },
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius
+                                                        .circular(15),
+                                                    border: Border.all(
+                                                        color: Colors.black54,
+                                                        width: 3,
+                                                        strokeAlign: BorderSide
+                                                            .strokeAlignOutside)),
+                                                margin: const EdgeInsets
+                                                    .symmetric(horizontal: 5,
+                                                    vertical: 10),
+                                                child: Row(
+                                                  children: [
+                                                    Expanded(
+                                                        child: AspectRatio(
+                                                          aspectRatio: 1 / 1,
+                                                          child: Container(
+                                                            margin: const EdgeInsets
+                                                                .all(10),
+                                                            child: ImageContainer(
+                                                              "brand_logo/${inYourAreaDiscounts[i]
+                                                                  .business
+                                                                  .businessId}",
+                                                              containerBorderRadius: BorderRadius
+                                                                  .circular(5),
+                                                            ),
+                                                          ),
+                                                        )),
+                                                    Flexible(
+                                                        flex: 3,
+                                                        fit: FlexFit.tight,
+                                                        child: Container(
+                                                          padding: const EdgeInsets
+                                                              .only(left: 10),
+                                                          decoration: const BoxDecoration(
+                                                              border: Border(
+                                                                  left:
+                                                                  BorderSide(
+                                                                      color: Colors
+                                                                          .grey,
+                                                                      width: 3))),
+                                                          child: Column(
+                                                            mainAxisAlignment: MainAxisAlignment
+                                                                .center,
+                                                            crossAxisAlignment: CrossAxisAlignment
+                                                                .start,
+                                                            children: [
+                                                              Text(
+                                                                TranslationLocalePicker
+                                                                    .translationPicker(
+                                                                    inYourAreaDiscounts[i]
+                                                                        .business
+                                                                        .name,
+                                                                    context),
+                                                                style: const TextStyle(
+                                                                    fontWeight: FontWeight
+                                                                        .w500)
+                                                                    .apply(
+                                                                    fontWeightDelta: 5),),
+                                                              const SizedBox(
+                                                                height: 5,),
+                                                              Text(
+                                                                  TranslationLocalePicker
+                                                                      .translationPicker(
+                                                                      inYourAreaDiscounts[i]
+                                                                          .discountTitle,
+                                                                      context))
+                                                            ],
+                                                          ),
+                                                        ))
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                        ]),
+                                  ))
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: recommendedDiscounts,
+                            ))
+                      ],
+                    ),
+                  ),
+                ),
+              )),
+        ),
       );
     });
   }
