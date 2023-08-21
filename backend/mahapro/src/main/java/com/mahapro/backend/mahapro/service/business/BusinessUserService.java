@@ -5,7 +5,8 @@ import com.mahapro.backend.mahapro.model.BusinessUser;
 
 public interface BusinessUserService {
     public BusinessUser login(String authorizationHeader) throws Exception;
-    public BusinessUser register(String authorizationHeader, BusinessUser businessUser);
+    public BusinessUser register(BusinessUser businessUser) throws Exception;
     public BusinessUser getBusinessUserFromCode(String code);
-    public void confirmEmailVerified(String authorizationHeader);
+    public void confirmEmailVerified(String authorizationHeader) throws Exception;
+    public void activateBusinessUserFromCode(String email, String password, int businessUserId) throws Exception;
 }

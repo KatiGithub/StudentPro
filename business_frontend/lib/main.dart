@@ -1,8 +1,11 @@
 import 'dart:js';
 
 import 'package:business_frontend/firebase_options.dart';
+import 'package:business_frontend/models/user.dart';
 import 'package:business_frontend/shared/common_blocs/auth/auth_cubit.dart';
+import 'package:business_frontend/views/authentication/activation_code_input/activation_code_screen.dart';
 import 'package:business_frontend/views/authentication/login/login_screen.dart';
+import 'package:business_frontend/views/authentication/registration/registration_screen.dart';
 import 'package:business_frontend/views/main_screen.dart';
 import 'package:business_frontend/views/welcome/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -24,23 +27,21 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final routes = GoRouter(initialLocation: '/welcome', routes: [
+    GoRoute(path: "/welcome", name: WelcomeScreen.id, builder: (context, state) => WelcomeScreen()),
+    GoRoute(path: "/login", name: LoginScreen.id, builder: (context, state) => const LoginScreen()),
     GoRoute(
-        path: "/welcome",
-        name: WelcomeScreen.id,
-        builder: (context, state) => WelcomeScreen()),
+        path: '/activation_code_screen',
+        name: ActivationCodeScreen.id,
+        builder: (context, state) => ActivationCodeScreen()),
+    GoRoute(path: "/main", name: MainScreen.id, builder: (context, state) => MainScreen()),
     GoRoute(
-        path: "/login",
-        name: LoginScreen.id,
-        builder: (context, state) => const LoginScreen()),
-    GoRoute(
-        path: "/main",
-        name: MainScreen.id,
-        builder: (context, state) => MainScreen())
+        path: "/registration",
+        name: RegistrationScreen.id,
+        builder: (context, state) => RegistrationScreen(state.extra as User))
   ]);
 
   @override
   Widget build(BuildContext context) {
-
     return MultiBlocProvider(
         providers: [BlocProvider(create: (_) => AuthCubit())],
         child: MaterialApp.router(

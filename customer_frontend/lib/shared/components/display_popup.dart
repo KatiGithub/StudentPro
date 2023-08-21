@@ -29,9 +29,7 @@ class _DiscountPopupState extends State<DiscountPopup> {
   @override
   void initState() {
     super.initState();
-    transactionService
-        .checkUserLimit(widget.discount.id)
-        .then((bool limitReached) {
+    transactionService.checkUserLimit(widget.discount.id).then((bool limitReached) {
       setState(() {
         _limitReached = limitReached;
       });
@@ -52,11 +50,9 @@ class _DiscountPopupState extends State<DiscountPopup> {
             Flexible(
               fit: FlexFit.tight,
               flex: 8,
-              child: ImageContainer(
-                'brand_banner/${widget.discount.business.businessId}',
-                containerBorderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(10)),
-              ),
+              child: ImageContainer('discount_banner/${widget.discount.id}',
+                  containerBorderRadius:
+                      const BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
             ),
             Flexible(
                 flex: 16,
@@ -88,8 +84,7 @@ class _DiscountPopupState extends State<DiscountPopup> {
                                 flex: 15,
                                 fit: FlexFit.tight,
                                 child: Text(
-                                  TranslationLocalePicker.translationPicker(
-                                      widget.discount.business.name, context),
+                                  TranslationLocalePicker.translationPicker(widget.discount.business.name, context),
                                   style: const TextStyle(fontSize: 20),
                                 )),
                           ],
@@ -104,16 +99,13 @@ class _DiscountPopupState extends State<DiscountPopup> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                TranslationLocalePicker.translationPicker(
-                                    widget.discount.discountTitle, context),
+                                TranslationLocalePicker.translationPicker(widget.discount.discountTitle, context),
                                 style: const TextStyle(fontSize: 20),
                               ),
                               const SizedBox(
                                 height: 10,
                               ),
-                              Text(widget.discount is LinkDiscount
-                                  ? "Online"
-                                  : "Instore")
+                              Text(widget.discount is LinkDiscount ? "Online" : "Instore")
                             ],
                           ),
                         )),
@@ -122,10 +114,8 @@ class _DiscountPopupState extends State<DiscountPopup> {
                         fit: FlexFit.tight,
                         child: Column(
                           children: [
-                            Text(
-                                "Minimum Spend: ${widget.discount.minimumSpend ?? "No Limit"}"),
-                            Text(
-                                "Claims Per User: ${widget.discount.claimsPerUser ?? "No Limit"} ")
+                            Text("Minimum Spend: ${widget.discount.minimumSpend ?? "No Limit"}"),
+                            Text("Claims Per User: ${widget.discount.claimsPerUser ?? "No Limit"} ")
                           ],
                         )),
                     Flexible(
@@ -149,8 +139,7 @@ class _DiscountPopupState extends State<DiscountPopup> {
                                 : Column()
                             : Center(
                                 child: Container(
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 80),
+                                margin: const EdgeInsets.symmetric(horizontal: 80),
                                 height: 60,
                                 child: CupertinoButton(
                                   disabledColor: Colors.grey,
@@ -160,23 +149,16 @@ class _DiscountPopupState extends State<DiscountPopup> {
                                       ? null
                                       : () {
                                           if (widget.discount is CodeDiscount) {
-                                            CodeDiscount discount =
-                                                widget.discount as CodeDiscount;
-                                            discount
-                                                .claimCoupon()
-                                                .then((String couponCode) {
+                                            CodeDiscount discount = widget.discount as CodeDiscount;
+                                            discount.claimCoupon().then((String couponCode) {
                                               setState(() {
                                                 this.couponCode = couponCode;
                                                 _discountAvailable = true;
                                               });
                                             });
-                                          } else if (widget.discount
-                                              is LinkDiscount) {
-                                            LinkDiscount discount =
-                                                widget.discount as LinkDiscount;
-                                            discount
-                                                .claimCoupon()
-                                                .then((_) => null);
+                                          } else if (widget.discount is LinkDiscount) {
+                                            LinkDiscount discount = widget.discount as LinkDiscount;
+                                            discount.claimCoupon().then((_) => null);
                                           }
                                         },
                                   child: Container(

@@ -38,4 +38,9 @@ class AuthService {
     });
   }
 
+  Future login(String email, String password) async {
+    await _auth.signInWithEmailAndPassword(email: email, password: password).then((UserCredential userCredential) async {
+      await getIdToken();
+    });
+  }
 }

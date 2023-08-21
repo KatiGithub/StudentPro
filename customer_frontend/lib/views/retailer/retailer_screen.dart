@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:studio_projects/models/discounts/discount.dart';
 import 'package:studio_projects/models/retailers/business.dart';
 import 'package:studio_projects/shared/common_blocs/retailer/retailer_cubit.dart';

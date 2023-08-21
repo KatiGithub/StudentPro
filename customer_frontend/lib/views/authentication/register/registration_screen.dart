@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:horizontal_blocked_scroll_physics/horizontal_blocked_scroll_physics.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:studio_projects/views/authentication/register/registration_cubit.dart';
@@ -44,6 +45,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.navigate_before),
+            onPressed: () {
+              context.pop();
+            },
+          ),
+        ),
         resizeToAvoidBottomInset: true,
         body: SafeArea(
           child: Column(children: [

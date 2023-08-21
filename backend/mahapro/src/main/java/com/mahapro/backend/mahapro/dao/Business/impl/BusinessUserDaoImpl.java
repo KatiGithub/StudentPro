@@ -5,8 +5,10 @@ import com.mahapro.backend.mahapro.model.BusinessUser;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
+import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -73,5 +75,25 @@ public class BusinessUserDaoImpl implements BusinessUserDao {
 
         BusinessUser _businessUser = (BusinessUser) query.getSingleResult();
         return _businessUser;
+    }
+
+    @Override
+    @Transactional
+    @Modifying
+    public void activateBusinessCodeUser(String uid, int businessUserId) {
+        Query query = entityManager.createNativeQuery("UPDATE business_user SET firebase_user_id =:uid WHERE business_user_id = :businessUserId");
+        query.setParameter("uid", uid);
+        query.setParameter("businessUserId", businessUserId);
+
+        query.executeUpdate();
+    }
+
+    @Override
+    @Transactional
+    public void businessUserEmailVerified(int businessUserId) {
+        Query query = entityManager.createNativeQuery("UPDATE business_user SET email_verified = TRUE WHERE business_user_id = :businessUserId");
+        query.setParameter("businessUserId", businessUserId);
+
+        query.executeUpdate();
     }
 }

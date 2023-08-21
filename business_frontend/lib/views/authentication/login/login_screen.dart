@@ -1,6 +1,10 @@
+import 'package:business_frontend/shared/common_blocs/auth/auth_cubit.dart';
 import 'package:business_frontend/shared/constants/decorations.dart';
+import 'package:business_frontend/views/authentication/activation_code_input/activation_code_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
   static const id = 'login';
@@ -45,12 +49,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 flex: 5,
                 fit: FlexFit.tight,
                 child: Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   elevation: 20,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 30, vertical: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -86,10 +88,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                   height: 20,
                                 ),
                                 CupertinoButton(
-                                    color:
-                                        const Color.fromRGBO(255, 166, 48, 1.0),
+                                    color: const Color.fromRGBO(255, 166, 48, 1.0),
                                     child: const Text("Login"),
-                                    onPressed: () {})
+                                    onPressed: () {
+                                      BlocProvider.of<AuthCubit>(context)
+                                          .login(emailController.text, passwordController.text);
+                                    })
                               ],
                             )),
                         Flexible(
@@ -97,9 +101,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Column(
                               children: [
                                 Text("Have an activation code?"),
-                                CupertinoButton(
-                                    child: Text("Sign up here"),
-                                    onPressed: () {})
+                                CupertinoButton(child: Text("Sign up here"), onPressed: () {
+                                  context.pushNamed(ActivationCodeScreen.id);
+                                })
                               ],
                             ))
                       ],

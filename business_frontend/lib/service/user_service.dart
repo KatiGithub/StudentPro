@@ -51,4 +51,11 @@ class UserService {
       }
     });
   }
+
+  Future<User> getBusinessUserFromCode(String code) async {
+    apiService.queryParameters['code'] = code;
+    return await apiService.get(APIConstants.userEndpoint).then((Response response) {
+      return User.toClass(jsonDecode(response.body));
+    });
+  }
 }

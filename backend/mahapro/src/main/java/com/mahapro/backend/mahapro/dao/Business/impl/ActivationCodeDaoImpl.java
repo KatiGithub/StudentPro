@@ -15,7 +15,7 @@ public class ActivationCodeDaoImpl implements ActivationCodeDao {
 
     @Override
     public BusinessUser getBusinessUserFromActivationCode(String code) {
-        Query query = entityManager.createNativeQuery("SELECT b.* FROM activation_code ac JOIN business_user b on b.business_user_id = ac.business_user_id WHERE ac = :code", BusinessUser.class);
+        Query query = entityManager.createNativeQuery("SELECT b.* FROM activation_code ac JOIN business_user b on b.business_user_id = ac.business_user_id WHERE ac.code = :code", BusinessUser.class);
         query.setParameter("code", code);
 
         BusinessUser _businessUser = (BusinessUser) query.getSingleResult();

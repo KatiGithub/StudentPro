@@ -11,4 +11,6 @@ public interface BusinessUserDao {
     public void changeUserPermission(int businessUserId, int roleId);
     public  BusinessUser getBusinessUserById(int businessUserId);
     public BusinessUser getBusinessUserByFirebaseUserId(String firebaseUserId);
+    public void activateBusinessCodeUser(String uid, int businessUserId);
+    public void businessUserEmailVerified(int businessUserId);
 }

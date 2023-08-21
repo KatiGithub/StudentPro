@@ -1,5 +1,8 @@
 package com.mahapro.backend.mahapro.controller.v1.business_controller;
 
+import com.mahapro.backend.mahapro.model.BusinessUser;
+import com.mahapro.backend.mahapro.service.business.BusinessUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -9,9 +12,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/business/user/")
 public class BusinessUserController {
 
+    @Autowired
+    BusinessUserService businessUserService;
+
     @GetMapping("/login")
-    public ResponseEntity<String> login() {
-        return ResponseEntity.ok("");
+    public ResponseEntity<String> login(@RequestHeader("Authorization") String authorizationHeader) {
+        try {
+            BusinessUser businessUser = businessUserService.login(authorizationHeader);
+            return ResponseEntity.ok(businessUser.toString());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PostMapping("/register")
@@ -24,13 +35,13 @@ public class BusinessUserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity deleteUserFromBusiness() {
+    @DeleteMapping("/{businessUserId}")
+    public ResponseEntity deleteUserFromBusiness(@PathVariable String businessUserId) {
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping("/all/{id}")
-    public ResponseEntity<String> getBusinessUsersFromBusiness() {
+    public ResponseEntity<String> getBusinessUsersFromBusiness(@PathVariable String id) {
         return ResponseEntity.ok("");
     }
 
