@@ -52,16 +52,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void initialize() {
     BlocProvider.of<HomeCubit>(context).loadHome();
-    // BlocProvider.of<HomeCubit>(context).updateUserLocation().then((_) {
-    //   LocationUtil.requestUserPermission().then((
-    //       LocationPermission locationPermission) {
-    //     setState(() {
-    //       _locationEnabled =
-    //           locationPermission == LocationPermission.always ||
-    //               locationPermission == LocationPermission.whileInUse;
-    //     });
-    //   });
-    // });
+    BlocProvider.of<HomeCubit>(context).updateUserLocation().then((_) {
+      LocationUtil.requestUserPermission().then((
+          LocationPermission locationPermission) {
+        setState(() {
+          _locationEnabled =
+              locationPermission == LocationPermission.always ||
+                  locationPermission == LocationPermission.whileInUse;
+        });
+      });
+    });
 
     slideshowDiscounts.clear();
     recommendedDiscounts.clear();
@@ -99,8 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   recommendedDiscounts.shuffle();
                 }
               }
-              List<Discount> inYourAreaDiscounts = BlocProvider.of<HomeCubit>(context).discountsInYourArea;
-              inYourAreaDiscounts = discounts;
+              this.inYourAreaDiscounts = BlocProvider.of<HomeCubit>(context).discountsInYourArea;
               key = UniqueKey();
             });
           }
