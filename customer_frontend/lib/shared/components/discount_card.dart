@@ -84,7 +84,7 @@ class DiscountCard extends StatelessWidget {
                                         margin: EdgeInsets.only(bottom: 10, right: 10),
                                         padding: EdgeInsets.only(left: 10),
                                         decoration: BoxDecoration(
-                                          color: Colors.grey.withOpacity(0.3),
+                                          color: Colors.grey.withOpacity(0),
                                           borderRadius: BorderRadius.circular(30)
                                         ),
                                         child: Column(
@@ -93,9 +93,14 @@ class DiscountCard extends StatelessWidget {
                                           crossAxisAlignment: CrossAxisAlignment.stretch,
                                           children: [
                                             SizedBox(height: 10,),
-                                            Text(TranslationLocalePicker.translationPicker(discount.business.name, context)),
+                                            Text(TranslationLocalePicker.translationPicker(discount.business.name, context), style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                            ),),
                                             const SizedBox(height: 10,),
-                                            Text(TranslationLocalePicker.translationPicker(discount.discountTitle, context)),
+                                            Text(TranslationLocalePicker.translationPicker(discount.discountTitle, context), style: TextStyle(
+                                              color: Colors.white
+                                            ),),
                                             SizedBox(height: 10,)
                                           ],
                                         ),
