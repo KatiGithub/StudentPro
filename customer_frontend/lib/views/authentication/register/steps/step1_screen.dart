@@ -167,9 +167,6 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: 20,
-                  ),
                   const Flexible(
                       flex: 3,
                       fit: FlexFit.tight,

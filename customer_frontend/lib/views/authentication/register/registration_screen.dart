@@ -48,6 +48,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(Icons.navigate_before),
+            color: Colors.black,
             onPressed: () {
               context.pop();
             },
@@ -57,31 +58,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         body: SafeArea(
           child: Column(children: [
             Expanded(child: _steps[0])
-            // Flexible(
-            //   flex: 1,
-            //   fit: FlexFit.tight,
-            //   child: StepProgressIndicator(
-            //     totalSteps: _steps.length,
-            //     currentStep: currentPage + 1,
-            //   ),
-            // ),
-            // Flexible(
-            //   flex: 24,
-            //   fit: FlexFit.tight,
-            //   child: PageView.builder(
-            //     onPageChanged: (int index) {
-            //       if (currentPage < index) {
-            //         _goToNextPage();
-            //       } else {
-            //         _goToPreviousPage();
-            //       }
-            //     },
-            //     physics: currentPage == 0 ? const RightBlockedScrollPhysics() : const LeftBlockedScrollPhysics(),
-            //     itemBuilder: (BuildContext context, int index) {
-            //       return _steps[currentPage];
-            //     },
-            //   ),
-            // )
           ]),
         ));
   }
